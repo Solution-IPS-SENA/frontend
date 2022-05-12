@@ -1,0 +1,37 @@
+<div class="w-full">
+    <div class="flex flex-row justify-center py-8 gap-x-2 items-center">
+        <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+        <h1 class="text-3xl font-semibold">PRINCIPALES RIESGOS PSICOSOCIALES INTRALABORALES</h1>
+    </div>
+
+    <div class="flex flex-row items-center gap-x-2 py-5 px-10">
+        <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+        <h2 class="text-3xl">Empresa</h2>
+    </div>
+
+    <form action="">
+        <div class="bg-gray-200 grid grid-cols-3 items-center px-8 mx-10 ">
+            <div *ngFor="let input of inputs">
+                <div class="grid grid-cols-3 py-4 items-center">
+                    <div class="flex flex-col col-span-2">
+                        <div class="flex items-center gap-x-2 mx-5">
+                            <img class="w-12" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+                            <label for="{{input.for}}" class="text-left w-17 text-2xl">{{input.nombre}}</label>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <select class="form-select w-36 text-black pl-2 h-10 border-solid border-black items-" id="{{input.id}}">
+                            <option *ngFor="let option of input.options" value="{{ option.valor }}">
+                                {{ option.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-row mx-10 gap-x-5 items-center pt-5">
+            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+            <textarea class="h-10 w-full text-black pl-2 border-solid border-black border-[1.5px] rounded-full resize-none" placeholder="Observaciones"></textarea>
+        </div>
+    </form>
+</div>

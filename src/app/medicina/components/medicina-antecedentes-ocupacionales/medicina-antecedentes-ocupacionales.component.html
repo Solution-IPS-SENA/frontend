@@ -1,0 +1,51 @@
+<div class="flex flex-row justify-center py-8 items-center">
+    <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+    <h1 class="text-3xl pl-4 font-semibold">ANTECEDENTES OCUPACIONALES</h1>
+</div>
+
+<div class="px-10">
+    <div class="grid grid-cols-6 w-full gap-x-5">
+        <div class="flex flex-row px-5 py-2 w-full gap-x-2 items-center">
+            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+            <h2 class="text-3xl">Físico</h2>
+        </div>
+        <div class="flex flex-row py-2 px-5 w-full gap-x-2 items-center">
+            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+            <h2 class="text-3xl">Biológico</h2>
+        </div>
+        <div class="flex flex-row py-2 px-5 w-full gap-x-2 items-center">
+            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+            <h2 class="text-3xl">Químico</h2>
+        </div>
+        <div class="flex flex-row py-2 px-5 w-full gap-x-2 items-center">
+            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+            <h2 class="text-3xl">Seguridad</h2>
+        </div>
+        <div class="flex flex-row py-2 px-5 w-full gap-x-2 items-center">
+            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+            <h2 class="text-3xl">Biomecánico</h2>
+        </div>
+        <div class="flex flex-row py-2 px-5 w-full gap-x-2 items-center">
+            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+            <h2 class="text-3xl">Psicosocial</h2>
+        </div>
+    </div>
+    <div class="grid grid-cols-6 py-5 bg-gray-200 rounded-lg gap-x-5">
+        <div *ngFor="let input of inputs" class="px-5">
+            <div class="flex items-center gap-x-5 w-full justify-between">
+                <div class="flex flex-row py-2 items-center gap-4">
+                    <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="Logo Inicio Sesion">
+                </div>
+                <select class="form-select w-5/6 flex self-center text-black pl-2 h-10" id="{{input.id}}">
+                    <option *ngFor="let option of input.options" value="{{ option.valor }}">
+                        {{ option.nombre }}
+                    </option>
+                </select>
+            </div> 
+        </div>
+    </div>
+    <div class="flex flex-row gap-x-5 items-center pt-5">
+        <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+        <textarea class="h-10 w-full text-black pl-2 border-solid border-black border-[1.5px] rounded-full resize-none" placeholder="Observaciones"></textarea>
+    </div>
+</div>

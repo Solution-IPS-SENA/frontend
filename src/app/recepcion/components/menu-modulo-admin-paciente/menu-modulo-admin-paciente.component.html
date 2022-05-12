@@ -1,0 +1,9 @@
+<div class="grid grid-cols-2">
+    <img class="w-auto m-auto" src="../../../../assets/logos/logo azul.png" alt="Logo Solution IPS" >
+    <section class="grid grid-cols-2 py-20 gap-y-12 ">
+        <div *ngFor="let opcion of opciones" class="flex items-center">
+            <img class="w-16" src="{{ opcion.ruta }}">
+            <p class="text-4xl ml-8">{{ opcion.nombre }}</p>
+        </div>
+    </section>  
+</div> 

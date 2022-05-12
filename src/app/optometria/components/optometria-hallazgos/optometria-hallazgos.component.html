@@ -1,0 +1,76 @@
+<div class="flex flex-row justify-center items-center">
+    <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+    <h1 class="text-3xl pl-4 font-semibold">HALLAZGOS</h1>
+</div>
+
+<div class="flex flex-row">
+    <div class="px-10">
+        <section class="flex justify-center">
+            <form class="grid flex-col py-5 w-full gap-x-5 rounded-lg grid-cols-2">
+                <div class="bg-gray-200 rounded-lg">
+                    <div class="grid grid-cols-3 py-2 px-5">
+                        <div></div>
+                        <div class="flex flex-row py-2 items-center gap-4">
+                            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="Logo Inicio Sesion">
+                            <label class="text-2xl">OD</label>
+                        </div>
+                        <div class="flex flex-row py-2 items-center gap-4">
+                            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="Logo Inicio Sesion">
+                            <label class="text-2xl">OI</label>
+                        </div>
+                    </div>
+                    <div *ngFor="let input of inputsHallazgo1" class="px-5">
+                        <div class="grid grid-cols-3 items-center justify-between">
+                            <div class="flex flex-row py-2 items-center gap-4">
+                                <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="Logo Inicio Sesion">
+                                <label class="text-2xl">{{input.nombre}}</label>
+                            </div>
+                            <select class="form-select w-1/2 flex self-center text-black pl-2 h-10" id="{{input.id}}">
+                                <option *ngFor="let option of input.options" value="{{ option.valor }}">
+                                    {{ option.nombre }}
+                                </option>
+                            </select>
+                            <select class="form-select w-1/2 text-black pl-2 h-10" id="{{input.id}}">
+                                <option *ngFor="let option of input.options2" value="{{ option.valor }}">
+                                    {{ option.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-200 rounded-lg">
+                    <div class="grid grid-cols-3 py-2 px-5">
+                        <div></div>
+                        <div class="flex flex-row py-2 items-center gap-4">
+                            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="Logo Inicio Sesion">
+                            <label class="text-2xl">OD</label>
+                        </div>
+                        <div class="flex flex-row py-2 items-center gap-4">
+                            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="Logo Inicio Sesion">
+                            <label class="text-2xl">OI</label>
+                        </div>
+                    </div>
+                    <div *ngFor="let input of inputsHallazgo2" class="px-5">
+                        <div class="grid grid-cols-3 items-center justify-between">
+                            <div class="flex flex-row py-2 items-center gap-4">
+                                <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="Logo Inicio Sesion">
+                                <label class="text-2xl">{{input.nombre}}</label>
+                            </div>
+                            <select *ngIf="(input.id != 'observacionesOptoHallazgos')" class="form-select w-1/2 flex self-center text-black pl-2 h-10" id="{{input.id}}">
+                                <option *ngFor="let option of input.options" value="{{ option.valor }}">
+                                    {{ option.nombre }}
+                                </option>
+                            </select>
+                            <select *ngIf="(input.id != 'observacionesOptoHallazgos')" class="form-select w-1/2 text-black pl-2 h-10" id="{{input.id}}">
+                                <option *ngFor="let option of input.options2" value="{{ option.valor }}">
+                                    {{ option.nombre }}
+                                </option>
+                            </select>
+                            <textarea name="" *ngIf="(input.id == 'observacionesOptoHallazgos')" id="" class="col-span-3 resize-none pl-2 h-full w-full"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

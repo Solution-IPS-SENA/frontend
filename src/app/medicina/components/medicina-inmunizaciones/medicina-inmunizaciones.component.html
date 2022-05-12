@@ -1,0 +1,52 @@
+<div class="flex flex-row justify-center py-8 items-center">
+    <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+    <h1 class="text-3xl pl-4 font-semibold">INMUNIZACIONES</h1>
+</div>
+
+<div class="px-10">
+    <div class="grid grid-cols-2 gap-x-5">
+        <div>
+            <div class="flex flex-row py-2 gap-x-2 items-center">
+                <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+                <h2 class="text-3xl">Vacunacion</h2>
+            </div>
+            <div class="grid grid-cols-2 p-5 bg-gray-200 rounded-lg">
+                <div *ngFor="let input of inputs" class="px-5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex flex-row py-2 items-center gap-4">
+                            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="Logo Inicio Sesion">
+                            <label class="text-2xl">{{input.nombre}}</label>
+                        </div>
+                        <select class="form-select w-1/4 flex self-center text-black pl-2 h-10" id="{{input.id}}">
+                            <option *ngFor="let option of input.options" value="{{ option.valor }}">
+                                {{ option.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="flex flex-row gap-x-2 py-2 items-center">
+                <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+                <h2 class="text-3xl">Observaciones</h2>
+            </div>
+            <div class="bg-gray-200 rounded-lg h-5/6 p-5">
+                <textarea name="" id="observacionesAntecedentesMedicina" class="resize-none pl-2 h-4/6 w-full"></textarea>
+                
+                <div class="flex flex-row justify-between">
+                    <div class="flex flex-row py-2 gap-x-2 items-center">
+                        <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+                        <h2 class="text-3xl">carné manipulacion de alimentos</h2>
+                    </div>
+                    <select class="form-select w-1/4 flex self-center text-black pl-2 h-10" id="">
+                        <option value="">
+                            1
+                        </option>
+                    </select>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

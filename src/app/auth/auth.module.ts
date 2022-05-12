@@ -2,11 +2,26 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
+import { AuthLoginComponent } from './components/auth-login/auth-login.component';
+import { AuthRegistroComponent } from './components/auth-registro/auth-registro.component';
+import { SharedModule } from '../shared/shared.module';
+import { LoginComponent } from './pages/login.component';
+import { RegistroComponent } from './pages/registro.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AuthLoginComponent,
+    AuthRegistroComponent,
+    LoginComponent,
+    RegistroComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
+  ], 
+  exports:[
+    LoginComponent,
+    RegistroComponent
   ]
 })
 export class AuthModule { }

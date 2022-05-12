@@ -1,0 +1,5 @@
+<div class="flex flex-row gap-x-3 items-center">
+    <button class="flex text-center bg-blue-700 py-1 px-3 text-white text-2xl" (click)="actual - 1 < 1 ? 1 : actual = actual -   1"><</button>
+    <p class="border-solid border-black border-b-2 w-24 text-center text-2xl">{{ actual }} / {{ pages }}</p>
+    <button class="flex bg-blue-700 py-1 px-3 text-white text-2xl" (click)="actual + 1 > pages ? pages : actual = actual + 1">></button>
+</div>

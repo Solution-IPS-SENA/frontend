@@ -1,0 +1,54 @@
+<div class="flex flex-row justify-center py-8 items-center">
+    <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+    <h1 class="text-3xl pl-4 font-semibold">DATOS OCUPACIONALES</h1>
+</div>
+
+<div class="px-10">
+    <div class="grid grid-cols-4 gap-x-5">
+        <div>
+            <div class="flex flex-row px-5 py-2 w-full gap-x-2 items-center">
+                <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+                <h2 class="text-3xl">Condiciones actuales del cargo</h2>
+            </div>
+            <div class="bg-gray-200 rounded-lg py-5">
+                <div *ngFor="let input of inputsCondicionesActualesCargo">
+                    <div class="flex flex-row p-5 w-full gap-x-2 items-center">
+                        <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+                        <h2 class="text-3xl">{{input.nombre}}</h2>
+                    </div>
+                    <div class="px-5 py-2">
+                        <input type="{{input.type}}" placeholder="Cual" class="form-input w-full text-black pl-2 rounded-full h-10 border-solid border-black border-[1.5px]" id="{{input.id}}" />
+                    </div>    
+                </div>
+            </div>
+        </div>
+        <div class="col-span-3">
+            <div class="flex flex-row px-5 py-2 w-full gap-x-2 items-center">
+                <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+                <h2 class="text-3xl">Accidentes y enfermedades laborales</h2>
+            </div>
+            <div class="bg-gray-200 rounded-lg grid grid-cols-2 py-5">
+                <div *ngFor="let input of inputsAccidentesEnfermedadesLaborales">
+                    <div>
+                        <div class="flex flex-row p-5 w-full gap-x-2 items-center">
+                            <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+                            <h2 class="text-3xl">{{input.nombre}}</h2>
+                        </div>
+                        <div class="py-2 px-5">
+                            <input type="{{input.type}}" placeholder="Cual" class="form-input w-full text-black pl-2 rounded-full h-10 border-solid border-black border-[1.5px]" id="{{input.id}}" />
+                        </div>
+                    </div>
+                    <div class="grid col-span-2 grid-cols-3 gap-x-5" *ngIf="(input.id=='empresa1')">
+                        <div *ngFor="let select of inputsEmpresa1">
+                            <select class="form-select w-1/2 flex self-center text-black pl-2 h-10" id="{{select.id}}">
+                                <option *ngFor="let option of select.options" value="{{ option.valor }}">
+                                    {{ option.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
