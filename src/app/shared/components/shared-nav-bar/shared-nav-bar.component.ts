@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavbarConfiguracionRutasService } from '../../services/navbar-configuracion-rutas.service';
 
 @Component({
   selector: 'app-shared-nav-bar',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SharedNavBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private navBarConfig: NavbarConfiguracionRutasService) { }
 
   ngOnInit(): void {
+  }
+
+  public get urlDatosPaciente() {
+    return this.navBarConfig.rutaDatosPaciente;
+  }
+
+  public get urlHistoriaClinica() {
+    return this.navBarConfig.rutaHistoriaClinica;
   }
 
 }

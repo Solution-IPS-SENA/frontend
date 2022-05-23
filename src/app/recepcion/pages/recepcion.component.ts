@@ -7,37 +7,36 @@ import { Component } from "@angular/core";
 export class RecepcionComponent { 
 
     opcionesAdminPaciente: any = [
-        {ruta:"https://i.imgur.com/54T21mn.jpeg", nombre:"Citas"},
-        {ruta:"https://i.imgur.com/3mmdq4F.jpeg", nombre:"Cancelaciones"},
-        {ruta:"https://i.imgur.com/WUc32cB.jpeg", nombre:"Pagos"},
-        {ruta:"https://i.imgur.com/T30LLEB.jpeg", nombre:"Remisiones"},
-        {ruta:"https://i.imgur.com/T30LLEB.jpeg", nombre:"Certificaciones"},
+        {ruta:"../../../../assets/logos/022.JPG", nombre:"Citas"},
+        {ruta:"../../../../assets/logos/023.JPG", nombre:"Cancelaciones"},
+        {ruta:"../../../../assets/logos/024.JPG", nombre:"Pagos"},
+        {ruta:"../../../../assets/logos/025.JPG", nombre:"Remisiones"},
+        {ruta:"../../../../assets/logos/021.JPG", nombre:"Certificaciones"},
     ]
 
     opcionesClinico: any = [
-        {ruta:"https://i.imgur.com/54T21mn.jpeg", nombre:"Medicina"},
-        {ruta:"https://i.imgur.com/3mmdq4F.jpeg", nombre:"Laboratorio"},
-        {ruta:"https://i.imgur.com/WUc32cB.jpeg", nombre:"Psicologia"},
-        {ruta:"https://i.imgur.com/T30LLEB.jpeg", nombre:"Optometria"},
-        {ruta:"https://i.imgur.com/T30LLEB.jpeg", nombre:"Fonoaudiologia"},
-        {ruta:"https://i.imgur.com/T30LLEB.jpeg", nombre:"Certificaciones"},
+        {ruta:"../../../../assets/logos/016.jpg", nombre:"Medicina", url: '/historias/medicina'},
+        {ruta:"../../../../assets/logos/010.jpg", nombre:"Laboratorio", url: '/historias/laboratorio'},
+        {ruta:"../../../../assets/logos/003.jpg", nombre:"Psicologia", url: '/historias/psicologia'},
+        {ruta:"../../../../assets/logos/026.JPG", nombre:"Optometria", url: '/historias/optometria'},
+        {ruta:"../../../../assets/logos/021.JPG", nombre:"Certificaciones", url: '/historias/certificaciones'},
     ]
 
     opcionesContable: any = [
-        {ruta:"https://i.imgur.com/54T21mn.jpeg", nombre:"Facturacion"},
-        {ruta:"https://i.imgur.com/3mmdq4F.jpeg", nombre:"Consultas"},
-        {ruta:"https://i.imgur.com/WUc32cB.jpeg", nombre:"Anulacion"},
-        {ruta:"https://i.imgur.com/T30LLEB.jpeg", nombre:"Recibos"},
+        {ruta:"../../../../assets/logos/024.JPG", nombre:"Facturacion"},
+        {ruta:"../../../../assets/logos/007.jpg", nombre:"Consultas"},
+        {ruta:"../../../../assets/logos/023.JPG", nombre:"Anulacion"},
+        {ruta:"../../../../assets/logos/028.JPG", nombre:"Recibos"},
     ]
 
     opcionesRecepcion: any = [
-        {ruta:"https://i.imgur.com/54T21mn.jpeg", nombre:"Consultas"},
-        {ruta:"https://i.imgur.com/3mmdq4F.jpeg", nombre:"Citas"},
-        {ruta:"https://i.imgur.com/WUc32cB.jpeg", nombre:"Facturacion"},
-        {ruta:"https://i.imgur.com/T30LLEB.jpeg", nombre:"Registro Paciente"},
-        {ruta:"https://i.imgur.com/T30LLEB.jpeg", nombre:"Certificaciones"},
-        {ruta:"https://i.imgur.com/T30LLEB.jpeg", nombre:"Cancelaciones"},
-        {ruta:"https://i.imgur.com/T30LLEB.jpeg", nombre:"Remisiones"},
-        {ruta:"https://i.imgur.com/T30LLEB.jpeg", nombre:"Registro Personal"},
+        {ruta:"../../../../assets/logos/007.jpg", nombre:"Consultas"},
+        {ruta:"../../../../assets/logos/022.JPG", nombre:"Citas"},
+        {ruta:"../../../../assets/logos/024.JPG", nombre:"Facturacion"},
+        {ruta:"../../../../assets/logos/019.JPG", nombre:"Registro Paciente"},
+        {ruta:"../../../../assets/logos/021.JPG", nombre:"Certificaciones"},
+        {ruta:"../../../../assets/logos/023.JPG", nombre:"Cancelaciones"},
+        {ruta:"../../../../assets/logos/025.JPG", nombre:"Remisiones"},
+        {ruta:"../../../../assets/logos/019.JPG", nombre:"Registro Personal"},
     ]
 }

@@ -1,5 +1,7 @@
-<div class="h-full flex flex-col">
+<div class="h-full flex flex-col gap-y-16">
     <app-shared-nav-bar class="flex-[2] max-h-[30rem]"></app-shared-nav-bar>
-    <app-form-laboratorio-informacion-personal class="flex-1"></app-form-laboratorio-informacion-personal>
-    <app-shared-footer class="flex-[-1]"></app-shared-footer>
+    <app-laboratorio-examenes class="flex-1"></app-laboratorio-examenes>
+    <div class="flex flex-1 justify-center pb-5">
+        <app-shared-paginacion [pages]="3"></app-shared-paginacion>
+    </div>
 </div>

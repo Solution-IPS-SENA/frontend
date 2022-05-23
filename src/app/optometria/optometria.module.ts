@@ -8,6 +8,8 @@ import { OptometriaComponent } from './pages/optometria.component';
 import { OptometriaSintomasComponent } from './components/optometria-sintomas/optometria-sintomas.component';
 import { OptometriaAgudezaVisualComponent } from './components/optometria-agudeza-visual/optometria-agudeza-visual.component';
 import { OptometriaHallazgosComponent } from './components/optometria-hallazgos/optometria-hallazgos.component';
+import { OptometriaRoutingModule } from './optometria-routing.module';
+import { NavbarConfiguracionRutasService } from '../shared/services/navbar-configuracion-rutas.service';
 
 @NgModule({
   declarations: [
@@ -20,10 +22,16 @@ import { OptometriaHallazgosComponent } from './components/optometria-hallazgos/
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    OptometriaRoutingModule
   ], 
   exports:[
     OptometriaComponent
   ]
 })
-export class OptometriaModule { }
+export class OptometriaModule {
+  constructor(navBar: NavbarConfiguracionRutasService) {
+    navBar.definirRutaDatosPaciente('/historias/optometria');
+    navBar.definirRutaHistoriaClinica('/historias/optometria/1');
+  }
+}

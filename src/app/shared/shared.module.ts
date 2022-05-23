@@ -11,7 +11,9 @@ import { SharedPrincipalDatosPersonalesComponent } from './components/shared-pri
 import { formularioPrincipalComponent } from './pages/formularioPrincipal.component';
 import { SharedPaginacionComponent } from './components/shared-paginacion/shared-paginacion.component'
 
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { SharedCierreHistoriaClinicaComponent } from './components/shared-cierre-historia-clinica/shared-cierre-historia-clinica.component'
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -23,11 +25,13 @@ import { HttpClientModule } from '@angular/common/http'
     SharedNavBarMenusComponent,
     SharedPrincipalDatosPersonalesComponent,
     formularioPrincipalComponent,
-    SharedPaginacionComponent
+    SharedPaginacionComponent,
+    SharedCierreHistoriaClinicaComponent
   ],
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   exports:[
     SharedNavBarComponent,

@@ -12,4 +12,8 @@ export class SharedPrincipalDatosPersonalesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  alerta(){
+    alert("Puta Juank ")
+  }
+
 }

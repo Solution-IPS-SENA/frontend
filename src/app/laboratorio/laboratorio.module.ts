@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../shared/shared.module';
-import { FormLaboratorioInformacionPersonalComponent } from './components/form-laboratorio-informacion-personal/form-laboratorio-informacion-personal.component';
 import { LaboratorioComponent } from './pages/laboratorio.component';
+import { LaboratorioExamenesComponent } from './components/laboratorio-examenes/laboratorio-examenes.component';
+import { LaboratorioExamenes2Component } from './components/laboratorio-examenes2/laboratorio-examenes2.component';
 
 @NgModule({
   declarations: [
-    FormLaboratorioInformacionPersonalComponent,
-    LaboratorioComponent
+    LaboratorioComponent,
+    LaboratorioExamenesComponent,
+    LaboratorioExamenes2Component
   ],
   imports: [
     CommonModule,

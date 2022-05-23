@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InputDatosDoble, InputDatos } from 'src/app/shared/interfaces/input-datos';
+import { delay, Observable, of } from 'rxjs';
+import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
+import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 
 @Component({
   selector: 'app-medicina-antecedentes',
@@ -8,230 +11,67 @@ import { InputDatosDoble, InputDatos } from 'src/app/shared/interfaces/input-dat
 })
 export class MedicinaAntecedentesComponent implements OnInit {
 
-  constructor() { }
+  patologicos = [];
+  referencia = [];
+  ets = [];
+
+  loaded$ = of(false);
+
+  inputsFamiliares$?: Observable<InputDatosDoble[]> = of([
+    { id: "padre", nombre: "Padre",options: this.patologicos, options2: this.patologicos},
+    { id: "madre", nombre: "Madre", options: this.patologicos, options2: this.patologicos},
+  ]);
+
+  inputsPersonales$?: Observable<InputDatos[]> = of([
+    { id: "patologicos", nombre: "Patológicos", for: "patologicos", options: this.patologicos},
+    { id: "quirurgicos", nombre: "Quirúrgicos", for: "quirurgicos", options: this.patologicos},
+    { id: "traumaticos", nombre: "Traumáticos", for: "traumaticos", options: this.patologicos},
+    { id: "toxicos", nombre: "Tóxicos", for: "toxicos" , options: this.patologicos},
+    { id: "alergicos", nombre: "Alérgicos", for: "alergicos", options: this.patologicos},
+    { id: "farmacologicos", nombre: "Farmacológicos", for: "farmacologicos", options: this.patologicos},
+    { id: "transfusionales", nombre: "Transfusionales", for: "transfusionales" , options: this.patologicos},
+    { id: "ets", nombre: "E.T.S", for: "ets" , options: this.patologicos},
+  ]);
+
+  constructor(private obtenerAnexosService: ObtenerAnexosService){
+    this.obtenerAnexosService.getAnexos(["patologicos","referencia","ets"]).pipe(delay(1000)).subscribe(
+      (response: InformacionAnexos) => {
+        this.patologicos = this.formatear_datos(response.patologicos)
+        this.referencia = this.formatear_datos(response.referencia)
+        this.ets = this.formatear_datos(response.ets)
+
+        this.inputsFamiliares$ = of([
+          { id: "padre", nombre: "Padre",options: this.patologicos, options2: this.patologicos},
+          { id: "madre", nombre: "Madre", options: this.patologicos, options2: this.patologicos},
+        ])
+        this.inputsPersonales$ = of([
+          { id: "patologicos", nombre: "Patológicos", for: "patologicos", options: this.patologicos},
+          { id: "quirurgicos", nombre: "Quirúrgicos", for: "quirurgicos", options: this.referencia},
+          { id: "traumaticos", nombre: "Traumáticos", for: "traumaticos", options: this.referencia},
+          { id: "toxicos", nombre: "Tóxicos", for: "toxicos" , options: this.referencia},
+          { id: "alergicos", nombre: "Alérgicos", for: "alergicos", options: this.referencia},
+          { id: "farmacologicos", nombre: "Farmacológicos", for: "farmacologicos", options: this.referencia},
+          { id: "transfusionales", nombre: "Transfusionales", for: "transfusionales" , options: this.referencia},
+          { id: "ets", nombre: "E.T.S", for: "ets" , options: this.ets},
+        ])
+        this.loaded$ = of(true);
+      }
+    )
+  }
+
+  formatear_datos(objeto: any): any{
+    let data: {valor: string, nombre: string}[] = [];
+    objeto.forEach((el: any) => {
+      data.push(
+        {
+          valor: el,
+          nombre: el
+        }
+      )
+    })
+    return data
+  }
 
   ngOnInit(): void {
   }
-
-  inputsPersonales: InputDatos[] = [
-    { id: "patologicos", nombre: "Patológicos", for: "patologicos", options: [
-      {
-        valor: "patologicos",
-        nombre: "patologicos1",
-      },
-      {
-        valor: "perra",
-        nombre: "Juank",
-      },
-      {
-        valor: "imbecil",
-        nombre: "Juanjo",
-      },
-      {
-        valor: "loca",
-        nombre: "Julian",
-      },
-      {
-        valor: "jejeje",
-        nombre: "Jorge",
-      },
-    ] },
-    { id: "quirurgicos", nombre: "Quirúrgicos", for: "quirurgicos" , options: [
-      {
-        valor: "quirurgicos",
-        nombre: "quirurgicos1",
-      },
-      {
-        valor: "perra",
-        nombre: "Juank",
-      },
-      {
-        valor: "imbecil",
-        nombre: "Juanjo",
-      },
-      {
-        valor: "loca",
-        nombre: "Julian",
-      },
-      {
-        valor: "jejeje",
-        nombre: "Jorge",
-      },
-    ] },
-    { id: "traumaticos", nombre: "Traumáticos", for: "traumaticos" , options: [
-      {
-        valor: "traumaticos",
-        nombre: "traumaticos1",
-      },
-      {
-        valor: "perra",
-        nombre: "Juank",
-      },
-      {
-        valor: "imbecil",
-        nombre: "Juanjo",
-      },
-      {
-        valor: "loca",
-        nombre: "Julian",
-      },
-      {
-        valor: "jejeje",
-        nombre: "Jorge",
-      },
-    ] },
-    { id: "toxicos", nombre: "Tóxicos", for: "toxicos" , options: [
-      {
-        valor: "toxicos",
-        nombre: "toxicos1",
-      },
-      {
-        valor: "perra",
-        nombre: "Juank",
-      },
-      {
-        valor: "imbecil",
-        nombre: "Juanjo",
-      },
-      {
-        valor: "loca",
-        nombre: "Julian",
-      },
-      {
-        valor: "jejeje",
-        nombre: "Jorge",
-      },
-    ] },
-    { id: "alergicos", nombre: "Alérgicos", for: "alergicos" , options: [
-      {
-        valor: "alergicos",
-        nombre: "alergicos1",
-      },
-      {
-        valor: "perra",
-        nombre: "Juank",
-      },
-      {
-        valor: "imbecil",
-        nombre: "Juanjo",
-      },
-      {
-        valor: "loca",
-        nombre: "Julian",
-      },
-      {
-        valor: "jejeje",
-        nombre: "Jorge",
-      },
-    ] },
-    { id: "farmacologicos", nombre: "Farmacológicos", for: "farmacologicos" , options: [
-      {
-        valor: "farmacologicos",
-        nombre: "farmacologicos1",
-      },
-      {
-        valor: "perra",
-        nombre: "Juank",
-      },
-      {
-        valor: "imbecil",
-        nombre: "Juanjo",
-      },
-      {
-        valor: "loca",
-        nombre: "Julian",
-      },
-      {
-        valor: "jejeje",
-        nombre: "Jorge",
-      },
-    ] },
-    { id: "transfusionales", nombre: "Transfusionales", for: "transfusionales" , options: [
-      {
-        valor: "transfusionales",
-        nombre: "transfusionales",
-      },
-      {
-        valor: "perra",
-        nombre: "Juank",
-      },
-      {
-        valor: "imbecil",
-        nombre: "Juanjo",
-      },
-      {
-        valor: "loca",
-        nombre: "Julian",
-      },
-      {
-        valor: "jejeje",
-        nombre: "Jorge",
-      },
-    ] },
-    { id: "ets", nombre: "E.T.S", for: "ets" , options: [
-      {
-        valor: "ets",
-        nombre: "ets1",
-      },
-      {
-        valor: "perra",
-        nombre: "Juank",
-      },
-      {
-        valor: "imbecil",
-        nombre: "Juanjo",
-      },
-      {
-        valor: "loca",
-        nombre: "Julian",
-      },
-      {
-        valor: "jejeje",
-        nombre: "Jorge",
-      },
-    ] },
-  ]
-
-  inputsFamiliares: InputDatosDoble[] = [
-    { id: "padre", nombre: "Padre", options: [
-      {
-        valor: "enfermedadCardiovascular",
-        nombre: "Enfermedades cardiovasculares",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ], 
-    options2: [
-      {
-        valor: "enfermedadCongenita",
-        nombre: "Enfermedades congenitas",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ]},
-    { id: "madre", nombre: "Madre", options: [
-      {
-        valor: "enfermedadCardiovascular",
-        nombre: "Enfermedades cardiovasculares",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ], 
-    options2: [
-      {
-        valor: "enfermedadCongenita",
-        nombre: "Enfermedades congenitas",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ]},
- ]
 }

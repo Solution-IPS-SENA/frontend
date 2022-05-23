@@ -16,12 +16,12 @@ export class ObtenerAnexosService {
     return this.clientService.get<InformacionAnexos>(`${environment.API_ANEXOS_URL}/anexos`).pipe(
       map(
         (response: any) => {
-          let data: InformacionAnexos[] = [];
+          let data: any = {};
           valores.forEach((el: string) => {
-            if (response[el] != undefined){
-            }
+            if (!response.hasOwnProperty(el)){ return; }
+            data[el] = response[el];
           });
-          return data;
+          return data as InformacionAnexos;
         }
     )
     )

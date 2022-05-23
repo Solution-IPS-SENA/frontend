@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { AgendamientoModule } from './agendamiento/agendamiento.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
@@ -20,15 +21,15 @@ import { SharedModule } from './shared/shared.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    AuthModule,
-    RecepcionModule,
-    LaboratorioModule,
+    // AuthModule,
+    // LaboratorioModule,
     SharedModule,
-    MedicinaModule,
-    FonoaudiologiaModule,
-    OptometriaModule,
-    PsicologiaModule
+    // MedicinaModule,
+    // FonoaudiologiaModule,
+    // OptometriaModule,
+    // PsicologiaModule,
+    // AgendamientoModule,
+    AppRoutingModule
   ], 
   
   providers: [],

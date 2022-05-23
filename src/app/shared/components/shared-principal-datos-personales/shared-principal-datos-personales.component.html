@@ -1,8 +1,14 @@
-<div class="flex flex-col items-center">
-    <div class="grid grid-cols-20-30x2">
-        <app-shared-datos-personales></app-shared-datos-personales>
-        <app-shared-datos-ocupacionales></app-shared-datos-ocupacionales>
-        <app-shared-observaciones></app-shared-observaciones>
+<div class="grid grid-cols-3 items-center w-full">
+    <app-shared-datos-personales class="flex pt-10 basis-2/6"></app-shared-datos-personales>
+    <app-shared-datos-ocupacionales class="flex pt-10 basis-2/6"></app-shared-datos-ocupacionales>
+    <div>
+        <div class="w-full flex flex-row items-center gap-x-3">
+            <select class="form-select flex self-center bg-gray-200 text-black pl-2 h-10" name="" id="">
+                <option value="">Tipo de documento</option>
+            </select>
+            <input type="text" class=" rounded-full form-input w-1/2 text-black pl-2 h-10 border-solid border-black border-[1.5px]" id="efsf" />
+            <img src="./../../../../assets/logos/007.jpg" alt="Lupa" class="w-12 h-12 rounded-full hand_cursor" (click)="alerta()"/>
+        </div>
+        <app-shared-observaciones class="flex basis-2/6"></app-shared-observaciones>
     </div>
-    <app-shared-paginacion class="grid w-screen justify-center pt-8"></app-shared-paginacion>
 </div>

@@ -1,0 +1,87 @@
+<div class="flex flex-row justify-center gap-x-2 py-8 items-center">
+    <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+    <h1 class="text-3xl font-semibold">CIERRE HISTORIA CLINICA</h1>
+</div>
+<form class="px-10">
+    <div class="grid grid-cols-3 items-center gap-x-10">
+        <div class="bg-gray-200 rounded-lg">
+            <div class="flex flex-row gap-x-2 items-center px-5 pt-5">
+                <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+                <label for="Psicologia" class="text-left w-17 text-3xl">Historia Familiar</label>
+            </div>
+            <div class="p-5">
+                <textarea class="h-64 w-full pl-2 text-black resize-none"></textarea>
+            </div>
+        </div>
+        
+        <div class="bg-gray-200 rounded-lg">
+            <div class="m-5">
+                <div class="flex flex-row gap-x-2 items-center ">
+                    <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+                    <label for="Psicologia" class="text-left w-17 text-3xl">Recomendaciones / Restricciones</label>
+                </div>
+                <div class="py-5">
+                    <textarea class="h-16 w-full pl-2 text-black resize-none"></textarea>
+                </div>
+               
+                <div class="flex flex-row gap-x-2 items-center">
+                    <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+                    <label for="Psicologia" class="text-left w-17 text-3xl">Otras consideraciones</label>
+                </div>
+                <div class="py-5 flex gap-2 items-center">
+                    <input class="h-5 w-4" type="checkbox" id="cbox2" value="second_checkbox"> <label class="text-xl " for="cbox2">Aplazado</label>
+                </div>
+                <div *ngFor="let input of inputsMotivo">
+                    <div class="flex gap-y-5">
+                        <div class="flex py-2 items-center w-full gap-4">
+                            <label for="{{input.for}}" class="text-2xl">{{input.nombre}}</label>
+                            <select *ngIf="(input.id != 'observacionesAntecedentesPersonaelsOpto')" class="form-select w-full text-black pl-2 h-10" id="{{input.id}}">
+                                <option *ngFor="let option of input.options" value="{{ option.valor }}">
+                                    {{ option.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div *ngFor="let input of inputsRemitido">
+                    <div class="flex gap-y-5">
+                        <div class="flex py-2 items-center w-full gap-4">
+                            <label for="{{input.for}}" class="text-2xl">{{input.nombre}}</label>
+                            <select *ngIf="(input.id != 'observacionesAntecedentesPersonaelsOpto')" class="form-select w-full text-black pl-2 h-10" id="{{input.id}}">
+                                <option *ngFor="let option of input.options" value="{{ option.valor }}">
+                                    {{ option.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-200 rounded-lg">
+            <div class="m-5">
+                <div>
+                    <div class="flex flex-row gap-x-2  items-center">
+                        <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="">
+                        <label for="Psicologia" class="text-left w-17 text-3xl">Observaciones</label>
+                    </div>
+                    <div class="flex flex-row py-5">
+                        <textarea class="h-32 w-full text-black resize-none"></textarea>
+                    </div>
+                    <div *ngFor="let input of inputsConcepto">
+                        <div class="flex flex-col items-start justify-between gap-y-5">
+                            <div class="flex py-2 items-center gap-4">
+                                <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="Logo Inicio Sesion">
+                                <label for="{{input.for}}" class="text-3xl">{{input.nombre}}</label>
+                            </div>
+                            <select *ngIf="(input.id != 'observacionesAntecedentesPersonaelsOpto')" class="div-select w-full text-black pl-2 h-10" id="{{input.id}}">
+                                <option *ngFor="let option of input.options" value="{{ option.valor }}">
+                                    {{ option.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

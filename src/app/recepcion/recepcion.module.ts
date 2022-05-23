@@ -7,6 +7,7 @@ import { MenuModuloRecepcionComponent } from './components/menu-modulo-recepcion
 import { MenuModuloAdminPacienteComponent } from './components/menu-modulo-admin-paciente/menu-modulo-admin-paciente.component';
 import { MenuModuloContableComponent } from './components/menu-modulo-contable/menu-modulo-contable.component';
 import { RecepcionComponent } from './pages/recepcion.component';
+import { RecepcionRoutingModule } from './recepcion-routing.module';
 
 @NgModule({
   declarations: [ 
@@ -14,11 +15,12 @@ import { RecepcionComponent } from './pages/recepcion.component';
     MenuModuloRecepcionComponent,
     MenuModuloAdminPacienteComponent,
     MenuModuloContableComponent,
-    RecepcionComponent
+    RecepcionComponent,
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RecepcionRoutingModule,
   ],
   exports:[
       RecepcionComponent

@@ -1,17 +1,21 @@
-<nav class="flex bg-banner bg-cover bg-repeat-round bg-origin-border pt-5 max-h-[18rem] w-full">
-    <div class="grid grid-rows-2">
-        <div class="flex items-center">
-            <img class="w-36 ml-12" src="../../../../assets/logos/simbolo solo.png" alt="Logo Solution IPS">
-            <p class="text-6xl pl-20 w-24">Módulo Clinico Psicologia</p>
-        </div>
-        <div class="flex flex-row items-end pb-5">
-            <div class="flex flex-row items-center gap-4 ml-20">
-                <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="Logo Inicio Sesion">
-                <h1 class="text-4xl">Datos Paciente</h1>
+<nav class="flex bg-banner bg-cover bg-repeat-round bg-origin-border h-full max-h-[18rem] w-full">
+    <div class="p-5">
+        <div class="grid grid-rows-3 h-full gap-y-10 w-full">
+            <div class="h-full row-span-2">
+                <div class="flex flex-row pl-9 items-center h-full">
+                    <img class="h-24 w-24" src="../../../../assets/logos/simbolo solo.png" alt="Logo Solution IPS">
+                    <p class="text-6xl h-full w-full flex items-center">Módulo Clinico Psicologia</p>
+                </div>
             </div>
-            <div class="flex flex-row items-center gap-4 ml-20">
-                <img class="w-14" src="https://i.imgur.com/GjZKjAZ.jpeg" alt="Logo Inicio Sesion">
-                <h1 class="text-4xl">Historia Clinica</h1>
+            <div class="h-full flex gap-x-10">
+                <div [routerLink]="urlDatosPaciente" class="flex flex-row items-center gap-4 cursor-pointer">
+                    <img class="w-14 h-14 rounded-lg" src="../../../../assets/logos/003.jpg" alt="Logo Inicio Sesion">
+                    <a class="text-4xl">Datos Paciente</a>
+                </div>
+                <div [routerLink]="urlHistoriaClinica" class="flex flex-row items-center gap-4 cursor-pointer">
+                    <img class="w-14 h-14 rounded-lg" src="../../../../assets/logos/001.jpg" alt="Logo Inicio Sesion">
+                    <a class="text-4xl">Historia Clinica</a>
+                </div>
             </div>
         </div>
     </div>

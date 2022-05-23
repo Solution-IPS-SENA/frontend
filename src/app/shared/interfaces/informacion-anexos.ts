@@ -19,4 +19,21 @@ export interface InformacionAnexos {
     patologicos?: string[];
     ets?: string[];
     nroVacuna?: string[];
+    adecuacion?: string[];
+    carga?: string[];
+    medioAmbiente?: string[];
+    institucion?: string[];
+    riesgosLaborales?: string[];
+    fisico?: string[];
+    biologico?: string[];
+    quimico?: string[];
+    seguridad?: string[];
+    biomecanico?: string[];
+    psicosocial?: string[];
+    eps?: string[];
+    arl?: string[];
+    afp?: string[];
+    genero?: string[];
+    lugarDeNacimiento?: string[];
+    nacionalidad?: string[];
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { delay, Observable, of, pipe, tap } from 'rxjs';
+import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { InputDatosDoble } from 'src/app/shared/interfaces/input-datos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 
@@ -10,11 +11,12 @@ import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.se
 })
 export class OptometriaAgudezaVisualComponent implements OnInit {
 
-  tiempo: any = [];
-  lensometria: any = [];
+  tiempo = [];
+  sino = [];
+  lensometria = [];
   agudezaVisual = [];
 
-  loaded$ = of(true);
+  loaded$ = of(false);
 
   
   inputsAVCerca$?: Observable<InputDatosDoble[]> = of([
@@ -28,17 +30,18 @@ export class OptometriaAgudezaVisualComponent implements OnInit {
     { id: "ambosLejos", nombre: "AMBOS", options: this.agudezaVisual, options2: this.agudezaVisual },
   ]);
   inputsLensometria$?: Observable<InputDatosDoble[]> = of([
-    { id: "ojoDerechoLejos", nombre: "OD", options: this.agudezaVisual, options2: this.agudezaVisual },
-    { id: "ojoIzquierdoLejos", nombre: "OI", options: this.agudezaVisual, options2: this.agudezaVisual },
-    { id: "ambosLejos", nombre: "AMBOS", options: this.agudezaVisual, options2: this.agudezaVisual },
+    { id: "ojoDerechoLensometria", nombre: "OD", options: this.sino, options2: this.lensometria },
+    { id: "ojoIzquierdoLensometria", nombre: "OI", options: this.sino, options2: this.lensometria },
+    { id: "tiempoUsoLensometria", nombre: "Tiempo de uso", options: this.tiempo },
   ]);
 
   constructor(private obtenerAnexosService: ObtenerAnexosService){
-    this.obtenerAnexosService.getAnexos(["lensometria", "tiempo", "agudeza_visual"]).pipe(delay(1000)).subscribe(
-      (response: any) => {
+    this.obtenerAnexosService.getAnexos(["lensometria", "tiempo", "agudezaVisual", "sino"]).pipe(delay(1000)).subscribe(
+      (response: InformacionAnexos) => {
         this.tiempo = this.formatear_datos(response.tiempo);
         this.lensometria = this.formatear_datos(response.lensometria);
-        this.agudezaVisual = this.formatear_datos(response.agudeza_visual);
+        this.agudezaVisual = this.formatear_datos(response.agudezaVisual);
+        this.sino = this.formatear_datos(response.sino);
 
         this.inputsAVCerca$ = of([
           { id: "ojoDerechoCerca", nombre: "OD", options: this.agudezaVisual, options2: this.agudezaVisual },
@@ -52,9 +55,9 @@ export class OptometriaAgudezaVisualComponent implements OnInit {
         ]);
           
         this.inputsLensometria$= of([
-          { id: "ojoDerechoLejos", nombre: "OD", options: this.agudezaVisual, options2: this.agudezaVisual },
-          { id: "ojoIzquierdoLejos", nombre: "OI", options: this.agudezaVisual, options2: this.agudezaVisual },
-          { id: "ambosLejos", nombre: "AMBOS", options: this.agudezaVisual, options2: this.agudezaVisual },
+          { id: "ojoDerechoLejos", nombre: "OD", options: this.sino, options2: this.lensometria },
+          { id: "ojoIzquierdoLejos", nombre: "OI", options: this.sino, options2: this.lensometria },
+          { id: "tiempoUso", nombre: "Tiempo de uso", options: this.tiempo },
         ]);
 
         this.loaded$ = of(true);

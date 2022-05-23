@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InputDatosDoble } from 'src/app/shared/interfaces/input-datos';
+import { delay, Observable, of, pipe, tap } from 'rxjs';
+import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
+import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 
 @Component({
   selector: 'app-optometria-hallazgos',
@@ -8,135 +11,59 @@ import { InputDatosDoble } from 'src/app/shared/interfaces/input-datos';
 })
 export class OptometriaHallazgosComponent implements OnInit {
 
-  constructor() { }
+  normalidad: any = [];
+  loaded$ = of(false);
+
+  inputsHallazgo1$?: Observable<InputDatosDoble[]> = of([
+    { id: "examenExterno", nombre: "Examen externo" , img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+    { id: "motilidadOcular", nombre: "Motilidad ocular" , img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+    { id: "oftalmoscopia", nombre: "Oftalmoscopia" , img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+    { id: "campoVisualConfrontacion", nombre: "Campo visual por confrontacion" , img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+  ]);
+
+  inputsHallazgo2$?: Observable<InputDatosDoble[]> = of([
+    { id: "ojoDerechoLejos", nombre: "Estereopsis" ,img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+    { id: "ojoIzquierdoLejos", nombre: "Percepcion cromatica" , img:"../../../../assets/logos/026.JPG",options: this.normalidad, options2: this.normalidad},
+    { id: "observacionesOptoHallazgos", nombre: "Observaciones",img:"../../../../assets/logos/003.jpg"}
+  ]);
+
+
+
+  constructor(private obtenerAnexosService: ObtenerAnexosService){
+    this.obtenerAnexosService.getAnexos(["normalidad"]).pipe(delay(1000)).subscribe(
+      (response: InformacionAnexos) => {
+        this.normalidad = this.formatear_datos(response.normalidad)
+
+        this.inputsHallazgo1$ = of([
+          { id: "examenExterno", nombre: "Examen externo" , img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+          { id: "motilidadOcular", nombre: "Motilidad ocular" , img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+          { id: "oftalmoscopia", nombre: "Oftalmoscopia" , img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+          { id: "campoVisualConfrontacion", nombre: "Campo visual por confrontacion" , img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+        ])
+
+        this.inputsHallazgo2$ = of([
+          { id: "ojoDerechoLejos", nombre: "Estereopsis" ,img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+          { id: "ojoIzquierdoLejos", nombre: "Percepcion cromatica" , img:"../../../../assets/logos/026.JPG",options: this.normalidad, options2: this.normalidad},
+          { id: "observacionesOptoHallazgos", nombre: "Observaciones",img:"../../../../assets/logos/003.jpg"}
+        ])
+        this.loaded$ = of(true);
+      }
+    )
+  }
+
+  formatear_datos(objeto: any): any{
+    let data: {valor: string, nombre: string}[] = [];
+    objeto.forEach((el: any) => {
+      data.push(
+        {
+          valor: el,
+          nombre: el
+        }
+      )
+    })
+    return data
+  }
 
   ngOnInit(): void {
   }
-
-  inputsHallazgo1: InputDatosDoble[] = [
-    { id: "ojoDerechoCerca", nombre: "Examen externo", options: [
-      {
-        valor: "20/20",
-        nombre: "20/20",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ], 
-    options2: [
-      {
-        valor: "30/30",
-        nombre: "30/30",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ]},
-    { id: "ojoIzquierdoCerca", nombre: "Motilidad ocular", options: [
-      {
-        valor: "20/20",
-        nombre: "20/20",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ], 
-    options2: [
-      {
-        valor: "30/30",
-        nombre: "30/30",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ]},
-    { id: "ambosCerca", nombre: "Oftalmoscopia", options: [
-      {
-        valor: "20/20",
-        nombre: "20/20",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ], 
-    options2: [
-      {
-        valor: "30/30",
-        nombre: "30/30",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ]},
-    { id: "ambosCRT", nombre: "Campo visual por confrontacion", options: [
-      {
-        valor: "20/20",
-        nombre: "20/20",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ], 
-    options2: [
-      {
-        valor: "30/30",
-        nombre: "30/30",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ]},
- ]
-
- inputsHallazgo2: InputDatosDoble[] = [
-    { id: "ojoDerechoLejos", nombre: "Estereopsis", options: [
-      {
-        valor: "20/20",
-        nombre: "20/20",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ], 
-    options2: [
-      {
-        valor: "30/30",
-        nombre: "30/30",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ]},
-    { id: "ojoIzquierdoLejos", nombre: "Percepcion cromatica", options: [
-      {
-        valor: "20/20",
-        nombre: "20/20",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ], 
-    options2: [
-      {
-        valor: "30/30",
-        nombre: "30/30",
-      },
-      {
-        valor: "no",
-        nombre: "No",
-      },
-    ]},
-    { id: "observacionesOptoHallazgos", nombre: "Observaciones",}
-  ]
 }
