@@ -6,20 +6,30 @@ import { PsicologiaAccidentesEnfermedadesComponent } from './components/psicolog
 import { PsicologiaObservacionConductasComponent } from './components/psicologia-observacion-conductas/psicologia-observacion-conductas.component';
 import { PsicologiaEmpresaComponent } from './components/psicologia-empresa/psicologia-empresa.component';
 import { PsicologiaComponent } from './pages/psicologia.component';
+import { PsicologiaRoutingModule } from './psicologia-routing.module';
+import { NavbarConfiguracionRutasService } from '../shared/services/navbar-configuracion-rutas.service';
+import { PsicologiaCierreHistoriaClinicaComponent } from './components/psicologia-cierre-historia-clinica/psicologia-cierre-historia-clinica.component';
 
 @NgModule({
   declarations: [
     PsicologiaAccidentesEnfermedadesComponent,
     PsicologiaObservacionConductasComponent,
     PsicologiaEmpresaComponent,
-    PsicologiaComponent
+    PsicologiaComponent,
+    PsicologiaCierreHistoriaClinicaComponent
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    PsicologiaRoutingModule
   ],
   exports:[
     PsicologiaComponent
   ]
 })
-export class PsicologiaModule { }
+export class PsicologiaModule {
+  constructor(navBar: NavbarConfiguracionRutasService) {
+    navBar.definirRutaDatosPaciente('/historias/psicologia');
+    navBar.definirRutaHistoriaClinica('/historias/psicologia/1');
+  }
+}

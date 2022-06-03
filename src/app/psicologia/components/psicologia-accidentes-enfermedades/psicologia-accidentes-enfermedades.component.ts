@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InputDatos } from 'src/app/shared/interfaces/input-datos';
-import { delay, Observable, of } from 'rxjs';
+import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
-
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+ 
 @Component({
   selector: 'app-psicologia-accidentes-enfermedades',
   templateUrl: './psicologia-accidentes-enfermedades.component.html',
   styleUrls: ['./psicologia-accidentes-enfermedades.component.css']
 })
-export class PsicologiaAccidentesEnfermedadesComponent implements OnInit {
+export class PsicologiaAccidentesEnfermedadesComponent implements OnInit, OnDestroy {
+
+  public currentPage = 0;
+  form!: FormGroup;
+  state: boolean = false;
+  private lifecycleSubj: Subject<string> = new Subject<string>();
+
+  public onPageChange(currentPage: number) {
+    this.router.navigate(['/historias', 'psicologia', currentPage]).then(() => {
+      this.currentPage = this.getCurrentPageUrl();
+    });
+  }
+
+  public getCurrentPageUrl(): number {
+    const urlSegments = this.router.url.split('/');
+    return parseInt(urlSegments[urlSegments.length - 1] ?? '0');
+  }
 
   sino = [];
   loaded$ = of(false);
@@ -20,20 +38,23 @@ export class PsicologiaAccidentesEnfermedadesComponent implements OnInit {
     { id: "alteracionesSueño", nombre: "Presenta alteraciones del sueño:", for: "alteracionesSueño",  options: this.sino},
   ]);
 
-  constructor(private obtenerAnexosService: ObtenerAnexosService){
-    this.obtenerAnexosService.getAnexos(["sino"]).pipe(delay(1000)).subscribe(
-      (response: InformacionAnexos) => {
-        this.sino = this.formatear_datos(response.sino)
-
-        this.inputs$ = of([
-          { id: "tratamientoPsicologico", nombre: "Ha estado en consulta o tratamiento psicologico o psiquiatrico:", for: "tratamientoPsicologico", options: this.sino },
-          { id: "enfermedadesPsicologicas", nombre: "Ha sufrido enfermedades psicologicas laborales o derivadas del estres laboral:", for: "enfermedadesPsicologicas", options: this.sino},
-          { id: "alteracionesSueño", nombre: "Presenta alteraciones del sueño:", for: "alteracionesSueño",  options: this.sino},
-  ])
-        this.loaded$ = of(true);
-      }
-    )
+  public get lifecycle$() {
+    return this.lifecycleSubj.asObservable();
   }
+
+  constructor(
+    private obtenerAnexosService: ObtenerAnexosService,
+    private router: Router,
+    private fb: FormBuilder
+    ) {}
+
+    createForm(data?: any){
+      this.form = this.fb.group({
+        tratamientoPsicologico: [data ? data.tratamientoPsicologico : this.sino[0]["valor"], Validators.required],
+        enfermedadesPsicologicas: [data ? data.enfermedadesPsicologicas : this.sino[0]["valor"], Validators.required],
+        alteracionesSueño: [data ? data.alteracionesSueño : this.sino[0]["valor"] ,Validators.required]
+      });
+    }
 
   formatear_datos(objeto: any): any{
     let data: {valor: string, nombre: string}[] = [];
@@ -49,5 +70,42 @@ export class PsicologiaAccidentesEnfermedadesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let dataRecovery = localStorage.getItem("PsicologiaAccidentes");
+    dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
+
+    this.currentPage = this.getCurrentPageUrl();
+    this.obtenerAnexosService.getAnexos(["sino"]).pipe(delay(1000)).subscribe(
+      (response: InformacionAnexos) => {
+        this.sino = this.formatear_datos(response.sino)
+
+        this.inputs$ = of([
+          { id: "tratamientoPsicologico", nombre: "Ha estado en consulta o tratamiento psicologico o psiquiatrico:", for: "tratamientoPsicologico", options: this.sino },
+          { id: "enfermedadesPsicologicas", nombre: "Ha sufrido enfermedades psicologicas laborales o derivadas del estres laboral:", for: "enfermedadesPsicologicas", options: this.sino},
+          { id: "alteracionesSueño", nombre: "Presenta alteraciones del sueño:", for: "alteracionesSueño",  options: this.sino},
+  ])
+        this.loaded$ = of(true);
+        this.createForm(dataRecovery);
+        this.state = this.form.valid
+        this.form.valueChanges
+        .pipe(
+          takeUntil(this.lifecycle$.pipe(filter(state => state == "destroy")))
+        )
+        .subscribe(
+          () => {
+            this.state = this.form.valid
+          }
+        )
+      }
+    )
+    this.lifecycleSubj.next("init");
+  }
+  ngOnDestroy(): void {
+    this.lifecycleSubj.next("destroy");
+    this.lifecycleSubj.complete();
+  }
+
+  saveData(){
+    let data = this.form.value;
+    localStorage.setItem("PsicologiaAccidentes", JSON.stringify(data));
   }
 }

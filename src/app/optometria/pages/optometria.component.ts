@@ -7,8 +7,13 @@ import { ObtenerAnexosService } from "../../shared/services/obtener-anexos.servi
     templateUrl: './optometria.html',
 })
 export class OptometriaComponent {
+
+
+  titulo: string;
+
   constructor(private router: Router) {
     this.currentPage = this.getCurrentPageUrl();
+    this.titulo = 'Módulo Clinico Optometria';
   }
 
   public currentPage = 0;

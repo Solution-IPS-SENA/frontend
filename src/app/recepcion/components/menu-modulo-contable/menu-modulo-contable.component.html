@@ -1,1 +1,9 @@
-<p>menu-modulo-contable works!</p>
+<div class="grid grid-cols-2">
+  <img class="w-auto m-auto" src="../../../../assets/logos/logo azul.png" alt="Logo Solution IPS" >
+  <section class="grid grid-cols-2 py-20 gap-y-12 ">
+      <div [routerLink]="opcion.url" *ngFor="let opcion of opciones" class="flex items-center cursor-pointer">
+          <img class="w-16 rounded-lg" src="{{ opcion.ruta }}">
+          <a class="text-4xl ml-8">{{ opcion.nombre }}</a>
+      </div>
+  </section>
+</div>

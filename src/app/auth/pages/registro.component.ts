@@ -5,4 +5,11 @@ import { Component } from "@angular/core";
     templateUrl: './registro.html',
 })
 export class RegistroComponent {
+
+  titulo: string;
+
+  constructor() {
+    this.titulo = 'Registro';
+  }
+
 }

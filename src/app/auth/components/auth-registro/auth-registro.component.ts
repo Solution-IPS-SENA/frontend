@@ -12,4 +12,8 @@ export class AuthRegistroComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  evento1(){
+
+  }
+
 }

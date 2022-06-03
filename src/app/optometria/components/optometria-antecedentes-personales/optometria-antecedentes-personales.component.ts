@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { delay, Observable, of } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { InputDatos } from 'src/app/shared/interfaces/input-datos';
 import { ObtenerAnexosService } from 'src/app/shared/services/obtener-anexos.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-optometria-antecedentes-personales',
   templateUrl: './optometria-antecedentes-personales.component.html',
   styleUrls: ['./optometria-antecedentes-personales.component.css']
 })
-export class OptometriaAntecedentesPersonalesComponent implements OnInit {
+export class OptometriaAntecedentesPersonalesComponent implements OnInit, OnDestroy {
+
+  public currentPage = 0;
+  form!: FormGroup;
+  state: boolean = false;
+  private lifecycleSubj: Subject<string> = new Subject<string>();
+
+  public onPageChange(currentPage: number) {
+    this.router.navigate(['/historias', 'optometria', currentPage]).then(() => {
+      this.currentPage = this.getCurrentPageUrl();
+    });
+  }
+
+  public getCurrentPageUrl(): number {
+    const urlSegments = this.router.url.split('/');
+    return parseInt(urlSegments[urlSegments.length - 1] ?? '0');
+  }
 
   sino: any = [];
   loaded$ = of(false);
@@ -28,7 +46,50 @@ export class OptometriaAntecedentesPersonalesComponent implements OnInit {
     { id: "traumaCraneoEncefalico", nombre: "Trauma craneo encefalico", for: "traumaCraneoEncefalico",img:"../../../../assets/logos/026.JPG", options: this.sino },
   ]);
 
-  constructor(private obtenerAnexosService: ObtenerAnexosService){
+  public get lifecycle$() {
+    return this.lifecycleSubj.asObservable();
+  }
+
+  constructor(
+    private obtenerAnexosService: ObtenerAnexosService,
+    private router: Router,
+    private fb: FormBuilder
+    ) {}
+
+    createForm(data?: any){
+      this.form = this.fb.group({
+        defectosRefractivos: [data ? data.defectosRefractivos : this.sino[0]["valor"], Validators.required],
+        cxOcular: [data ? data.cxOcular : this.sino[0]["valor"], Validators.required],
+        estrabismos: [data ? data.estrabismos : this.sino[0]["valor"] ,Validators.required],
+        patologiasOculares: [data ? data.patologiasOculares : this.sino[0]["valor"] ,Validators.required],
+        ttoOrtoptico: [data ? data.ttoOrtoptico : this.sino[0]["valor"] ,Validators.required],
+        hipertensionArterial: [data ? data.hipertensionArterial : this.sino[0]["valor"], Validators.required],
+        diabetesMellitus: [data ? data.diabetesMellitus :this.sino[0]["valor"], Validators.required],
+        desordenesTiroides: [data ? data.desordenesTiroides : this.sino[0]["valor"] ,Validators.required],
+        observacionesAntecedentesPersonalesOpto: [data ? data.observacionesAntecedentesPersonalesOpto : '' ],
+        accidenteCerebroVascular: [data ? data.accidenteCerebroVascular : this.sino[0]["valor"], Validators.required],
+        traumaCraneoEncefalico: [data ? data.traumaCraneoEncefalico : this.sino[0]["valor"], Validators.required],
+      });
+    }
+
+  formatear_datos(objeto: any): any{
+    let data: {valor: string, nombre: string}[] = [];
+    objeto.forEach((el: any) => {
+      data.push(
+        {
+          valor: el,
+          nombre: el
+        }
+      )
+    })
+    return data
+  }
+
+  ngOnInit(): void {
+    let dataRecovery = localStorage.getItem("OptometriaAntecedentesPersonales");
+    dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
+
+    this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["sino"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
         this.sino = this.formatear_datos(response.sino)
@@ -47,24 +108,28 @@ export class OptometriaAntecedentesPersonalesComponent implements OnInit {
           { id: "traumaCraneoEncefalico", nombre: "Trauma craneo encefalico", for: "traumaCraneoEncefalico",img:"../../../../assets/logos/026.JPG", options: this.sino },
         ])
         this.loaded$ = of(true);
+        this.createForm(dataRecovery);
+        this.state = this.form.valid
+        this.form.valueChanges
+        .pipe(
+          takeUntil(this.lifecycle$.pipe(filter(state => state == "destroy")))
+        )
+        .subscribe(
+          () => {
+            this.state = this.form.valid
+          }
+        )
       }
     )
+    this.lifecycleSubj.next("init");
+  }
+  ngOnDestroy(): void {
+    this.lifecycleSubj.next("destroy");
+    this.lifecycleSubj.complete();
   }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
+  saveData(){
+    let data = this.form.value;
+    localStorage.setItem("OptometriaAntecedentesPersonales", JSON.stringify(data));
   }
-
-  ngOnInit(): void {
-  }
-
 }

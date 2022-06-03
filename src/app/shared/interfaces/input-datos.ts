@@ -1,7 +1,7 @@
 export interface InputDatos {
     id: string,
     nombre: string,
-    for: string,
+    for?: string,
     img?: string,
     options?: OpcionesSelect[]
 }
@@ -11,13 +11,16 @@ export interface InputDatosType {
     nombre: string,
     type?: string,
     for: string,
-    
+    for2?: string,
+    value?: string,
     options?: OpcionesSelect[]
 }
 
 export interface InputDatosDoble {
     id: string,
     nombre: string,
+    for?: string,
+    for2?: string,
     img?: string,
     options?: OpcionesSelect[]
     options2?: OpcionesSelect[]

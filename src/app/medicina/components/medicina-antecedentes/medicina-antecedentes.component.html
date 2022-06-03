@@ -1,76 +1,78 @@
 <div class="flex flex-row justify-center py-8 items-center">
-    <img class="w-14 rounded-lg" src="../../../../assets/logos/001.jpg" alt="">
-    <h1 class="text-3xl pl-4 font-semibold">ANTECEDENTES</h1>
+  <img class="w-14 rounded-lg" src="../../../../assets/logos/001.jpg" alt="">
+  <h1 class="text-3xl pl-4 font-semibold">ANTECEDENTES</h1>
 </div>
 
-<div class="px-10">
-    <div class="grid grid-cols-4 gap-x-5">
-        <div class=" flex items-center col-span-4 justify-center" *ngIf="!(loaded$ | async); else formulario">
-            <img class="w-8 h-8 absolute rounded-lg" src="../../../../assets/logos/simbolo solo.png">
-            <div class="border-blue-700 border-4 rounded-xl shadow-sm w-14 h-14  animate-spin"></div>
-        </div>
-        <ng-template #formulario>
-            <div>
-                <div class="flex flex-row py-2 gap-x-2 items-center">
-                    <img class="w-14 rounded-lg" src="../../../../assets/logos/016.jpg" alt="">
-                    <h2 class="text-3xl">Familiares</h2>
-                </div>
-                <div class="grid grid-cols-2 bg-gray-200 rounded-lg">
-                    <div *ngFor="let input of inputsFamiliares$ | async" class="p-5">
-                        <div class="flex flex-col justify-between">
-                            <div class="flex flex-row py-2 items-center gap-4">
-                                <img class="w-14 rounded-lg" src="../../../../assets/logos/017.jpg" alt="Logo Inicio Sesion">
-                                <label class="text-3xl">{{input.nombre}}</label>
-                            </div>
-                        </div>
-                        <div class="flex items-center flex-col pt-5 gap-y-5">
-                            <select class="form-select w-full flex self-center text-black pl-2 h-10" id="{{input.id}}">
-                                <option *ngFor="let option of input.options" value="{{ option.valor }}">
-                                    {{ option.nombre }}
-                                </option>
-                            </select>
-                            <select class="form-select w-full text-black pl-2 h-10" id="{{input.id}}">
-                                <option *ngFor="let option of input.options2" value="{{ option.valor }}">
-                                    {{ option.nombre }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex col-span-2 px-5 pb-5 h-full">
-                    <textarea name="" id="observacionesAntecedentesMedicina" class="resize-none pl-2 h-full w-full"></textarea>
-                </div>
-            </div>
-            <div class="col-span-2">
-                <div class="flex flex-row py-2 gap-x-2 items-center">
-                    <img class="w-14 rounded-lg" src="../../../../assets/logos/016.jpg" alt="">
-                    <h2 class="text-3xl">Personales</h2>
-                </div>
-                <div class="grid grid-cols-2 p-5 bg-gray-200 rounded-lg">
-                    <div *ngFor="let input of inputsPersonales$ | async" class="px-5">
-                        <div class="flex items-center justify-between">
-                            <div class="flex flex-row py-2 items-center gap-4">
-                                <img class="w-14 rounded-lg" src="../../../../assets/logos/017.jpg" alt="Logo Inicio Sesion">
-                                <label class="text-2xl">{{input.nombre}}</label>
-                            </div>
-                            <select class="form-select w-1/3 flex self-center text-black pl-2 h-10" id="{{input.id}}">
-                                <option *ngFor="let option of input.options" value="{{ option.valor }}">
-                                    {{ option.nombre }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="flex flex-row py-2 gap-x-2 items-center">
-                    <img class="w-14 rounded-lg" src="../../../../assets/logos/018.JPG" alt="">
-                    <h2 class="text-3xl">Observaciones</h2>
-                </div>
-                <div class="bg-gray-200 p-5 rounded-lg h-5/6">
-                    <textarea name="" id="observacionesAntecedentesMedicina" class="resize-none pl-2 h-full w-full"></textarea>
-                </div>
-            </div>
-        </ng-template>
+<div>
+  <div class="px-10 flex flex-col gap-y-5">
+    <div class="flex items-center justify-center h-96" *ngIf="!(loaded$ | async); else formulario">
+      <img class="w-8 h-8 absolute rounded-lg" src="../../../../assets/logos/simbolo solo.png">
+      <div class="border-blue-700 border-4 rounded-xl shadow-sm w-14 h-14 animate-spin"></div>
     </div>
+    <ng-template #formulario>
+      <form form [formGroup]="form" class="grid grid-cols-4 gap-x-5">
+          <div>
+              <div class="flex flex-row py-2 gap-x-2 items-center">
+                <img class="w-14 rounded-lg" src="../../../../assets/logos/016.jpg" alt="">
+                <h2 class="text-3xl">Familiares</h2>
+              </div>
+              <div class="grid grid-cols-2 p-5 bg-gray-200 rounded-lg">
+                  <div *ngFor="let input1 of inputsFamiliares$ | async" class="px-5">
+                    <div>
+                        <div class="flex flex-row py-2 items-center gap-4">
+                            <img class="w-12 rounded-lg" src="../../../../assets/logos/017.jpg" alt="Logo Inicio Sesion">
+                            <label class="text-3xl">{{input1.nombre}}</label>
+                        </div>
+                    </div>
+                    <div class="flex items-center flex-col pt-5 gap-y-5">
+                      <select formControlName="{{input1.for}}" class="form-select w-full flex self-center text-black pl-2 h-10" id="{{input1.id}}">
+                        <option *ngFor="let option of input1.options" value="{{ option.valor }}">
+                          {{ option.nombre }}
+                        </option>
+                      </select>
+                      <select formControlName="{{input1.for2}}" class="form-select w-full text-black pl-2 h-10" id="{{input1.id}}">
+                        <option *ngFor="let option of input1.options2" value="{{ option.valor }}">
+                              {{ option.nombre }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-span-2">
+            <div class="flex flex-row py-2 gap-x-2 items-center">
+              <img class="w-14 rounded-lg" src="../../../../assets/logos/016.jpg" alt="">
+              <h2 class="text-3xl">Personales</h2>
+            </div>
+            <div class="grid grid-cols-2 p-5 bg-gray-200 rounded-lg">
+              <div *ngFor="let input2 of inputsPersonales$ | async" class="px-5">
+                <div class="flex items-center justify-between">
+                  <div class="flex flex-row py-2 items-center gap-4">
+                    <img class="w-12 rounded-lg" src="../../../../assets/logos/017.jpg" alt="Logo Inicio Sesion">
+                    <label class="text-2xl">{{input2.nombre}}</label>
+                  </div>
+                  <select formControlName="{{input2.for}}" class="form-select w-1/3 flex self-center text-black pl-2 h-10" id="{{input2.id}}">
+                    <option *ngFor="let option of input2.options" value="{{ option.valor }}">
+                      {{ option.nombre }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+              <div class="flex flex-row py-2 gap-x-2 items-center">
+                <img class="w-14 rounded-lg" src="../../../../assets/logos/018.JPG" alt="">
+                <h2 class="text-3xl">Observaciones</h2>
+              </div>
+              <div class="bg-gray-200 rounded-lg flex col-span-2 p-5 px-5 pb-5 h-5/6">
+                <textarea formControlName="observacionesAntecedentesMedicina" id="observacionesAntecedentesMedicina" class="resize-none pl-2 h-full w-full"></textarea>
+              </div>
+          </div>
+        </form>
+    </ng-template>
+    <div class="flex pt-5 gap-x-5 justify-center">
+      <app-shared-paginacion (dataState)="saveData()" [pages]="9" [state]="state" (pageChange)="onPageChange($event)" [currentPage]="currentPage"></app-shared-paginacion>
+    </div>
+  </div>
 </div>

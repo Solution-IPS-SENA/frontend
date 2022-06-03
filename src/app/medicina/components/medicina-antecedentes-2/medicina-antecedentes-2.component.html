@@ -1,15 +1,15 @@
 <div class="flex flex-row justify-center py-8 items-center">
     <img class="w-14 rounded-lg" src="../../../../assets/logos/001.jpg" alt="">
-    <h1 class="text-3xl pl-4 font-semibold">ANTECEDENTES</h1>
+    <h1 class="text-3xl pl-4 font-semibold">ANTECEDENTES GINECO-OBSTÉTRICOS</h1>
 </div>
 
-<div class="px-10"> 
-    <div class="grid grid-cols-2 gap-x-5">
-        <div class=" flex items-center col-span-2 justify-center" *ngIf="!(loaded$ | async); else formulario">
-            <img class="w-8 h-8 absolute" src="../../../../assets/logos/simbolo solo.png">
-            <div class="border-blue-700 border-4 rounded-xl shadow-sm w-14 h-14  animate-spin"></div>
-        </div>
-        <ng-template #formulario>
+<div class="px-10 flex flex-col gap-y-5">
+  <div class="flex items-center justify-center h-96" *ngIf="!(loaded$ | async); else formulario">
+    <img class="w-8 h-8 absolute rounded-lg" src="../../../../assets/logos/simbolo solo.png">
+    <div class="border-blue-700 border-4 rounded-xl shadow-sm w-14 h-14 animate-spin"></div>
+  </div>
+  <ng-template #formulario>
+    <form [formGroup]="form" class="grid grid-cols-2 gap-x-5">
             <div>
                 <div class="flex flex-row py-2 gap-x-2 items-center">
                     <img class="w-14 rounded-lg" src="../../../../assets/logos/016.jpg" alt="">
@@ -17,13 +17,13 @@
                 </div>
                 <div class="grid grid-cols-2 p-5 bg-gray-200 rounded-lg">
                     <div *ngFor="let input of inputs$ | async" class="px-5">
-                        <div class="flex items-center justify-between">
+                        <div class="flex justify-between">
                             <div class="flex flex-row py-2 items-center gap-4">
-                                <img class="w-14 rounded-lg" src="../../../../assets/logos/017.jpg" alt="Logo Inicio Sesion">
+                                <img class="w-12 rounded-lg" src="../../../../assets/logos/017.jpg" alt="Logo Inicio Sesion">
                                 <label class="text-2xl">{{input.nombre}}</label>
                             </div>
-                            <input *ngIf="(input.type=='date')" type="{{ input.type }}" class="form-input w-1/3 flex self-center text-black pl-2 h-10" id="{{ input.id }}" />
-                            <select *ngIf="(input.type=='select')" class="form-select w-1/3 flex self-center text-black pl-2 h-10" id="{{input.id}}">
+                            <input *ngIf="(input.type=='date')" formControlName="{{input.for}}" type="{{ input.type }}" class="form-input w-1/3 flex self-center text-black pl-2 h-10" id="{{ input.id }}" />
+                            <select *ngIf="(input.type=='select')" formControlName="{{input.for}}" class="form-select w-1/3 flex self-center text-black pl-2 h-10" id="{{input.id}}">
                                 <option *ngFor="let option of input.options" value="{{ option.valor }}">
                                     {{ option.nombre }}
                                 </option>
@@ -38,9 +38,13 @@
                     <h2 class="text-3xl">Observaciones</h2>
                 </div>
                 <div class="bg-gray-200 p-5 rounded-lg h-5/6">
-                    <textarea name="" id="observacionesAntecedentesMedicina" class="resize-none pl-2 h-full w-full"></textarea>
+                    <textarea formControlName="observacionesAntecedentes2Medicina" id="observacionesAntecedentesMedicina" class="resize-none pl-2 h-full w-full"></textarea>
                 </div>
             </div>
-        </ng-template>
-    </div>
+
+          </form>
+  </ng-template>
+  <div class="flex pt-5 gap-x-5 justify-center w-full static bottom-0">
+    <app-shared-paginacion (dataState)="saveData()" [pages]="9" [state]="state" (pageChange)="onPageChange($event)" [currentPage]="currentPage"></app-shared-paginacion>
+  </div>
 </div>

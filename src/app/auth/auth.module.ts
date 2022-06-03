@@ -7,6 +7,7 @@ import { AuthRegistroComponent } from './components/auth-registro/auth-registro.
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './pages/login.component';
 import { RegistroComponent } from './pages/registro.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -17,8 +18,9 @@ import { RegistroComponent } from './pages/registro.component';
   ],
   imports: [
     CommonModule,
-    SharedModule
-  ], 
+    SharedModule,
+    RouterModule
+  ],
   exports:[
     LoginComponent,
     RegistroComponent

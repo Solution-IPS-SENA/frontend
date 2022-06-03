@@ -1,7 +1,5 @@
-<div class="h-full flex flex-col gap-y-7">
-    <app-shared-nav-bar class="flex-[2] max-h-[30rem]"></app-shared-nav-bar>
-    <app-psicologia-accidentes-enfermedades class="flex-1 "></app-psicologia-accidentes-enfermedades>
-    <div class="flex flex-1 justify-center gap-x-5">
-        <app-shared-paginacion [pages]="4" ></app-shared-paginacion>
-    </div>
+<div class="flex flex-col max-h-full pb-5 gap-y-5">
+  <app-shared-nav-bar [titulo]="titulo"></app-shared-nav-bar>
+  <router-outlet></router-outlet>
 </div>
+ 

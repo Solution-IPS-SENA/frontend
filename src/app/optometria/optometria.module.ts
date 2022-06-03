@@ -10,6 +10,7 @@ import { OptometriaAgudezaVisualComponent } from './components/optometria-agudez
 import { OptometriaHallazgosComponent } from './components/optometria-hallazgos/optometria-hallazgos.component';
 import { OptometriaRoutingModule } from './optometria-routing.module';
 import { NavbarConfiguracionRutasService } from '../shared/services/navbar-configuracion-rutas.service';
+import { OptometriaCierreHistoriaClinicaComponent } from './components/optometria-cierre-historia-clinica/optometria-cierre-historia-clinica.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NavbarConfiguracionRutasService } from '../shared/services/navbar-confi
     OptometriaComponent,
     OptometriaSintomasComponent,
     OptometriaAgudezaVisualComponent,
-    OptometriaHallazgosComponent
+    OptometriaHallazgosComponent,
+    OptometriaCierreHistoriaClinicaComponent
   ],
   imports: [
     CommonModule,

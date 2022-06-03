@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavbarConfiguracionRutasService } from '../../services/navbar-configuracion-rutas.service';
 
 @Component({
@@ -12,6 +12,8 @@ export class SharedNavBarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  @Input() titulo!:string;
 
   public get urlDatosPaciente() {
     return this.navBarConfig.rutaDatosPaciente;

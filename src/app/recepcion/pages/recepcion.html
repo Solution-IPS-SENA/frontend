@@ -1,4 +1,6 @@
-<div class="h-full flex flex-col gap-y-16">
-    <app-shared-nav-bar-menus class="flex-[2] max-h-[30rem]"></app-shared-nav-bar-menus>
-    <app-menu-modulo-admin-paciente [opciones]="opcionesClinico" class="flex-[2]"></app-menu-modulo-admin-paciente>
+<div class="h-screen flex flex-col justify-center">
+    <app-shared-nav-bar-menus [titulo]="titulo" class="w-full max-h-[30rem]"></app-shared-nav-bar-menus>
+    <div class="flex h-full items-center">
+      <app-menu-modulo-clinico [opciones]="opcionesClinico" class="w-full"></app-menu-modulo-clinico>
+    </div>
 </div>

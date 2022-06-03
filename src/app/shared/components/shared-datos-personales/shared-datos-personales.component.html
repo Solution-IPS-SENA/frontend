@@ -10,21 +10,20 @@
                 <div class="border-blue-700 border-4 rounded-xl shadow-sm w-14 h-14  animate-spin"></div>
             </div>
             <ng-template #formulario>
-                <form class="flex flex-col items-center gap-y-4 w-full" action="">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-y-4 w-full" action="">
                     <div *ngFor="let input of inputs$ | async" class="grid grid-cols-2 gap-x-5 w-full">
                         <label for="{{ input.for }}" class="text-xl">{{ input.nombre }}:</label>
                         <div *ngIf="(input.type!='select')">
-                            
-                            <input type="{{ input.type }}" class="form-input w-full text-black pl-2 h-10 border-solid border-black border-[1.5px]" id="{{ input.id }}" />
+                            <input type="{{ input.type }}" formControlName="{{input.for}}" class="form-input w-full text-black pl-2 h-10 border-solid border-black border-[1.5px]" id="{{ input.id }}"/>
                         </div>
                         <div *ngIf="(input.type=='select')">
-                            <select class="form-select w-full text-black pl-2 h-10 border-solid border-black border-[1.5px]" id="{{ input.id }}">
+                            <select formControlName="{{input.for}}" class="form-select w-full text-black pl-2 h-10 border-solid border-black border-[1.5px]" id="{{ input.id }}">
                                 <option *ngFor="let option of input.options" value="{{ option.valor }}">
                                     {{ option.nombre }}
                                 </option>
                             </select>
                         </div>
-                    </div> 
+                    </div>
                 </form>
             </ng-template>
         </div>

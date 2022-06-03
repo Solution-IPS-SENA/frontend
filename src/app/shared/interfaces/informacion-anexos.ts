@@ -36,4 +36,7 @@ export interface InformacionAnexos {
     genero?: string[];
     lugarDeNacimiento?: string[];
     nacionalidad?: string[];
+    paises?: string[];
+    motivo?: string[];
+    concepto?: string[];
 }

@@ -20,26 +20,28 @@ export class AgendamientoCitasComponent implements OnInit {
 
   sino = [];
   normalidad = [];
-  
+  titulo: string;
+
   loaded$ = of(false);
-  
+
   inputs$?: Observable<InputDatos[]> = of([
     { id: "servicioAgendamiento", nombre: "Seleccione el servicio", for: "servicioAgendamiento", options: this.sino},
     { id: "profesionalAgendamiento", nombre: "Seleccione el profesional, si es un servicio unico", for: "profesionalAgendamiento", options: this.sino},
   ]);
-  
+
   constructor(private obtenerAnexosService: ObtenerAnexosService){
+    this.titulo = 'Citas Medicas';
     this.myFilter
     this.obtenerAnexosService.getAnexos(["sino","normalidad"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
         this.sino = this.formatear_datos(response.sino)
         this.normalidad = this.formatear_datos(response.normalidad)
-        
+
         this.inputs$ = of([
           { id: "servicioAgendamiento", nombre: "Seleccione el servicio", for: "servicioAgendamiento", options: this.sino },
           { id: "profesionalAgendamiento", nombre: "Seleccione el profesional, si es un servicio unico", for: "profesionalAgendamiento", options: this.sino},
         ])
-        
+
         this.loaded$ = of(true);
       }
       )

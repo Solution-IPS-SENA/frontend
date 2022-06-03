@@ -1,7 +1,5 @@
-<div class="h-screen flex flex-col pb-5 gap-y-5">
-    <app-shared-nav-bar></app-shared-nav-bar>
+<div class="flex flex-col max-h-full pb-5 gap-y-5">
+    <app-shared-nav-bar [titulo]="titulo"></app-shared-nav-bar>
     <router-outlet></router-outlet>
-    <div class="flex justify-center">
-        <app-shared-paginacion class="flex-[-1]" [pages]="6" (pageChange)="onPageChange($event)" [currentPage]="currentPage"></app-shared-paginacion>
-    </div>
-</div>
+  </div>
+ 

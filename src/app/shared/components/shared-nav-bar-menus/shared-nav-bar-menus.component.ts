@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-shared-nav-bar-menus',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shared-nav-bar-menus.component.css']
 })
 export class SharedNavBarMenusComponent implements OnInit {
+
+  @Input() titulo!: string;
 
   constructor() { }
 

@@ -14,6 +14,7 @@ import { SharedPaginacionComponent } from './components/shared-paginacion/shared
 import { HttpClientModule } from '@angular/common/http';
 import { SharedCierreHistoriaClinicaComponent } from './components/shared-cierre-historia-clinica/shared-cierre-historia-clinica.component'
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports:[
     SharedNavBarComponent,
@@ -41,9 +43,10 @@ import { RouterModule } from '@angular/router';
     SharedObservacionesComponent,
     SharedNavBarMenusComponent,
     formularioPrincipalComponent,
-    SharedPaginacionComponent
+    SharedPaginacionComponent,
+    ReactiveFormsModule
   ],
 })
-export class SharedModule { 
+export class SharedModule {
 
 }

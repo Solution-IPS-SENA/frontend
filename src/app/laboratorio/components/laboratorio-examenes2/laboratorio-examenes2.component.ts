@@ -1,15 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { InputDatos } from 'src/app/shared/interfaces/input-datos';
-import { delay, Observable, of } from 'rxjs';
+import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
-
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-laboratorio-examenes2',
   templateUrl: './laboratorio-examenes2.component.html',
   styleUrls: ['./laboratorio-examenes2.component.css']
 })
 export class LaboratorioExamenes2Component implements OnInit {
+
+  public currentPage = 0;
+  form!: FormGroup;
+  state: boolean = false;
+  private lifecycleSubj: Subject<string> = new Subject<string>();
+
+  public onPageChange(currentPage: number) {
+    this.router.navigate(['/historias', 'laboratorio', currentPage]).then(() => {
+      this.currentPage = this.getCurrentPageUrl();
+    });
+  }
+
+  public getCurrentPageUrl(): number {
+    const urlSegments = this.router.url.split('/');
+    return parseInt(urlSegments[urlSegments.length - 1] ?? '0');
+  }
 
   normalidad = [];
   loaded$ = of(false);
@@ -29,7 +46,53 @@ export class LaboratorioExamenes2Component implements OnInit {
     { id: "otro", nombre: "Otro", for: "otro", options: this.normalidad},
   ]);
 
-  constructor(private obtenerAnexosService: ObtenerAnexosService){
+  public get lifecycle$() {
+    return this.lifecycleSubj.asObservable();
+  }
+
+  constructor(
+    private obtenerAnexosService: ObtenerAnexosService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
+
+  createForm(data?: any){
+    this.form = this.fb.group({
+      tsh: [data ? data.tsh : this.normalidad[0]["valor"] , Validators.required],
+      creatinina: [data ? data.creatinina : this.normalidad[0]["valor"] , Validators.required],
+      pruebasFuncionHepatica: [data ? data.pruebasFuncionHepatica : this.normalidad[0]["valor"] ,Validators.required],
+      proteinaCReactiva: [data ? data.proteinaCReactiva : this.normalidad[0]["valor"] ,Validators.required],
+      tiempoProtrombina: [data ? data.tiempoProtrombina : this.normalidad[0]["valor"] ,Validators.required],
+      tiempoParcialTromboplastina: [data ? data.tiempoParcialTromboplastina : this.normalidad[0]["valor"], Validators.required],
+      acidoUrico: [data ? data.acidoUrico : this.normalidad[0]["valor"], Validators.required],
+      antigenoProstatico: [data ? data.antigenoProstatico : this.normalidad[0]["valor"], Validators.required],
+      gasesArteriales: [data ? data.gasesArteriales : this.normalidad[0]["valor"], Validators.required],
+      vdrl: [data ? data.vdrl : this.normalidad[0]["valor"], Validators.required],
+      gravidez: [data ? data.gravidez : this.normalidad[0]["valor"], Validators.required],
+      otro: [data ? data.otro : this.normalidad[0]["valor"], Validators.required],
+      observacionesExamenes2Laboratorio: [data ? data.observacionesExamenes2Laboratorio : '']
+    });
+  }
+
+  formatear_datos(objeto: any): any{
+    let data: {valor: string, nombre: string}[] = [];
+    objeto.forEach((el: any) => {
+      data.push(
+        {
+          valor: el,
+          nombre: el
+        }
+      )
+    })
+    return data
+  }
+
+  ngOnInit(): void {
+    let dataRecovery = localStorage.getItem("laboratorioExamenes2");
+    dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
+
+    this.currentPage = this.getCurrentPageUrl();
+    this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["normalidad"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
         this.normalidad = this.formatear_datos(response.normalidad)
@@ -47,26 +110,33 @@ export class LaboratorioExamenes2Component implements OnInit {
           { id: "vdrl", nombre: "Vdrl", for: "vdrl", options: this.normalidad},
           { id: "gravidez", nombre: "Gravidez", for: "gravidez", options: this.normalidad},
           { id: "otro", nombre: "Otro", for: "otro", options: this.normalidad},
-  ])
+        ])
+
         this.loaded$ = of(true);
+        this.createForm(dataRecovery);
+        this.state = this.form.valid;
+        this.form.valueChanges
+        .pipe(
+          takeUntil(this.lifecycle$.pipe(filter(state => state == "destroy")))
+        )
+        .subscribe(
+          () => {
+            this.state = this.form.valid
+          }
+        )
       }
     )
+    this.lifecycleSubj.next("init");
   }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
+  ngOnDestroy(): void {
+    this.lifecycleSubj.next("destroy");
+    this.lifecycleSubj.complete();
   }
 
-  ngOnInit(): void {
+  saveData(){
+    let data = this.form.value;
+    localStorage.setItem("laboratorioExamenes2", JSON.stringify(data));
   }
-
 }
+

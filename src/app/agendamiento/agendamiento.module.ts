@@ -5,6 +5,8 @@ import { SharedModule } from '../shared/shared.module';
 import { CitasComponent } from './pages/citas.components';
 import { AgendamientoCitasComponent } from './components/agendamiento-citas/agendamiento-citas.component';
 import { AgendamientoConsultaCitasComponent } from './components/agendamiento-consulta-citas/agendamiento-consulta-citas.component';
+import { AgendamientoRoutingModule } from './agendamiento-routing.module';
+import { NavbarConfiguracionRutasService } from '../shared/services/navbar-configuracion-rutas.service';
 
 @NgModule({
   declarations: [
@@ -14,10 +16,16 @@ import { AgendamientoConsultaCitasComponent } from './components/agendamiento-co
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    AgendamientoRoutingModule
   ],
   exports: [
       CitasComponent
   ]
 })
-export class AgendamientoModule { }
+export class AgendamientoModule {
+  constructor(navBar: NavbarConfiguracionRutasService) {
+    navBar.definirRutaDatosPaciente('/historias/agendamiento');
+    navBar.definirRutaHistoriaClinica('/historias/agendamiento/1');
+  }
+}

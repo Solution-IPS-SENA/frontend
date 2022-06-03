@@ -8,8 +8,10 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 export class SharedPaginacionComponent implements OnInit {
 
   @Input() pages: number = 1;
-  @Output() pageChange = new EventEmitter<number>();
   @Input() public currentPage = 0;
+  @Input() state!: boolean | null;
+  @Output() pageChange = new EventEmitter<number>();
+  @Output() dataState = new EventEmitter<any>();
 
   constructor() {
     this.currentPage = 1;
@@ -25,6 +27,7 @@ export class SharedPaginacionComponent implements OnInit {
   nextPage(){
     let op = this.currentPage += 1;
     this.currentPage = op > this.pages ? this.pages : op;
+    this.dataState.emit();
     this.pageChange.emit(this.currentPage);
   }
 

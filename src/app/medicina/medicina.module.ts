@@ -11,6 +11,9 @@ import { MedicinaRevisionSistemasComponent } from './components/medicina-revisio
 import { MedicinaFactorRiesgoComponent } from './components/medicina-factor-riesgo/medicina-factor-riesgo.component';
 import { MedicinaAntecedentesOcupacionalesComponent } from './components/medicina-antecedentes-ocupacionales/medicina-antecedentes-ocupacionales.component';
 import { MedicinaDatosOcupacionalesComponent } from './components/medicina-datos-ocupacionales/medicina-datos-ocupacionales.component';
+import { MedicinaRoutingModule } from './medicina-routing.module';
+import { NavbarConfiguracionRutasService } from '../shared/services/navbar-configuracion-rutas.service';
+import { MedicinaCierreHistoriaClinicaComponent } from './components/medicina-cierre-historia-clinica/medicina-cierre-historia-clinica.component';
 
 
 @NgModule({
@@ -23,15 +26,22 @@ import { MedicinaDatosOcupacionalesComponent } from './components/medicina-datos
     MedicinaRevisionSistemasComponent,
     MedicinaFactorRiesgoComponent,
     MedicinaAntecedentesOcupacionalesComponent,
-    MedicinaDatosOcupacionalesComponent
+    MedicinaDatosOcupacionalesComponent,
+    MedicinaCierreHistoriaClinicaComponent
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    MedicinaRoutingModule
   ],
   exports:[
     MedicinaComponent
   ]
 })
 
-export class MedicinaModule { }
+export class MedicinaModule {
+  constructor(navBar: NavbarConfiguracionRutasService) {
+    navBar.definirRutaDatosPaciente('/historias/medicina');
+    navBar.definirRutaHistoriaClinica('/historias/medicina/1');
+  }
+}
