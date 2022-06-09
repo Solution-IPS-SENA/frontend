@@ -1,4 +1,5 @@
 export interface InformacionAnexos {
+    tipoDeDocumento(tipoDeDocumento: any): never[];
     normalidad?: string[];
     sino?: string[];
     referencia?: string[];

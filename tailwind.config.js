@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'banner': "url('src/assets/logos/222.png')", 
+        'banner': "url('src/assets/logos/222.png')",
       }, gridTemplateRows: {
         '40/60': '40vh 60vh'
       },
@@ -17,7 +17,9 @@ module.exports = {
       },
       gridTemplateColumns: {
         '20-30x2': '20% repeat(2, 37%)',
-        'abc': '3fr 1fr 1fr 2fr 2fr'
+        'abc': '3fr 1fr 1fr 2fr 2fr',
+        'certificadosGrid': '2fr 1fr 2fr'
+
       }
     }
   },
@@ -26,5 +28,5 @@ module.exports = {
   },
   plugins: [],
 
-  
+
 }

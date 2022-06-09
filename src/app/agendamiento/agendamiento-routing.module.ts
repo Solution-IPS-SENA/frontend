@@ -11,9 +11,8 @@ import { CitasComponent } from './pages/citas.components';
 const routes: Routes = [
   { path: '', component: CitasComponent,
   children: [
-    { path: '', pathMatch: 'full', component: formularioPrincipalComponent },
+    { path: '', pathMatch: 'full', component: AgendamientoCitasComponent },
     { path: '1', component: AgendamientoConsultaCitasComponent },
-    { path: '2', component: AgendamientoCitasComponent }
   ]},
 ]
 

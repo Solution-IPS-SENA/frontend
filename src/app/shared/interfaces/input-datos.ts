@@ -7,10 +7,10 @@ export interface InputDatos {
 }
 
 export interface InputDatosType {
-    id: string,
-    nombre: string,
+    id?: string,
+    nombre?: string,
     type?: string,
-    for: string,
+    for?: string,
     for2?: string,
     value?: string,
     options?: OpcionesSelect[]

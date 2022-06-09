@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: 'psicologia', loadChildren: () => import('../../psicologia/psicologia.module').then(m => m. PsicologiaModule) },
   { path: 'laboratorio', loadChildren: () => import('../../laboratorio/laboratorio.module').then(m => m. LaboratorioModule) },
   { path: 'agendamiento', loadChildren: () => import('../../agendamiento/agendamiento.module').then(m => m. AgendamientoModule) },
-  
+  { path: 'certificaciones', loadChildren: () => import('../../certificaciones/certificaciones.module').then(m => m. CertificacionesModule) },
 ];
 
 @NgModule({
