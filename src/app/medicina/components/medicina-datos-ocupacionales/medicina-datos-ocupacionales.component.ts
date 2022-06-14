@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-medicina-datos-ocupacionales',
@@ -79,18 +80,18 @@ export class MedicinaDatosOcupacionalesComponent implements OnInit, OnDestroy {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      equiposUtilizados: [data ? data.equiposUtilizados : this.equiposUtilizados[0]["valor"] , Validators.required],
+      equiposUtilizados: [data ? data.equiposUtilizados : this.equiposUtilizados[0]["valor"] , [Validators.required, inAnexoValidator(this.equiposUtilizados)]],
       actividadPrincipalRealizada: [data ? data.actividadPrincipalRealizada : ''],
       empresa1: [data ? data.empresa1 : ''],
       diagnostico1: [data ? data.diagnostico1 : ''],
       empresa2: [data ? data.empresa2 : ''],
       diagnostico2: [data ? data.diagnostico2 : ''],
-      select1Emp1: [data ? data.select1Emp1 : this.riesgosLaborales[0]["valor"] , Validators.required],
+      select1Emp1: [data ? data.select1Emp1 : this.riesgosLaborales[0]["valor"] , [Validators.required, inAnexoValidator(this.riesgosLaborales)]],
       select2Emp1: [data ? data.select2Emp1 : ''],
-      select3Emp1: [data ? data.select3Emp1 : this.institucion[0]["valor"] ,Validators.required],
-      select1Emp2: [data ? data.select1Emp2 : this.riesgosLaborales[0]["valor"] ,Validators.required],
+      select3Emp1: [data ? data.select3Emp1 : this.institucion[0]["valor"] ,[Validators.required, inAnexoValidator(this.institucion)]],
+      select1Emp2: [data ? data.select1Emp2 : this.riesgosLaborales[0]["valor"] ,[Validators.required, inAnexoValidator(this.riesgosLaborales)]],
       select2Emp2: [data ? data.select2Emp2 : ''],
-      select3Emp2: [data ? data.select3Emp2 : this.institucion[0]["valor"] ,Validators.required]
+      select3Emp2: [data ? data.select3Emp2 : this.institucion[0]["valor"] ,[Validators.required, inAnexoValidator(this.institucion)]]
     });
   }
 

@@ -2,7 +2,7 @@
     <img class="w-14 rounded-lg" src="../../../../assets/logos/001.jpg" alt="">
     <h1 class="text-3xl pl-4 font-semibold">ANTECEDENTES OCUPACIONALES</h1>
   </div>
-   
+
   <div class="px-10 flex flex-col gap-y-5">
       <div class=" flex items-center justify-center h-96" *ngIf="!(loaded$ | async); else formulario">
           <img class="w-8 h-8 absolute" src="../../../../assets/logos/simbolo solo.png">
@@ -18,7 +18,7 @@
                                   <img class="w-12 rounded-lg" src="{{input.img}}" alt="Logo Optometria">
                                   <label for="{{input.for}}" class="text-2xl">{{input.nombre}}</label>
                               </div>
-                              <select *ngIf="(input.id != 'observacionesAntecedentesOcupacionales')" formControlName="{{input.for}}" class="form-select w-1/3 text-black pl-2 h-10" id="{{input.id}}">
+                              <select formControlName="{{input.for}}" class="form-select w-1/3 text-black pl-2 h-10" id="{{input.id}}">
                                   <option *ngFor="let option of input.options" value="{{ option.valor }}">
                                       {{ option.nombre }}
                                   </option>
@@ -30,15 +30,14 @@
               <div>
                   <div class="flex py-3 items-center gap-4">
                       <img class="w-12 rounded-lg" src="../../../../assets/logos/018.JPG" alt="observaciones">
-                      <label for="observacionesAntecedentesOcupacionales" class="text-2xl">Observaciones</label>
+                      <label for="ant_ocu_obs" class="text-2xl">Observaciones</label>
                   </div>
-                  <textarea name="observaciones" formControlName="observacionesAntecedentesOcupacionales" class="resize-none w-full h-4/6" id="observacionesAntecedentesOcupacionales" ></textarea>
+                  <textarea name="observaciones" formControlName="ant_ocu_obs" class="resize-none w-full h-4/6 pl-2" id="ant_ocu_obs" ></textarea>
               </div>
           </form>
       </ng-template>
-  
+
       <div class="flex py-5 justify-center">
         <app-shared-paginacion (dataState)="saveData()" [pages]="6" [state]="state" (pageChange)="onPageChange($event)" [currentPage]="currentPage"></app-shared-paginacion>
       </div>
   </div>
-  

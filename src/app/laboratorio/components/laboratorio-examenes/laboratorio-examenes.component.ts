@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-laboratorio-examenes',
@@ -59,18 +60,18 @@ export class LaboratorioExamenesComponent implements OnInit {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      cuadroHematico: [data ? data.cuadroHematico : this.normalidad[0]["valor"] , Validators.required],
-      glicemia: [data ? data.glicemia : this.normalidad[0]["valor"] , Validators.required],
-      colesterolTotal: [data ? data.colesterolTotal : this.normalidad[0]["valor"] ,Validators.required],
-      colesterolHDL: [data ? data.colesterolHDL : this.normalidad[0]["valor"] ,Validators.required],
-      colesterolLDL: [data ? data.colesterolLDL : this.normalidad[0]["valor"] ,Validators.required],
-      trigliceridos: [data ? data.trigliceridos : this.normalidad[0]["valor"], Validators.required],
-      parcialOrina: [data ? data.parcialOrina : this.normalidad[0]["valor"], Validators.required],
-      cultivoOrina: [data ? data.cultivoOrina : this.normalidad[0]["valor"], Validators.required],
-      coprologico: [data ? data.coprologico : this.normalidad[0]["valor"], Validators.required],
-      frotisFaringeo: [data ? data.frotisFaringeo : this.normalidad[0]["valor"], Validators.required],
-      cultivoFaringeo: [data ? data.cultivoFaringeo : this.normalidad[0]["valor"], Validators.required],
-      koh: [data ? data.koh : this.normalidad[0]["valor"], Validators.required],
+      cuadroHematico: [data ? data.cuadroHematico : this.normalidad[0]["valor"] , [Validators.required, inAnexoValidator(this.normalidad)]],
+      glicemia: [data ? data.glicemia : this.normalidad[0]["valor"] , [Validators.required, inAnexoValidator(this.normalidad)]],
+      colesterolTotal: [data ? data.colesterolTotal : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+      colesterolHDL: [data ? data.colesterolHDL : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+      colesterolLDL: [data ? data.colesterolLDL : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+      trigliceridos: [data ? data.trigliceridos : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      parcialOrina: [data ? data.parcialOrina : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      cultivoOrina: [data ? data.cultivoOrina : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      coprologico: [data ? data.coprologico : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      frotisFaringeo: [data ? data.frotisFaringeo : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      cultivoFaringeo: [data ? data.cultivoFaringeo : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      koh: [data ? data.koh : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
       observacionesExamenes1Laboratorio: [data ? data.observacionesExamenes1Laboratorio : '']
     });
   }

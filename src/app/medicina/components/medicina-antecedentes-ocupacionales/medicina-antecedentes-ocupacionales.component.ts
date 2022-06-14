@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-medicina-antecedentes-ocupacionales',
@@ -86,30 +87,30 @@ export class MedicinaAntecedentesOcupacionalesComponent implements OnInit, OnDes
 
   createForm(data?: any){
     this.form = this.fb.group({
-      fisicoFactorRiesgoOcupacional1: [data ? data.fisicoFactorRiesgoOcupacional1 : this.fisico[0]["valor"] , Validators.required],
-      biologicoFactorRiesgoOcupacional1: [data ? data.biologicoFactorRiesgoOcupacional1 : this.biologico[0]["valor"] , Validators.required],
-      quimicoFactorRiesgoOcupacional1: [data ? data.quimicoFactorRiesgoOcupacional1 : this.quimico[0]["valor"] ,Validators.required],
-      seguridadFactorRiesgoOcupacional1: [data ? data.seguridadFactorRiesgoOcupacional1 : this.seguridad[0]["valor"] ,Validators.required],
-      biomecanicoFactorRiesgoOcupacional1: [data ? data.biomecanicoFactorRiesgoOcupacional1 : this.biomecanico[0]["valor"] ,Validators.required],
-      psicosocialFactorRiesgoOcupacional1: [data ? data.psicosocialFactorRiesgoOcupacional1 : this.psicosocial[0]["valor"] ,Validators.required],
-      fisicoFactorRiesgoOcupacional2: [data ? data.fisicoFactorRiesgoOcupacional2 : this.fisico[0]["valor"] , Validators.required],
-      biologicoFactorRiesgoOcupacional2: [data ? data.biologicoFactorRiesgoOcupacional2 : this.biologico[0]["valor"] , Validators.required],
-      quimicoFactorRiesgoOcupacional2: [data ? data.quimicoFactorRiesgoOcupacional2 : this.quimico[0]["valor"] ,Validators.required],
-      seguridadFactorRiesgoOcupacional2: [data ? data.seguridadFactorRiesgoOcupacional2 : this.seguridad[0]["valor"] ,Validators.required],
-      biomecanicoFactorRiesgoOcupacional2: [data ? data.biomecanicoFactorRiesgoOcupacional2 : this.biomecanico[0]["valor"] ,Validators.required],
-      psicosocialFactorRiesgoOcupacional2: [data ? data.psicosocialFactorRiesgoOcupacional2 : this.psicosocial[0]["valor"] ,Validators.required],
-      fisicoFactorRiesgoOcupacional3: [data ? data.fisicoFactorRiesgoOcupacional3 : this.fisico[0]["valor"] , Validators.required],
-      biologicoFactorRiesgoOcupacional3: [data ? data.biologicoFactorRiesgoOcupacional3 : this.biologico[0]["valor"] , Validators.required],
-      quimicoFactorRiesgoOcupacional3: [data ? data.quimicoFactorRiesgoOcupacional3 : this.quimico[0]["valor"] ,Validators.required],
-      seguridadFactorRiesgoOcupacional3: [data ? data.seguridadFactorRiesgoOcupacional3 : this.seguridad[0]["valor"] ,Validators.required],
-      biomecanicoFactorRiesgoOcupacional3: [data ? data.biomecanicoFactorRiesgoOcupacional3 : this.biomecanico[0]["valor"] ,Validators.required],
-      psicosocialFactorRiesgoOcupacional3: [data ? data.psicosocialFactorRiesgoOcupacional3 : this.psicosocial[0]["valor"] ,Validators.required],
-      fisicoFactorRiesgoOcupacional4: [data ? data.fisicoFactorRiesgoOcupacional4 : this.fisico[0]["valor"] , Validators.required],
-      biologicoFactorRiesgoOcupacional4: [data ? data.biologicoFactorRiesgoOcupacional4 : this.biologico[0]["valor"] , Validators.required],
-      quimicoFactorRiesgoOcupacional4: [data ? data.quimicoFactorRiesgoOcupacional4 : this.quimico[0]["valor"] ,Validators.required],
-      seguridadFactorRiesgoOcupacional4: [data ? data.seguridadFactorRiesgoOcupacional4 : this.seguridad[0]["valor"] ,Validators.required],
-      biomecanicoFactorRiesgoOcupacional4: [data ? data.biomecanicoFactorRiesgoOcupacional4 : this.biomecanico[0]["valor"] ,Validators.required],
-      psicosocialFactorRiesgoOcupacional4: [data ? data.psicosocialFactorRiesgoOcupacional4 : this.psicosocial[0]["valor"] ,Validators.required],
+      fisicoFactorRiesgoOcupacional1: [data ? data.fisicoFactorRiesgoOcupacional1 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
+      biologicoFactorRiesgoOcupacional1: [data ? data.biologicoFactorRiesgoOcupacional1 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
+      quimicoFactorRiesgoOcupacional1: [data ? data.quimicoFactorRiesgoOcupacional1 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
+      seguridadFactorRiesgoOcupacional1: [data ? data.seguridadFactorRiesgoOcupacional1 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
+      biomecanicoFactorRiesgoOcupacional1: [data ? data.biomecanicoFactorRiesgoOcupacional1 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
+      psicosocialFactorRiesgoOcupacional1: [data ? data.psicosocialFactorRiesgoOcupacional1 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
+      fisicoFactorRiesgoOcupacional2: [data ? data.fisicoFactorRiesgoOcupacional2 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
+      biologicoFactorRiesgoOcupacional2: [data ? data.biologicoFactorRiesgoOcupacional2 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
+      quimicoFactorRiesgoOcupacional2: [data ? data.quimicoFactorRiesgoOcupacional2 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
+      seguridadFactorRiesgoOcupacional2: [data ? data.seguridadFactorRiesgoOcupacional2 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
+      biomecanicoFactorRiesgoOcupacional2: [data ? data.biomecanicoFactorRiesgoOcupacional2 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
+      psicosocialFactorRiesgoOcupacional2: [data ? data.psicosocialFactorRiesgoOcupacional2 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
+      fisicoFactorRiesgoOcupacional3: [data ? data.fisicoFactorRiesgoOcupacional3 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
+      biologicoFactorRiesgoOcupacional3: [data ? data.biologicoFactorRiesgoOcupacional3 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
+      quimicoFactorRiesgoOcupacional3: [data ? data.quimicoFactorRiesgoOcupacional3 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
+      seguridadFactorRiesgoOcupacional3: [data ? data.seguridadFactorRiesgoOcupacional3 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
+      biomecanicoFactorRiesgoOcupacional3: [data ? data.biomecanicoFactorRiesgoOcupacional3 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
+      psicosocialFactorRiesgoOcupacional3: [data ? data.psicosocialFactorRiesgoOcupacional3 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
+      fisicoFactorRiesgoOcupacional4: [data ? data.fisicoFactorRiesgoOcupacional4 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
+      biologicoFactorRiesgoOcupacional4: [data ? data.biologicoFactorRiesgoOcupacional4 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
+      quimicoFactorRiesgoOcupacional4: [data ? data.quimicoFactorRiesgoOcupacional4 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
+      seguridadFactorRiesgoOcupacional4: [data ? data.seguridadFactorRiesgoOcupacional4 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
+      biomecanicoFactorRiesgoOcupacional4: [data ? data.biomecanicoFactorRiesgoOcupacional4 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
+      psicosocialFactorRiesgoOcupacional4: [data ? data.psicosocialFactorRiesgoOcupacional4 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
       observacionesAntecedentesOcupacional: [data ? data.observacionesAntecedentesOcupacional : ''],
     });
   }

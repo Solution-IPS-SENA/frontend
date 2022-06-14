@@ -5,6 +5,7 @@ import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-optometria-cierre-historia-clinica',
@@ -13,6 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestroy {
 
+  llavesData = ["optometriaAntecedentesPersonales","optometriaAntecedentesOcupacionales","optometriaSintomas","optometriaAgudezaVisual","optometriaHallazgos","optometriaCierreHistoria"]
   public currentPage = 0;
   form!: FormGroup;
   state: boolean = false;
@@ -37,7 +39,7 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
 
   inputs$?: Observable<InputDatos[]> = of([
     { id: "motivo", nombre: "Motivo", for: "motivo", options: this.motivo},
-    { id: "remitido", nombre: "Remitido", for: "remitido", options: this.remitido},
+    { id: "cie_concep_reco_mot", nombre: "Remitido", for: "cie_concep_reco_mot", options: this.remitido},
   ]);
 
   inputConcepto$?: Observable<InputDatos[]> = of([
@@ -56,18 +58,14 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
 
   createForm(data?: any){
     this.form = this.fb.group({
-      motivo: [data ? data.motivo : this.motivo[0]["valor"]],
-      remitido: [data ? data.remitido : this.remitido[0]["valor"]],
-      checkboxAplazado: [data ? data.checkboxAplazado : ''],
-      concepto: [data ? data.concepto : this.concepto[0]["valor"] , Validators.required],
-      optometriaHistoriaFamiliar: [data ? data.optometriaHistoriaFamiliar : '', Validators.required],
-      optometriaRestricciones: [data ? data.optometriaRestricciones : '', Validators.required],
-      optometriaObservaciones: [data ? data.optometriaObservaciones : '', Validators.required],
+      motivo: [data ? data.motivo : this.motivo[0]["valor"], [Validators.required, inAnexoValidator(this.motivo)]],
+      cie_concep_reco_mot: [data ? data.cie_concep_reco_mot : this.remitido[0]["valor"], [Validators.required, inAnexoValidator(this.remitido)]],
+      estado: [data ? data.estado : ''],
+      concepto: [data ? data.concepto : this.concepto[0]["valor"] , [Validators.required, inAnexoValidator(this.concepto)]],
+      histo_famili: [data ? data.histo_famili : '', Validators.required],
+      cie_concep_reco: [data ? data.cie_concep_reco : '', Validators.required],
+      cie_obs: [data ? data.cie_obs : '', Validators.required],
     });
-  }
-
-  isSelect(){
-
   }
 
   formatear_datos(objeto: any): any{
@@ -96,7 +94,7 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
 
         this.inputs$ = of([
           { id: "motivo", nombre: "Motivo", for: "motivo", options: this.motivo},
-          { id: "remitido", nombre: "Remitido", for: "remitido", options: this.remitido},
+          { id: "cie_concep_reco_mot", nombre: "Remitido", for: "cie_concep_reco_mot", options: this.remitido},
         ])
 
         this.inputConcepto$ = of([
@@ -129,5 +127,14 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     let data = this.form.value;
     localStorage.setItem("optometriaCierreHistoria", JSON.stringify(data));
     alert("Sisas")
+    this.enviarHistoria(this.llavesData)
+  }
+
+  enviarHistoria(llavesData: string[]){
+    let data = {};
+    llavesData.forEach(element => {
+      data = Object.assign(data, JSON.parse(localStorage.getItem(element)!))
+    });
+    console.log(JSON.stringify(data));
   }
 }

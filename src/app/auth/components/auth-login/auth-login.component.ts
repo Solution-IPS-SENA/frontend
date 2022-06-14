@@ -1,6 +1,8 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, EventEmitter, NgModule, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { ClientService } from 'src/app/shared/services/client.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-auth-login',
@@ -13,25 +15,27 @@ export class AuthLoginComponent implements OnInit {
 
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private client: ClientService) {
   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      usuarioLogin: ['', Validators.required ],
-      passwordLogin: ['', Validators.required]
+      emailLogin: ['', [Validators.required, Validators.email]],
+      passwordLogin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(200)]]
     });
   }
 
   async onSubmit(){
     if (this.form.valid) {
-      let usuario = this.form.value.usuarioLogin;
-      let password = this.form.value.passwordLogin;
-      console.log("yas", usuario, password);
-    } else {
+      this.client.post(environment.API_AUTH_URL + environment.LOGIN_ENDPOINT, {
+        email: this.form.value.emailLogin,
+        password: this.form.value.passwordLogin
+      }).subscribe()
+    }else {
       console.log("Form error");
     }
   }
+
 
 
 }

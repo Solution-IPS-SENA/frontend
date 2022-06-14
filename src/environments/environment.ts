@@ -6,7 +6,8 @@ export const environment = {
   PRODUCTION: false,
   //API_ANEXOS_URL: "https://api-valores.herokuapp.com"
   API_ANEXOS_URL: "http://localhost:5000",
-  API_AUTH_URL: "http://localhost:3000/api/v01"
+  API_AUTH_URL: "http://10.199.0.61:3000/api/v01",
+  LOGIN_ENDPOINT: '/login'
 };
 
 /*

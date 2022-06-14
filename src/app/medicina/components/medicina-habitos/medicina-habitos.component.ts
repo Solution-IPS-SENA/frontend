@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-medicina-habitos',
@@ -54,11 +55,11 @@ export class MedicinaHabitosComponent implements OnInit, OnDestroy {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      cigarrillo: [data ? data.cigarrillo : this.sino[0]["valor"] , Validators.required],
-      alcohol: [data ? data.alcohol : this.sino[0]["valor"] , Validators.required],
-      drogas: [data ? data.drogas : this.sino[0]["valor"] ,Validators.required],
-      deportes: [data ? data.deportes : this.sino[0]["valor"] ,Validators.required],
-      lesiones: [data ? data.lesiones : this.sino[0]["valor"] ,Validators.required],
+      cigarrillo: [data ? data.cigarrillo : this.sino[0]["valor"] , [Validators.required, inAnexoValidator(this.sino)]],
+      alcohol: [data ? data.alcohol : this.sino[0]["valor"] , [Validators.required, inAnexoValidator(this.sino)]],
+      drogas: [data ? data.drogas : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+      deportes: [data ? data.deportes : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+      lesiones: [data ? data.lesiones : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
       observacionesHabitosMedicina: [data ? data.observacionesHabitosMedicina : ''],
     });
   }

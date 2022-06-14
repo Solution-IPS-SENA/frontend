@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-medicina-factor-riesgo',
@@ -86,30 +87,30 @@ export class MedicinaFactorRiesgoComponent implements OnInit, OnDestroy {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      fisicoFactorRiesgoFactores1: [data ? data.fisicoFactorRiesgoFactores1 : this.fisico[0]["valor"] , Validators.required],
-      biologicoFactorRiesgoFactores1: [data ? data.biologicoFactorRiesgoFactores1 : this.biologico[0]["valor"] , Validators.required],
-      quimicoFactorRiesgoFactores1: [data ? data.quimicoFactorRiesgoFactores1 : this.quimico[0]["valor"] ,Validators.required],
-      seguridadFactorRiesgoFactores1: [data ? data.seguridadFactorRiesgoFactores1 : this.seguridad[0]["valor"] ,Validators.required],
-      biomecanicoFactorRiesgoFactores1: [data ? data.biomecanicoFactorRiesgoFactores1 : this.biomecanico[0]["valor"] ,Validators.required],
-      psicosocialFactorRiesgoFactores1: [data ? data.psicosocialFactorRiesgoFactores1 : this.psicosocial[0]["valor"] ,Validators.required],
-      fisicoFactorRiesgoFactores2: [data ? data.fisicoFactorRiesgoFactores2 : this.fisico[0]["valor"] , Validators.required],
-      biologicoFactorRiesgoFactores2: [data ? data.biologicoFactorRiesgoFactores2 : this.biologico[0]["valor"] , Validators.required],
-      quimicoFactorRiesgoFactores2: [data ? data.quimicoFactorRiesgoFactores2 : this.quimico[0]["valor"] ,Validators.required],
-      seguridadFactorRiesgoFactores2: [data ? data.seguridadFactorRiesgoFactores2 : this.seguridad[0]["valor"] ,Validators.required],
-      biomecanicoFactorRiesgoFactores2: [data ? data.biomecanicoFactorRiesgoFactores2 : this.biomecanico[0]["valor"] ,Validators.required],
-      psicosocialFactorRiesgoFactores2: [data ? data.psicosocialFactorRiesgoFactores2 : this.psicosocial[0]["valor"] ,Validators.required],
-      fisicoFactorRiesgoFactores3: [data ? data.fisicoFactorRiesgoFactores3 : this.fisico[0]["valor"] , Validators.required],
-      biologicoFactorRiesgoFactores3: [data ? data.biologicoFactorRiesgoFactores3 : this.biologico[0]["valor"] , Validators.required],
-      quimicoFactorRiesgoFactores3: [data ? data.quimicoFactorRiesgoFactores3 : this.quimico[0]["valor"] ,Validators.required],
-      seguridadFactorRiesgoFactores3: [data ? data.seguridadFactorRiesgoFactores3 : this.seguridad[0]["valor"] ,Validators.required],
-      biomecanicoFactorRiesgoFactores3: [data ? data.biomecanicoFactorRiesgoFactores3 : this.biomecanico[0]["valor"] ,Validators.required],
-      psicosocialFactorRiesgoFactores3: [data ? data.psicosocialFactorRiesgoFactores3 : this.psicosocial[0]["valor"] ,Validators.required],
-      fisicoFactorRiesgoFactores4: [data ? data.fisicoFactorRiesgoFactores4 : this.fisico[0]["valor"] , Validators.required],
-      biologicoFactorRiesgoFactores4: [data ? data.biologicoFactorRiesgoFactores4 : this.biologico[0]["valor"] , Validators.required],
-      quimicoFactorRiesgoFactores4: [data ? data.quimicoFactorRiesgoFactores4 : this.quimico[0]["valor"] ,Validators.required],
-      seguridadFactorRiesgoFactores4: [data ? data.seguridadFactorRiesgoFactores4 : this.seguridad[0]["valor"] ,Validators.required],
-      biomecanicoFactorRiesgoFactores4: [data ? data.biomecanicoFactorRiesgoFactores4 : this.biomecanico[0]["valor"] ,Validators.required],
-      psicosocialFactorRiesgoFactores4: [data ? data.psicosocialFactorRiesgoFactores4 : this.psicosocial[0]["valor"] ,Validators.required],
+      fisicoFactorRiesgoFactores1: [data ? data.fisicoFactorRiesgoFactores1 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
+      biologicoFactorRiesgoFactores1: [data ? data.biologicoFactorRiesgoFactores1 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
+      quimicoFactorRiesgoFactores1: [data ? data.quimicoFactorRiesgoFactores1 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
+      seguridadFactorRiesgoFactores1: [data ? data.seguridadFactorRiesgoFactores1 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
+      biomecanicoFactorRiesgoFactores1: [data ? data.biomecanicoFactorRiesgoFactores1 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
+      psicosocialFactorRiesgoFactores1: [data ? data.psicosocialFactorRiesgoFactores1 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
+      fisicoFactorRiesgoFactores2: [data ? data.fisicoFactorRiesgoFactores2 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
+      biologicoFactorRiesgoFactores2: [data ? data.biologicoFactorRiesgoFactores2 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
+      quimicoFactorRiesgoFactores2: [data ? data.quimicoFactorRiesgoFactores2 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
+      seguridadFactorRiesgoFactores2: [data ? data.seguridadFactorRiesgoFactores2 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
+      biomecanicoFactorRiesgoFactores2: [data ? data.biomecanicoFactorRiesgoFactores2 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
+      psicosocialFactorRiesgoFactores2: [data ? data.psicosocialFactorRiesgoFactores2 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
+      fisicoFactorRiesgoFactores3: [data ? data.fisicoFactorRiesgoFactores3 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
+      biologicoFactorRiesgoFactores3: [data ? data.biologicoFactorRiesgoFactores3 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
+      quimicoFactorRiesgoFactores3: [data ? data.quimicoFactorRiesgoFactores3 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
+      seguridadFactorRiesgoFactores3: [data ? data.seguridadFactorRiesgoFactores3 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
+      biomecanicoFactorRiesgoFactores3: [data ? data.biomecanicoFactorRiesgoFactores3 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
+      psicosocialFactorRiesgoFactores3: [data ? data.psicosocialFactorRiesgoFactores3 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
+      fisicoFactorRiesgoFactores4: [data ? data.fisicoFactorRiesgoFactores4 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
+      biologicoFactorRiesgoFactores4: [data ? data.biologicoFactorRiesgoFactores4 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
+      quimicoFactorRiesgoFactores4: [data ? data.quimicoFactorRiesgoFactores4 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
+      seguridadFactorRiesgoFactores4: [data ? data.seguridadFactorRiesgoFactores4 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
+      biomecanicoFactorRiesgoFactores4: [data ? data.biomecanicoFactorRiesgoFactores4 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
+      psicosocialFactorRiesgoFactores4: [data ? data.psicosocialFactorRiesgoFactores4 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
       observacionesFactoresRiesgoMedicina: [data ? data.observacionesFactoresRiesgoMedicina : ''],
     });
   }

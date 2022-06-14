@@ -16,7 +16,7 @@
           <label for="Psicologia" class="text-left w-17 text-3xl">Historia Familiar</label>
         </div>
         <div class="p-5">
-          <textarea formControlName="psicologiaHistoriaFamiliar" class="h-64 w-full pl-2 text-black resize-none"></textarea>
+          <textarea formControlName="histo_famili" class="h-64 w-full pl-2 text-black resize-none"></textarea>
         </div>
       </div>
 
@@ -27,15 +27,15 @@
               <label for="Psicologia" class="text-left w-17 text-3xl">Recomendaciones / Restricciones</label>
             </div>
             <div class="py-5">
-                <textarea formControlName="psicologiaRestricciones" class="h-16 w-full pl-2 text-black resize-none"></textarea>
+                <textarea formControlName="cie_concep_reco" class="h-16 w-full pl-2 text-black resize-none"></textarea>
             </div>
             <div class="flex flex-row gap-x-2 items-center">
               <img class="w-14 rounded-lg" src="../../../../assets/logos/029.JPG" alt="">
               <label for="Psicologia" class="text-left w-17 text-3xl">Otras consideraciones</label>
             </div>
             <div class="py-5 flex flex-row gap-2 items-center">
-              <input formControlName="checkboxAplazado" class="h-5 w-4" type="checkbox" id="checkboxAplazado" value="second_checkbox">
-              <label class="text-xl " for="checkboxAplazado">Aplazado</label>
+              <input formControlName="estado" class="h-5 w-4" type="checkbox" id="estado" value="second_checkbox">
+              <label class="text-xl " for="estado">Aplazado</label>
             </div>
             <div *ngFor="let input of inputs$ | async">
               <div class="flex gap-y-5">
@@ -59,7 +59,7 @@
                 <label for="Psicologia" class="text-left w-17 text-3xl">Observaciones</label>
               </div>
               <div class="flex flex-row py-5">
-                  <textarea formControlName="psicologiaObservaciones" class="h-32 w-full text-black resize-none"></textarea>
+                  <textarea formControlName="cie_obs" class="h-32 w-full pl-2 text-black resize-none"></textarea>
               </div>
               <div *ngFor="let input of inputConcepto$ | async">
                 <div class="flex flex-col items-start justify-between gap-y-5">

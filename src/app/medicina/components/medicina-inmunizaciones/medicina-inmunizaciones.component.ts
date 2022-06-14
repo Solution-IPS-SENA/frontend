@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-medicina-inmunizaciones',
@@ -60,14 +61,14 @@ export class MedicinaInmunizacionesComponent implements OnInit, OnDestroy {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      hepatitisA: [data ? data.hepatitisA : this.nroVacuna[0]["valor"] , Validators.required],
-      hepatitisB: [data ? data.hepatitisB : this.nroVacuna[0]["valor"] , Validators.required],
-      tripleViral: [data ? data.tripleViral : this.nroVacuna[0]["valor"] ,Validators.required],
-      tétanos: [data ? data.tétanos : this.nroVacuna[0]["valor"] ,Validators.required],
-      malaria: [data ? data.malaria : this.nroVacuna[0]["valor"] ,Validators.required],
-      fAmarilla: [data ? data.fAmarilla : this.nroVacuna[0]["valor"], Validators.required],
-      fTifoidea: [data ? data.fTifoidea : this.nroVacuna[0]["valor"], Validators.required],
-      covid: [data ? data.covid : this.nroVacuna[0]["valor"], Validators.required],
+      hepatitisA: [data ? data.hepatitisA : this.nroVacuna[0]["valor"] , [Validators.required, inAnexoValidator(this.nroVacuna)]],
+      hepatitisB: [data ? data.hepatitisB : this.nroVacuna[0]["valor"] , [Validators.required, inAnexoValidator(this.nroVacuna)]],
+      tripleViral: [data ? data.tripleViral : this.nroVacuna[0]["valor"] ,[Validators.required, inAnexoValidator(this.nroVacuna)]],
+      tétanos: [data ? data.tétanos : this.nroVacuna[0]["valor"] ,[Validators.required, inAnexoValidator(this.nroVacuna)]],
+      malaria: [data ? data.malaria : this.nroVacuna[0]["valor"] ,[Validators.required, inAnexoValidator(this.nroVacuna)]],
+      fAmarilla: [data ? data.fAmarilla : this.nroVacuna[0]["valor"], [Validators.required, inAnexoValidator(this.nroVacuna)]],
+      fTifoidea: [data ? data.fTifoidea : this.nroVacuna[0]["valor"], [Validators.required, inAnexoValidator(this.nroVacuna)]],
+      covid: [data ? data.covid : this.nroVacuna[0]["valor"], [Validators.required, inAnexoValidator(this.nroVacuna)]],
       carneManipulacionAlimentos: [data ? data.carneManipulacionAlimentos : '', Validators.required],
       observacionesInmunizacionesMedicina: [data ? data.observacionesInmunizacionesMedicina : ''],
     });

@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-medicina-revision-sistemas',
@@ -59,18 +60,18 @@ export class MedicinaRevisionSistemasComponent implements OnInit {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      dermatologico: [data ? data.dermatologico : this.referencia[0]["valor"] , Validators.required],
-      osteomuscular: [data ? data.osteomuscular : this.referencia[0]["valor"] , Validators.required],
-      osteoarticular: [data ? data.osteoarticular : this.referencia[0]["valor"] ,Validators.required],
-      genitourinario: [data ? data.genitourinario : this.referencia[0]["valor"] ,Validators.required],
-      metabolico: [data ? data.metabolico : this.referencia[0]["valor"] ,Validators.required],
+      dermatologico: [data ? data.dermatologico : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
+      osteomuscular: [data ? data.osteomuscular : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
+      osteoarticular: [data ? data.osteoarticular : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      genitourinario: [data ? data.genitourinario : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      metabolico: [data ? data.metabolico : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
       neurologico: [data ? data.neurologico : this.referencia[0]["valor"]],
-      cardiorespiratorio: [data ? data.cardiorespiratorio : this.referencia[0]["valor"] ,Validators.required],
-      endocrinologico: [data ? data.endocrinologico : this.referencia[0]["valor"] ,Validators.required],
-      urologico: [data ? data.urologico : this.referencia[0]["valor"] ,Validators.required],
-      psiquiatrico: [data ? data.psiquiatrico : this.referencia[0]["valor"] ,Validators.required],
-      gastrointestinal: [data ? data.gastrointestinal : this.referencia[0]["valor"] ,Validators.required],
-      orl: [data ? data.orl : this.referencia[0]["valor"] ,Validators.required],
+      cardiorespiratorio: [data ? data.cardiorespiratorio : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      endocrinologico: [data ? data.endocrinologico : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      urologico: [data ? data.urologico : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      psiquiatrico: [data ? data.psiquiatrico : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      gastrointestinal: [data ? data.gastrointestinal : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      orl: [data ? data.orl : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
       observacionesRevisionMedicina: [data ? data.observacionesRevisionMedicina : ''],
     });
   }

@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 @Component({
   selector: 'app-laboratorio-examenes2',
   templateUrl: './laboratorio-examenes2.component.html',
@@ -58,18 +59,18 @@ export class LaboratorioExamenes2Component implements OnInit {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      tsh: [data ? data.tsh : this.normalidad[0]["valor"] , Validators.required],
-      creatinina: [data ? data.creatinina : this.normalidad[0]["valor"] , Validators.required],
-      pruebasFuncionHepatica: [data ? data.pruebasFuncionHepatica : this.normalidad[0]["valor"] ,Validators.required],
-      proteinaCReactiva: [data ? data.proteinaCReactiva : this.normalidad[0]["valor"] ,Validators.required],
-      tiempoProtrombina: [data ? data.tiempoProtrombina : this.normalidad[0]["valor"] ,Validators.required],
-      tiempoParcialTromboplastina: [data ? data.tiempoParcialTromboplastina : this.normalidad[0]["valor"], Validators.required],
-      acidoUrico: [data ? data.acidoUrico : this.normalidad[0]["valor"], Validators.required],
-      antigenoProstatico: [data ? data.antigenoProstatico : this.normalidad[0]["valor"], Validators.required],
-      gasesArteriales: [data ? data.gasesArteriales : this.normalidad[0]["valor"], Validators.required],
-      vdrl: [data ? data.vdrl : this.normalidad[0]["valor"], Validators.required],
-      gravidez: [data ? data.gravidez : this.normalidad[0]["valor"], Validators.required],
-      otro: [data ? data.otro : this.normalidad[0]["valor"], Validators.required],
+      tsh: [data ? data.tsh : this.normalidad[0]["valor"] , [Validators.required, inAnexoValidator(this.normalidad)]],
+      creatinina: [data ? data.creatinina : this.normalidad[0]["valor"] , [Validators.required, inAnexoValidator(this.normalidad)]],
+      pruebasFuncionHepatica: [data ? data.pruebasFuncionHepatica : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+      proteinaCReactiva: [data ? data.proteinaCReactiva : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+      tiempoProtrombina: [data ? data.tiempoProtrombina : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+      tiempoParcialTromboplastina: [data ? data.tiempoParcialTromboplastina : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      acidoUrico: [data ? data.acidoUrico : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      antigenoProstatico: [data ? data.antigenoProstatico : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      gasesArteriales: [data ? data.gasesArteriales : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      vdrl: [data ? data.vdrl : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      gravidez: [data ? data.gravidez : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      otro: [data ? data.otro : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
       observacionesExamenes2Laboratorio: [data ? data.observacionesExamenes2Laboratorio : '']
     });
   }

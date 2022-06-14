@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-medicina-antecedentes',
@@ -41,14 +42,14 @@ export class MedicinaAntecedentesComponent implements OnInit, OnDestroy {
   ]);
 
   inputsPersonales$?: Observable<InputDatos[]> = of([
-    { id: "patologicos", nombre: "Patológicos", for: "patologicos", options: this.patologicos},
-    { id: "quirurgicos", nombre: "Quirúrgicos", for: "quirurgicos", options: this.patologicos},
-    { id: "traumaticos", nombre: "Traumáticos", for: "traumaticos", options: this.patologicos},
-    { id: "toxicos", nombre: "Tóxicos", for: "toxicos" , options: this.patologicos},
-    { id: "alergicos", nombre: "Alérgicos", for: "alergicos", options: this.patologicos},
-    { id: "farmacologicos", nombre: "Farmacológicos", for: "farmacologicos", options: this.patologicos},
-    { id: "transfusionales", nombre: "Transfusionales", for: "transfusionales" , options: this.patologicos},
-    { id: "ets", nombre: "E.T.S", for: "ets" , options: this.patologicos},
+    { id: "ant_per_pato", nombre: "Patológicos", for: "ant_per_pato", options: this.patologicos},
+    { id: "ant_per_qui", nombre: "Quirúrgicos", for: "ant_per_qui", options: this.referencia},
+    { id: "ant_per_trau", nombre: "Traumáticos", for: "ant_per_trau", options: this.referencia},
+    { id: "ant_per_toxi", nombre: "Tóxicos", for: "ant_per_toxi" , options: this.referencia},
+    { id: "ant_per_alergi", nombre: "Alérgicos", for: "ant_per_alergi", options: this.referencia},
+    { id: "farmacologicos", nombre: "Farmacológicos", for: "farmacologicos", options: this.referencia},
+    { id: "transfusionales", nombre: "Transfusionales", for: "transfusionales" , options: this.referencia},
+    { id: "ant_per_ets", nombre: "E.T.S", for: "ant_per_ets" , options: this.ets},
   ]);
 
   public get lifecycle$() {
@@ -63,19 +64,19 @@ export class MedicinaAntecedentesComponent implements OnInit, OnDestroy {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      antecedentesPadre1: [data ? data.antecedentesPadre1 : this.patologicos[0]["valor"] , Validators.required],
-      antecedentesPadre2: [data ? data.antecedentesPadre2 : this.patologicos[0]["valor"] , Validators.required],
-      antecedentesMadre1: [data ? data.antecedentesMadre1 : this.patologicos[0]["valor"] , Validators.required],
-      antecedentesMadre2: [data ? data.antecedentesMadre2 : this.patologicos[0]["valor"] , Validators.required],
-      patologicos: [data ? data.patologicos : this.patologicos[0]["valor"] , Validators.required],
-      quirurgicos: [data ? data.quirurgicos : this.referencia[0]["valor"] , Validators.required],
-      traumaticos: [data ? data.traumaticos : this.referencia[0]["valor"] , Validators.required],
-      toxicos: [data ? data.toxicos : this.referencia[0]["valor"] , Validators.required],
-      alergicos: [data ? data.alergicos : this.referencia[0]["valor"] , Validators.required],
-      farmacologicos: [data ? data.farmacologicos : this.referencia[0]["valor"] , Validators.required],
-      transfusionales: [data ? data.transfusionales : this.referencia[0]["valor"] , Validators.required],
-      ets: [data ? data.ets : this.ets[0]["valor"] , Validators.required],
-      observacionesAntecedentesMedicina : [data ? data.observacionesAntecedentesMedicina : ''],
+      ant_padre_card: [data ? data.ant_padre_card : this.patologicos[0]["valor"] , [Validators.required, inAnexoValidator(this.patologicos)]],
+      ant_padre_cong: [data ? data.ant_padre_cong : this.patologicos[0]["valor"] , [Validators.required, inAnexoValidator(this.patologicos)]],
+      ant_madre_card: [data ? data.ant_madre_card : this.patologicos[0]["valor"] , [Validators.required, inAnexoValidator(this.patologicos)]],
+      ant_madre_cong: [data ? data.ant_madre_cong : this.patologicos[0]["valor"] , [Validators.required, inAnexoValidator(this.patologicos)]],
+      ant_per_pato: [data ? data.ant_per_pato : this.patologicos[0]["valor"] , [Validators.required, inAnexoValidator(this.patologicos)]],
+      ant_per_qui: [data ? data.ant_per_qui : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
+      ant_per_trau: [data ? data.ant_per_trau : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
+      ant_per_toxi: [data ? data.ant_per_toxi : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
+      ant_per_alergi: [data ? data.ant_per_alergi : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
+      farmacologicos: [data ? data.farmacologicos : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
+      transfusionales: [data ? data.transfusionales : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
+      ant_per_ets: [data ? data.ant_per_ets : this.ets[0]["valor"] , [Validators.required, inAnexoValidator(this.ets)]],
+      ant_per_obs1 : [data ? data.ant_per_obs1 : ''],
     });
   }
 
@@ -104,22 +105,22 @@ export class MedicinaAntecedentesComponent implements OnInit, OnDestroy {
         this.ets = this.formatear_datos(response.ets)
 
         this.inputsFamiliares$ = of([
-          { id: "padre", nombre: "Padre",options: this.patologicos, options2: this.patologicos, for:"antecedentesPadre1", for2:"antecedentesPadre2"},
-          { id: "madre", nombre: "Madre", options: this.patologicos, options2: this.patologicos, for:"antecedentesMadre1", for2:"antecedentesMadre2"},
+          { id: "padre", nombre: "Padre",options: this.patologicos, options2: this.patologicos, for:"ant_padre_card", for2:"ant_padre_cong"},
+          { id: "madre", nombre: "Madre", options: this.patologicos, options2: this.patologicos, for:"ant_madre_card", for2:"ant_madre_cong"},
         ])
         this.inputsPersonales$ = of([
-          { id: "patologicos", nombre: "Patológicos", for: "patologicos", options: this.patologicos},
-          { id: "quirurgicos", nombre: "Quirúrgicos", for: "quirurgicos", options: this.referencia},
-          { id: "traumaticos", nombre: "Traumáticos", for: "traumaticos", options: this.referencia},
-          { id: "toxicos", nombre: "Tóxicos", for: "toxicos" , options: this.referencia},
-          { id: "alergicos", nombre: "Alérgicos", for: "alergicos", options: this.referencia},
+          { id: "ant_per_pato", nombre: "Patológicos", for: "ant_per_pato", options: this.patologicos},
+          { id: "ant_per_qui", nombre: "Quirúrgicos", for: "ant_per_qui", options: this.referencia},
+          { id: "ant_per_trau", nombre: "Traumáticos", for: "ant_per_trau", options: this.referencia},
+          { id: "ant_per_toxi", nombre: "Tóxicos", for: "ant_per_toxi" , options: this.referencia},
+          { id: "ant_per_alergi", nombre: "Alérgicos", for: "ant_per_alergi", options: this.referencia},
           { id: "farmacologicos", nombre: "Farmacológicos", for: "farmacologicos", options: this.referencia},
           { id: "transfusionales", nombre: "Transfusionales", for: "transfusionales" , options: this.referencia},
-          { id: "ets", nombre: "E.T.S", for: "ets" , options: this.ets},
+          { id: "ant_per_ets", nombre: "E.T.S", for: "ant_per_ets" , options: this.ets},
         ])
 
-        this.loaded$ = of(true);
         this.createForm(dataRecovery);
+        this.loaded$ = of(true);
         this.state = this.form.valid;
         this.form.valueChanges
         .pipe(

@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-medicina-antecedentes-2',
@@ -58,11 +59,11 @@ export class MedicinaAntecedentes2Component implements OnInit, OnDestroy {
     this.form = this.fb.group({
       fupFecha: [data ? data.fupFecha : '' , Validators.required],
       fumFecha: [data ? data.fumFecha : '' , Validators.required],
-      planifica: [data ? data.planifica : this.sino[0]["valor"] ,Validators.required],
-      dismenorrea: [data ? data.dismenorrea : this.sino[0]["valor"] ,Validators.required],
-      dispareunia: [data ? data.dispareunia : this.sino[0]["valor"] ,Validators.required],
+      planifica: [data ? data.planifica : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+      dismenorrea: [data ? data.dismenorrea : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+      dispareunia: [data ? data.dispareunia : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
       ecoMamaria: [data ? data.ecoMamaria : '', Validators.required],
-      cicloMenstrual: [data ? data.cicloMenstrual : this.normalidad[0]["valor"], Validators.required],
+      cicloMenstrual: [data ? data.cicloMenstrual : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
       observacionesAntecedentes2Medicina: [data ? data.observacionesAntecedentes2Medicina : ''],
     });
   }
