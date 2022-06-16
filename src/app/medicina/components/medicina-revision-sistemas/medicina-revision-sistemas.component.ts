@@ -76,19 +76,6 @@ export class MedicinaRevisionSistemasComponent implements OnInit {
     });
   }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("medicinaRevision");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -96,7 +83,7 @@ export class MedicinaRevisionSistemasComponent implements OnInit {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["referencia"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.referencia = this.formatear_datos(response.referencia)
+        this.referencia = this.obtenerAnexosService.formatear_datos(response.referencia)
 
         this.inputs$ = of([
           { id: "dermatologico", nombre: "Dermatológico", for: "dermatologico", options: this.referencia},

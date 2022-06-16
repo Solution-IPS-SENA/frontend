@@ -5,7 +5,7 @@ import { SharedDatosOcupacionalesComponent } from "../components/shared-datos-oc
 import { SharedDatosPersonalesComponent } from "../components/shared-datos-personales/shared-datos-personales.component";
 import { SharedObservacionesComponent } from "../components/shared-observaciones/shared-observaciones.component";
 import { InformacionAnexos } from "../interfaces/informacion-anexos";
-import { InputDatosType } from "../interfaces/input-datos";
+import { InputDatos } from "../interfaces/input-datos";
 import { ObtenerAnexosService } from "../services/obtener-anexos.service";
 
 @Component({
@@ -17,10 +17,10 @@ export class formularioPrincipalComponent {
   @Input()
   form!: FormGroup;
 
-  tipoDeDocumento = [];
+  tipoDocumento = [];
 
-  input$?: Observable<InputDatosType> = of(
-    { options: this.tipoDeDocumento },
+  input$?: Observable<InputDatos> = of(
+    { options: this.tipoDocumento },
   );
 
   loaded$: Observable<boolean> = of(false);
@@ -32,31 +32,19 @@ export class formularioPrincipalComponent {
 
   ngOnInit(): void {
 
-    this.obtenerAnexosService.getAnexos(["tipoDeDocumento"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["tipoDocumento"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.tipoDeDocumento = this.formatear_datos(response.tipoDeDocumento)
-        this.input$ = of({ options: this.tipoDeDocumento })
-        console.log(this.tipoDeDocumento);
+        this.tipoDocumento = this.obtenerAnexosService.formatear_datos(response.tipoDocumento, "abreviacion", "completo")
+        console.log(this.tipoDocumento);
+
+        this.input$ = of({ options: this.tipoDocumento })
         this.form = this.fb.group({
-          tipo_documento: [this.tipoDeDocumento[0]["valor"], Validators.required],
+          tipo_documento: [this.tipoDocumento[0]["valor"], Validators.required],
           documento: ['', Validators.required]
         });
         this.loaded$ = of(true);
       }
     )
-  }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
   }
 
   onSubmit() {
@@ -84,31 +72,27 @@ export class formularioPrincipalComponent {
     console.warn(this.sharedPersonales?.form.patchValue({direccion: "como estas"}));
     console.warn(this.sharedPersonales?.form.patchValue({telefono: "hola"}));
 
-    
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
 
+    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
+    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
+    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
+    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
+    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
+    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
+    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
+    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
+    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
+    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
+    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
+    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
+    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
+    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
+    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
+    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
+    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
+    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
+    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
+    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
+    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
   }
-
 }
-
-

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NavbarConfiguracionRutasService } from '../../services/navbar-configuracion-rutas.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { NavbarConfiguracionRutasService } from '../../services/navbar-configura
 })
 export class SharedNavBarComponent implements OnInit {
 
-  constructor(private navBarConfig: NavbarConfiguracionRutasService) { }
+  constructor(private navBarConfig: NavbarConfiguracionRutasService, private route: Router) { }
 
   ngOnInit(): void {
   }
@@ -21,6 +22,12 @@ export class SharedNavBarComponent implements OnInit {
 
   public get urlHistoriaClinica() {
     return this.navBarConfig.rutaHistoriaClinica;
+  }
+
+  logOut() : void {
+    localStorage.removeItem('token');
+    localStorage.clear();
+    this.route.navigate( ['/login'])
   }
 
 }

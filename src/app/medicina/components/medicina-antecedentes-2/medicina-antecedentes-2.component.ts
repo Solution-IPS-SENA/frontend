@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { InputDatosType } from 'src/app/shared/interfaces/input-datos';
+import { InputDatos } from 'src/app/shared/interfaces/input-datos';
 import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
@@ -35,7 +35,7 @@ export class MedicinaAntecedentes2Component implements OnInit, OnDestroy {
 
   loaded$ = of(false);
 
-  inputs$?: Observable<InputDatosType[]> = of([
+  inputs$?: Observable<InputDatos[]> = of([
     { id: "fupFecha", nombre: "FUP (Fecha)", for: "fupFecha", type: "date" },
     { id: "fumFecha", nombre: "FUM (Fecha)", for: "fumFecha", type: "date"},
     { id: "planifica", nombre: "Planifica", for: "planifica", type: "select", options: this.sino},
@@ -68,19 +68,6 @@ export class MedicinaAntecedentes2Component implements OnInit, OnDestroy {
     });
   }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("medicinaAntecedentes2");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -88,8 +75,8 @@ export class MedicinaAntecedentes2Component implements OnInit, OnDestroy {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["sino","normalidad"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.sino = this.formatear_datos(response.sino)
-        this.normalidad = this.formatear_datos(response.normalidad)
+        this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
+        this.normalidad = this.obtenerAnexosService.formatear_datos(response.normalidad)
 
         this.inputs$ = of([
           { id: "fupFecha", nombre: "FUP (Fecha)", for: "fupFecha", type: "date" },

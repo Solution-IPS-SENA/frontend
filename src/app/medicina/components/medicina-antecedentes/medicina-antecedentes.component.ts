@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { InputDatosDoble, InputDatos } from 'src/app/shared/interfaces/input-datos';
+import { InputDatos } from 'src/app/shared/interfaces/input-datos';
 import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
@@ -36,7 +36,7 @@ export class MedicinaAntecedentesComponent implements OnInit, OnDestroy {
 
   loaded$ = of(false);
 
-  inputsFamiliares$?: Observable<InputDatosDoble[]> = of([
+  inputsFamiliares$?: Observable<InputDatos[]> = of([
     { id: "padre", nombre: "Padre",options: this.patologicos, options2: this.patologicos, for:"antecedentesPadre1", for2:"antecedentesPadre2"},
     { id: "madre", nombre: "Madre", options: this.patologicos, options2: this.patologicos, for:"antecedentesMadre1", for2:"antecedentesMadre2"},
   ]);
@@ -80,19 +80,6 @@ export class MedicinaAntecedentesComponent implements OnInit, OnDestroy {
     });
   }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("medicinaAntecedentes");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -100,9 +87,9 @@ export class MedicinaAntecedentesComponent implements OnInit, OnDestroy {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["patologicos","referencia","ets"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.patologicos = this.formatear_datos(response.patologicos)
-        this.referencia = this.formatear_datos(response.referencia)
-        this.ets = this.formatear_datos(response.ets)
+        this.patologicos = this.obtenerAnexosService.formatear_datos(response.patologicos)
+        this.referencia = this.obtenerAnexosService.formatear_datos(response.referencia)
+        this.ets = this.obtenerAnexosService.formatear_datos(response.ets)
 
         this.inputsFamiliares$ = of([
           { id: "padre", nombre: "Padre",options: this.patologicos, options2: this.patologicos, for:"ant_padre_card", for2:"ant_padre_cong"},

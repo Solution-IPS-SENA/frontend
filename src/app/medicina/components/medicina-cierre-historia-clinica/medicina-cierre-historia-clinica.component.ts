@@ -22,7 +22,7 @@ export class MedicinaCierreHistoriaClinicaComponent implements OnInit, OnDestroy
     this.router.navigate(['/historias', 'medicina', currentPage]).then(() => {
       this.currentPage = this.getCurrentPageUrl();
     });
-  } 
+  }
 
   public getCurrentPageUrl(): number {
     const urlSegments = this.router.url.split('/');
@@ -66,23 +66,6 @@ export class MedicinaCierreHistoriaClinicaComponent implements OnInit, OnDestroy
     });
   }
 
-  isSelect(){
-
-  }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("medicinaCierreHistoria");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -90,9 +73,9 @@ export class MedicinaCierreHistoriaClinicaComponent implements OnInit, OnDestroy
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.motivo = this.formatear_datos(response.motivo)
-        this.remitido = this.formatear_datos(response.remitido)
-        this.concepto = this.formatear_datos(response.concepto)
+        this.motivo = this.obtenerAnexosService.formatear_datos(response.motivo)
+        this.remitido = this.obtenerAnexosService.formatear_datos(response.remitido)
+        this.concepto = this.obtenerAnexosService.formatear_datos(response.concepto)
 
         this.inputs$ = of([
           { id: "motivo", nombre: "Motivo", for: "motivo", options: this.motivo},

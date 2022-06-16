@@ -64,19 +64,6 @@ export class MedicinaHabitosComponent implements OnInit, OnDestroy {
     });
   }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("medicinaHabitos");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -84,7 +71,7 @@ export class MedicinaHabitosComponent implements OnInit, OnDestroy {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["sino"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.sino = this.formatear_datos(response.sino)
+        this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
 
         this.inputs$ = of([
           { id: "cigarrillo", nombre: "Cigarrillo", for: "cigarrillo", options: this.sino},

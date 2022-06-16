@@ -74,19 +74,6 @@ export class MedicinaInmunizacionesComponent implements OnInit, OnDestroy {
     });
   }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("medicinaInmunizaciones");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -94,7 +81,7 @@ export class MedicinaInmunizacionesComponent implements OnInit, OnDestroy {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["nroVacuna"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.nroVacuna = this.formatear_datos(response.nroVacuna)
+        this.nroVacuna = this.obtenerAnexosService.formatear_datos(response.nroVacuna)
 
         this.inputs$ = of([
           { id: "hepatitisA", nombre: "Hepatitis A", for: "hepatitisA", options: this.nroVacuna},

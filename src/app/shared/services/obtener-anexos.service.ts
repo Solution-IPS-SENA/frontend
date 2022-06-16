@@ -27,4 +27,17 @@ export class ObtenerAnexosService {
     )
   }
 
+  formatear_datos(objeto: any, nombreInterno?: string, nombreVisual?:string): any{
+    let data: {valor: string, nombre: string}[] = [];
+    objeto.forEach((el: any) => {
+      data.push(
+        {
+          valor: nombreInterno && nombreVisual ? el[nombreInterno] : el,
+          nombre: nombreInterno && nombreVisual ? el[nombreVisual] : el
+        }
+      )
+    })
+    return data
+  }
+
 }

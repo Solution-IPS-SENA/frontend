@@ -104,19 +104,6 @@ export class CertificacionesAptitudOcupacionalComponent implements OnInit {
     )
   }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
   }
 }

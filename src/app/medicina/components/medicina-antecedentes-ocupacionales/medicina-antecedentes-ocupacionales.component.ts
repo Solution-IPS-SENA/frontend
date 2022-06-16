@@ -115,20 +115,6 @@ export class MedicinaAntecedentesOcupacionalesComponent implements OnInit, OnDes
     });
   }
 
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("medicinaAntecedentesOcupacionales");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -136,12 +122,12 @@ export class MedicinaAntecedentesOcupacionalesComponent implements OnInit, OnDes
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["fisico","biologico","quimico","seguridad","biomecanico","psicosocial"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.fisico = this.formatear_datos(response.fisico)
-        this.biologico = this.formatear_datos(response.biologico)
-        this.quimico = this.formatear_datos(response.quimico)
-        this.seguridad = this.formatear_datos(response.seguridad)
-        this.biomecanico = this.formatear_datos(response.biomecanico)
-        this.psicosocial = this.formatear_datos(response.psicosocial)
+        this.fisico = this.obtenerAnexosService.formatear_datos(response.fisico)
+        this.biologico = this.obtenerAnexosService.formatear_datos(response.biologico)
+        this.quimico = this.obtenerAnexosService.formatear_datos(response.quimico)
+        this.seguridad = this.obtenerAnexosService.formatear_datos(response.seguridad)
+        this.biomecanico = this.obtenerAnexosService.formatear_datos(response.biomecanico)
+        this.psicosocial = this.obtenerAnexosService.formatear_datos(response.psicosocial)
 
         this.inputs$ = of([
           { id: "fisicoFactorRiesgoOcupacional1", nombre: "Dermatológico", for: "fisicoFactorRiesgoOcupacional1", options: this.fisico},
