@@ -5,6 +5,7 @@ import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EnvioHistoriaService } from 'src/app/shared/services/envio-historia.service';
 
 @Component({
   selector: 'app-laboratorio-cierre-historia-clinica',
@@ -12,6 +13,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./laboratorio-cierre-historia-clinica.component.css']
 })
 export class LaboratorioCierreHistoriaClinicaComponent implements OnInit, OnDestroy {
+
+  llavesData = ["laboratorioExamenes1","laboratorioExamenes2","laboratorioCierreHistoria"]
 
   public currentPage = 0;
   form!: FormGroup;
@@ -51,7 +54,8 @@ export class LaboratorioCierreHistoriaClinicaComponent implements OnInit, OnDest
   constructor(
     private obtenerAnexosService: ObtenerAnexosService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private envioHistoria: EnvioHistoriaService
   ) {}
 
   createForm(data?: any){
@@ -112,5 +116,6 @@ export class LaboratorioCierreHistoriaClinicaComponent implements OnInit, OnDest
     let data = this.form.value;
     localStorage.setItem("laboratorioCierreHistoria", JSON.stringify(data));
     alert("Sisas")
+    this.envioHistoria.enviarHistoria(this.llavesData)
   }
 }

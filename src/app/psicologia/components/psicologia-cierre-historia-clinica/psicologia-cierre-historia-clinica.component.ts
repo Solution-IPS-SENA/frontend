@@ -6,6 +6,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
+import { EnvioHistoriaService } from 'src/app/shared/services/envio-historia.service';
 
 @Component({
   selector: 'app-psicologia-cierre-historia-clinica',
@@ -53,7 +54,8 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
   constructor(
     private obtenerAnexosService: ObtenerAnexosService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private envioHistoria: EnvioHistoriaService
   ) {}
 
   createForm(data?: any){
@@ -114,15 +116,7 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     let data = this.form.value;
     localStorage.setItem("psicologiaCierreHistoria", JSON.stringify(data));
     alert("Sisas")
-    this.enviarHistoria(this.llavesData)
-  }
-
-  enviarHistoria(llavesData: string[]){
-    let data = {};
-    llavesData.forEach(element => {
-      data = Object.assign(data, JSON.parse(localStorage.getItem(element)!))
-    });
-    console.log(JSON.stringify(data));
+    this.envioHistoria.enviarHistoria(this.llavesData)
   }
 }
 
