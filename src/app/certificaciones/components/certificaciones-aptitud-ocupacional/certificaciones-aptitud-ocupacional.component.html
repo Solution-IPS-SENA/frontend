@@ -12,7 +12,7 @@
           <img class="w-14" src="../../../../assets/logos/001.jpg" alt="">
           <h2 class="text-3xl font-bold">Datos Pacientes</h2>
       </div>
-      <form action="">
+      <form [formGroup]="form" action="">
           <div class="grid grid-cols-2 items-center">
               <div>
                   <div *ngFor="let input of inputs$ | async">
@@ -38,11 +38,11 @@
                   <img class="w-14" src="../../../../assets/logos/001.jpg" alt="">
                   <h2 class="text-3xl font-bold">Valoraciones Clinicas</h2>
               </div>
-              <div class="flex flex-row items-center gap-x-2 py-5 px-10">
+              <div class="flex flex-row items-center gap-x-2 py-5">
                   <img class="w-14" src="../../../../assets/logos/001.jpg" alt="">
                   <h2 class="text-3xl font-bold">Concepto</h2>
               </div>
-              <div class="flex flex-row items-center gap-x-2 py-5 px-10 ">
+              <div class="flex flex-row items-center gap-x-2 py-5 ">
                   <img class="w-14" src="../../../../assets/logos/001.jpg" alt="">
                   <h2 class="text-3xl font-bold">Recomendaciones</h2>
               </div>
@@ -54,27 +54,39 @@
                       <div class="flex flex-col py-3">
                           <div class="flex items-center">
                               <img class="w-12" src="../../../../assets/logos/030.JPG" alt="">
-                              <label for="{{input.for}}" class="text-center pl-2 w-17 text-2xl">{{input.nombre}}</label>
+                              <label for="{{input.for}}" class="text-center pl-2 text-2xl">{{input.nombre}}</label>
                           </div>
                       </div>
                   </div>
               </div>
               <div>
-                  <div *ngFor="let input of inputsCol2$ | async">
-                      <div class="flex flex-col py-3 px-10">
+                  <div *ngFor="let input2 of inputsCol2$ | async">
+                      <div class="flex flex-col py-3">
                           <div class="flex items-center">
                               <img class="w-12" src="../../../../assets/logos/030.JPG" alt="">
-                              <label for="{{input.for}}" class="text-center pl-2 w-17 text-2xl">{{input.nombre}}</label>
+                              <div class="px-5">
+                                  <select formControlName="{{input2.for}}" class="form-select w-72 text-black pl-2 h-10 border-solid border-black" id="{{input2.id}}">
+                                    <option *ngFor="let option1 of input2.options" value="{{ option1.valor }}">
+                                        {{ option1.nombre }}
+                                    </option>
+                                </select>
+                              </div>
                           </div>
                       </div>
                   </div>
               </div>
               <div>
-                  <div *ngFor="let input of inputsCol3$ | async">
-                      <div class="flex flex-col py-3 px-10">
+                  <div *ngFor="let input3 of inputsCol3$ | async">
+                      <div class="flex flex-col py-3">
                           <div class="flex items-center">
                               <img class="w-12" src="../../../../assets/logos/030.JPG" alt="">
-                              <label for="{{input.for}}" class="text-left pl-2 w-17 text-2xl">{{input.nombre}}</label>
+                              <div class="px-5">
+                                <select formControlName="{{input3.for}}" class="form-select w-full text-black pl-2 h-10 border-solid border-black" id="{{input3.id}}">
+                                  <option *ngFor="let option2 of input3.options" value="{{ option2.valor }}">
+                                      {{ option2.nombre }}
+                                  </option>
+                              </select>
+                            </div>
                           </div>
                       </div>
                   </div>
@@ -107,7 +119,7 @@
                   <div class="pt-4 border-b-2 border-gray-500" ></div>
                   <h2 class="text-3xl text-center">Firma y sello profesional de la salud</h2>
                   <div>
-                      <div *ngFor="let input of inputsCol4$ | async">
+                      <div *ngFor="let input of inputsCol5$ | async">
                           <div class="flex flex-col w-full">
                               <div class="flex items-center py-3 gap-x-2 w-full">
                                   <div class="w-full">

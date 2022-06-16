@@ -40,4 +40,8 @@ export interface InformacionAnexos {
     paises?: string[];
     motivo?: string[];
     concepto?: string[];
+    conceptoF?: string[];
+    recomendacionesF?: string[];
+    areaSolicitante?: string[];
+    remitidoA?: string[];
 }
