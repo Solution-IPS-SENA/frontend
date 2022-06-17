@@ -41,7 +41,7 @@ export class MedicinaCierreHistoriaClinicaComponent implements OnInit, OnDestroy
 
   inputs$?: Observable<InputDatos[]> = of([
     { id: "motivo", nombre: "Motivo", for: "motivo", options: this.motivo},
-    { id: "remitido", nombre: "Remitido", for: "remitido", options: this.remitido},
+    { id: "cie_concep_reco_mot", nombre: "Remitido", for: "cie_concep_reco_mot", options: this.remitido},
   ]);
 
   inputConcepto$?: Observable<InputDatos[]> = of([
@@ -62,12 +62,12 @@ export class MedicinaCierreHistoriaClinicaComponent implements OnInit, OnDestroy
   createForm(data?: any){
     this.form = this.fb.group({
       motivo: [data ? data.motivo : this.motivo[0]["valor"]],
-      remitido: [data ? data.remitido : this.remitido[0]["valor"]],
-      checkboxAplazado: [data ? data.checkboxAplazado : ''],
+      cie_concep_reco_mot: [data ? data.cie_concep_reco_mot : this.remitido[0]["valor"]],
+      estado: [data ? data.estado : ''],
       concepto: [data ? data.concepto : this.concepto[0]["valor"] , Validators.required],
-      medicinaHistoriaFamiliar: [data ? data.medicinaHistoriaFamiliar : '', Validators.required],
-      medicinaRestricciones: [data ? data.medicinaRestricciones : '', Validators.required],
-      medicinaObservaciones: [data ? data.medicinaObservaciones : '', Validators.required],
+      histo_famili: [data ? data.histo_famili : '', Validators.required],
+      cie_concep_reco: [data ? data.cie_concep_reco : '', Validators.required],
+      cie_obs: [data ? data.cie_obs : '', Validators.required],
     });
   }
 
@@ -84,7 +84,7 @@ export class MedicinaCierreHistoriaClinicaComponent implements OnInit, OnDestroy
 
         this.inputs$ = of([
           { id: "motivo", nombre: "Motivo", for: "motivo", options: this.motivo},
-          { id: "remitido", nombre: "Remitido", for: "remitido", options: this.remitido},
+          { id: "cie_concep_reco_mot", nombre: "Remitido", for: "cie_concep_reco_mot", options: this.remitido},
         ])
 
         this.inputConcepto$ = of([

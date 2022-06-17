@@ -36,11 +36,11 @@ export class MedicinaHabitosComponent implements OnInit, OnDestroy {
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "cigarrillo", nombre: "Cigarrillo", for: "cigarrillo", options: this.sino},
-    { id: "alcohol", nombre: "Alcohol", for: "alcohol", options: this.sino},
-    { id: "drogas", nombre: "Drogas", for: "drogas", options: this.sino},
-    { id: "deportes", nombre: "Deportes", for: "deportes", options: this.sino},
-    { id: "lesiones", nombre: "Lesiones", for: "lesiones", options: this.sino}
+    { id: "hab_ciga", nombre: "Cigarrillo", for: "hab_ciga", options: this.sino},
+    { id: "hab_alco", nombre: "Alcohol", for: "hab_alco", options: this.sino},
+    { id: "hab_drog", nombre: "Drogas", for: "hab_drog", options: this.sino},
+    { id: "hab_dep", nombre: "Deportes", for: "hab_dep", options: this.sino},
+    { id: "hab_les", nombre: "Lesiones", for: "hab_les", options: this.sino}
   ]);
 
   public get lifecycle$() {
@@ -55,12 +55,12 @@ export class MedicinaHabitosComponent implements OnInit, OnDestroy {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      cigarrillo: [data ? data.cigarrillo : this.sino[0]["valor"] , [Validators.required, inAnexoValidator(this.sino)]],
-      alcohol: [data ? data.alcohol : this.sino[0]["valor"] , [Validators.required, inAnexoValidator(this.sino)]],
-      drogas: [data ? data.drogas : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
-      deportes: [data ? data.deportes : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
-      lesiones: [data ? data.lesiones : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
-      observacionesHabitosMedicina: [data ? data.observacionesHabitosMedicina : ''],
+      hab_ciga: [data ? data.hab_ciga : this.sino[0]["valor"] , [Validators.required, inAnexoValidator(this.sino)]],
+      hab_alco: [data ? data.hab_alco : this.sino[0]["valor"] , [Validators.required, inAnexoValidator(this.sino)]],
+      hab_drog: [data ? data.hab_drog : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+      hab_dep: [data ? data.hab_dep : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+      hab_les: [data ? data.hab_les : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+      hab_obs: [data ? data.hab_obs : ''],
     });
   }
 
@@ -74,11 +74,11 @@ export class MedicinaHabitosComponent implements OnInit, OnDestroy {
         this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
 
         this.inputs$ = of([
-          { id: "cigarrillo", nombre: "Cigarrillo", for: "cigarrillo", options: this.sino},
-          { id: "alcohol", nombre: "Alcohol", for: "alcohol", options: this.sino},
-          { id: "drogas", nombre: "Drogas", for: "drogas", options: this.sino},
-          { id: "deportes", nombre: "Deportes", for: "deportes", options: this.sino},
-          { id: "lesiones", nombre: "Lesiones", for: "lesiones", options: this.sino}
+          { id: "hab_ciga", nombre: "Cigarrillo", for: "hab_ciga", options: this.sino},
+          { id: "hab_alco", nombre: "Alcohol", for: "hab_alco", options: this.sino},
+          { id: "hab_drog", nombre: "Drogas", for: "hab_drog", options: this.sino},
+          { id: "hab_dep", nombre: "Deportes", for: "hab_dep", options: this.sino},
+          { id: "hab_les", nombre: "Lesiones", for: "hab_les", options: this.sino}
         ])
 
         this.loaded$ = of(true);

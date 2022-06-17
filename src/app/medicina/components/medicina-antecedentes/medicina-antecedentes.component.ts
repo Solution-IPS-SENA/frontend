@@ -37,8 +37,8 @@ export class MedicinaAntecedentesComponent implements OnInit, OnDestroy {
   loaded$ = of(false);
 
   inputsFamiliares$?: Observable<InputDatos[]> = of([
-    { id: "padre", nombre: "Padre",options: this.patologicos, options2: this.patologicos, for:"antecedentesPadre1", for2:"antecedentesPadre2"},
-    { id: "madre", nombre: "Madre", options: this.patologicos, options2: this.patologicos, for:"antecedentesMadre1", for2:"antecedentesMadre2"},
+    { id: "padre", nombre: "Padre",options: this.patologicos, options2: this.patologicos, for:"ant_padre_card", for2:"ant_padre_cong"},
+    { id: "madre", nombre: "Madre", options: this.patologicos, options2: this.patologicos, for:"ant_madre_card", for2:"ant_madre_cong"},
   ]);
 
   inputsPersonales$?: Observable<InputDatos[]> = of([

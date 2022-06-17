@@ -13,6 +13,6 @@ export class EnvioHistoriaService {
     llavesData.forEach(element => {
       data = Object.assign(data, JSON.parse(localStorage.getItem(element)!))
     });
-    console.log(JSON.stringify(data));
+    return data;
   }
 }

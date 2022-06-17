@@ -7,6 +7,9 @@ import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.se
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 import { EnvioHistoriaService } from 'src/app/shared/services/envio-historia.service';
+import { ClientService } from 'src/app/shared/services/client.service';
+import { environment } from 'src/environments/environment';
+import { MessagesService } from 'src/app/shared/services/messages.service';
 
 @Component({
   selector: 'app-psicologia-cierre-historia-clinica',
@@ -53,10 +56,11 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
 
   constructor(
     private obtenerAnexosService: ObtenerAnexosService,
+    private client: ClientService,
     private router: Router,
     private fb: FormBuilder,
-    private envioHistoria: EnvioHistoriaService
-  ) {}
+    private envioHistoria: EnvioHistoriaService,
+    private messages: MessagesService) { }
 
   createForm(data?: any){
     this.form = this.fb.group({
@@ -116,7 +120,30 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     let data = this.form.value;
     localStorage.setItem("psicologiaCierreHistoria", JSON.stringify(data));
     alert("Sisas")
-    this.envioHistoria.enviarHistoria(this.llavesData)
+    let historia = this.envioHistoria.enviarHistoria(this.llavesData)
+
+    if (historia){
+      this.client.post(environment.API_AUTH_URL + environment.LOGIN_ENDPOINT, historia)
+      .subscribe(
+        {
+          next: (res: any) => {
+            console.log("Historia enviada");
+
+          },
+          error: (err) => {
+            console.log(err.status, err.error.response)
+            this.messages.error(err.error.response)
+          }
+        }
+      )
+    }else {
+      console.log("Form error");
+    }
   }
+
+
+
+
+
 }
 
