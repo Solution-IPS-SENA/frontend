@@ -1,5 +1,15 @@
+type DocumentoAnexo = {
+  abreviacion: string,
+  completo: string
+}
+
+type PaisAnexo = {
+  iso: string,
+  pais: string
+}
+
 export interface InformacionAnexos {
-    tipoDeDocumento(tipoDeDocumento: any): never[];
+    tipoDocumento?:DocumentoAnexo[];
     normalidad?: string[];
     sino?: string[];
     referencia?: string[];
@@ -36,7 +46,7 @@ export interface InformacionAnexos {
     afp?: string[];
     genero?: string[];
     lugarDeNacimiento?: string[];
-    nacionalidad?: string[];
+    nacionalidad?: PaisAnexo[];
     paises?: string[];
     motivo?: string[];
     concepto?: string[];

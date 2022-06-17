@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { InputDatosType } from 'src/app/shared/interfaces/input-datos';
+import { InputDatos } from 'src/app/shared/interfaces/input-datos';
 import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-medicina-antecedentes-2',
@@ -34,14 +35,14 @@ export class MedicinaAntecedentes2Component implements OnInit, OnDestroy {
 
   loaded$ = of(false);
 
-  inputs$?: Observable<InputDatosType[]> = of([
-    { id: "fupFecha", nombre: "FUP (Fecha)", for: "fupFecha", type: "date" },
-    { id: "fumFecha", nombre: "FUM (Fecha)", for: "fumFecha", type: "date"},
-    { id: "planifica", nombre: "Planifica", for: "planifica", type: "select", options: this.sino},
-    { id: "dismenorrea", nombre: "Dismenorrea", for: "dismenorrea", type: "select", options: this.sino},
-    { id: "dispareunia", nombre: "Dispareunia", for: "dispareunia", type: "select", options: this.sino},
-    { id: "ecoMamaria", nombre: "Eco - Mamaria", for: "ecoMamaria", type: "date"},
-    { id: "cicloMenstrual", nombre: "Ciclo menstrual", for: "cicloMenstrual", type: "select", options: this.normalidad},
+  inputs$?: Observable<InputDatos[]> = of([
+    { id: "ant_per_gin_fup", nombre: "FUP (Fecha)", for: "ant_per_gin_fup", type: "date" },
+    { id: "ant_per_gin_fum", nombre: "FUM (Fecha)", for: "ant_per_gin_fum", type: "date"},
+    { id: "ant_per_gin_plan", nombre: "Planifica", for: "ant_per_gin_plan", type: "select", options: this.sino},
+    { id: "ant_per_gin_dism", nombre: "Dismenorrea", for: "ant_per_gin_dism", type: "select", options: this.sino},
+    { id: "ant_per_gin_disp", nombre: "Dispareunia", for: "ant_per_gin_disp", type: "select", options: this.sino},
+    { id: "ant_per_gin_mam", nombre: "Eco - Mamaria", for: "ant_per_gin_mam", type: "date"},
+    { id: "ant_per_gin_mens", nombre: "Ciclo menstrual", for: "ant_per_gin_mens", type: "select", options: this.normalidad},
   ]);
 
   public get lifecycle$() {
@@ -56,28 +57,15 @@ export class MedicinaAntecedentes2Component implements OnInit, OnDestroy {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      fupFecha: [data ? data.fupFecha : '' , Validators.required],
-      fumFecha: [data ? data.fumFecha : '' , Validators.required],
-      planifica: [data ? data.planifica : this.sino[0]["valor"] ,Validators.required],
-      dismenorrea: [data ? data.dismenorrea : this.sino[0]["valor"] ,Validators.required],
-      dispareunia: [data ? data.dispareunia : this.sino[0]["valor"] ,Validators.required],
-      ecoMamaria: [data ? data.ecoMamaria : '', Validators.required],
-      cicloMenstrual: [data ? data.cicloMenstrual : this.normalidad[0]["valor"], Validators.required],
-      observacionesAntecedentes2Medicina: [data ? data.observacionesAntecedentes2Medicina : ''],
+      ant_per_gin_fup: [data ? data.ant_per_gin_fup : '' , Validators.required],
+      ant_per_gin_fum: [data ? data.ant_per_gin_fum : '' , Validators.required],
+      ant_per_gin_plan: [data ? data.ant_per_gin_plan : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+      ant_per_gin_dism: [data ? data.ant_per_gin_dism : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+      ant_per_gin_disp: [data ? data.ant_per_gin_disp : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+      ant_per_gin_mam: [data ? data.ant_per_gin_mam : '', Validators.required],
+      ant_per_gin_mens: [data ? data.ant_per_gin_mens : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      ant_per_obs2: [data ? data.ant_per_obs2 : ''],
     });
-  }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
   }
 
   ngOnInit(): void {
@@ -87,17 +75,17 @@ export class MedicinaAntecedentes2Component implements OnInit, OnDestroy {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["sino","normalidad"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.sino = this.formatear_datos(response.sino)
-        this.normalidad = this.formatear_datos(response.normalidad)
+        this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
+        this.normalidad = this.obtenerAnexosService.formatear_datos(response.normalidad)
 
         this.inputs$ = of([
-          { id: "fupFecha", nombre: "FUP (Fecha)", for: "fupFecha", type: "date" },
-          { id: "fumFecha", nombre: "FUM (Fecha)", for: "fumFecha", type: "date"},
-          { id: "planifica", nombre: "Planifica", for: "planifica", type: "select", options: this.sino},
-          { id: "dismenorrea", nombre: "Dismenorrea", for: "dismenorrea", type: "select", options: this.sino},
-          { id: "dispareunia", nombre: "Dispareunia", for: "dispareunia", type: "select", options: this.sino},
-          { id: "ecoMamaria", nombre: "Eco - Mamaria", for: "ecoMamaria", type: "date"},
-          { id: "cicloMenstrual", nombre: "Ciclo menstrual", for: "cicloMenstrual", type: "select", options: this.normalidad},
+          { id: "ant_per_gin_fup", nombre: "FUP (Fecha)", for: "ant_per_gin_fup", type: "date" },
+          { id: "ant_per_gin_fum", nombre: "FUM (Fecha)", for: "ant_per_gin_fum", type: "date"},
+          { id: "ant_per_gin_plan", nombre: "Planifica", for: "ant_per_gin_plan", type: "select", options: this.sino},
+          { id: "ant_per_gin_dism", nombre: "Dismenorrea", for: "ant_per_gin_dism", type: "select", options: this.sino},
+          { id: "ant_per_gin_disp", nombre: "Dispareunia", for: "ant_per_gin_disp", type: "select", options: this.sino},
+          { id: "ant_per_gin_mam", nombre: "Eco - Mamaria", for: "ant_per_gin_mam", type: "date"},
+          { id: "ant_per_gin_mens", nombre: "Ciclo menstrual", for: "ant_per_gin_mens", type: "select", options: this.normalidad},
         ])
 
         this.loaded$ = of(true);

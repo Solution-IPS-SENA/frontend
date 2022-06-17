@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { InputDatosType } from '../../interfaces/input-datos';
+import { InputDatos } from '../../interfaces/input-datos';
 import { delay, Observable, of, pipe, tap } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
@@ -16,7 +16,7 @@ export class SharedDatosOcupacionalesComponent implements OnInit {
   arl = [];
   loaded$ = of(false);
 
-  inputs$?: Observable<InputDatosType[]> = of([
+  inputs$?: Observable<InputDatos[]> = of([
     { id: "empresa", nombre: "Empresa", type: "text", for: "empresa" },
     { id: "cargo", nombre: "Cargo", type: "text", for: "cargo" },
     { id: "fechaIngreso", nombre: "Fecha de Ingreso", type: "date", for: "fechaIngreso" },
@@ -31,9 +31,9 @@ export class SharedDatosOcupacionalesComponent implements OnInit {
   constructor(private obtenerAnexosService: ObtenerAnexosService){
     this.obtenerAnexosService.getAnexos(["eps","afp","arl"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.eps = this.formatear_datos(response.eps)
-        this.afp = this.formatear_datos(response.afp)
-        this.arl = this.formatear_datos(response.arl)
+        this.eps = this.obtenerAnexosService.formatear_datos(response.eps)
+        this.afp = this.obtenerAnexosService.formatear_datos(response.afp)
+        this.arl = this.obtenerAnexosService.formatear_datos(response.arl)
 
 
         this.inputs$ = of([
@@ -50,19 +50,6 @@ export class SharedDatosOcupacionalesComponent implements OnInit {
         this.loaded$ = of(true);
       }
     )
-  }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
   }
 
   ngOnInit(): void {

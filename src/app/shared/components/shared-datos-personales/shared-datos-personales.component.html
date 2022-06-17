@@ -18,6 +18,7 @@
                         </div>
                         <div *ngIf="(input.type=='select')">
                             <select formControlName="{{input.for}}" class="form-select w-full text-black pl-2 h-10 border-solid border-black border-[1.5px]" id="{{ input.id }}">
+                                <option value="">SELECCIONE</option>
                                 <option *ngFor="let option of input.options" value="{{ option.valor }}">
                                     {{ option.nombre }}
                                 </option>

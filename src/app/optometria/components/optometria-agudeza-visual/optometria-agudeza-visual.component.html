@@ -2,7 +2,7 @@
     <img class="w-14 rounded-lg" src="../../../../assets/logos/001.jpg" alt="">
     <h1 class="text-3xl pl-4 font-semibold">AGUDEZA VISUAL</h1>
   </div>
-  
+
   <div class="px-10 flex flex-col gap-y-5">
   <div class="flex items-center justify-center h-96" *ngIf="!(loaded$ | async); else formulario">
     <img class="w-8 h-8 absolute rounded-lg" src="../../../../assets/logos/simbolo solo.png">
@@ -106,17 +106,17 @@
                                   <img class="w-12 rounded-lg" src="../../../../assets/logos/026.JPG" alt="Logo Inicio Sesion">
                                   <label class="text-2xl">{{input.nombre}}</label>
                               </div>
-                              <select *ngIf="(input.id != 'tiempoUsoLensometria')" formControlName="{{input.for}}" class="form-select w-1/2 flex self-center text-black pl-2 h-10" id="{{input.id}}">
+                              <select *ngIf="(input.id != 'agu_len_tiem')" formControlName="{{input.for}}" class="form-select w-1/2 flex self-center text-black pl-2 h-10" id="{{input.id}}">
                                   <option *ngFor="let option of input.options" value="{{ option.valor }}">
                                       {{ option.nombre }}
                                   </option>
                               </select>
-                              <select *ngIf="(input.id != 'tiempoUsoLensometria')" formControlName="{{input.for2}}" class="form-select w-1/2 text-black pl-2 h-10" id="{{input.id}}">
+                              <select *ngIf="(input.id != 'agu_len_tiem')" formControlName="{{input.for2}}" class="form-select w-1/2 text-black pl-2 h-10" id="{{input.id}}">
                                   <option *ngFor="let option2 of input.options2" value="{{ option2.valor }}">
                                       {{ option2.nombre }}
                                   </option>
                               </select>
-                              <select *ngIf="(input.id == 'tiempoUsoLensometria')" formControlName="{{input.for}}" class="form-select grid col-span-2 w-5/6 text-black pl-2 h-10" id="{{input.id}}">
+                              <select *ngIf="(input.id == 'agu_len_tiem')" formControlName="{{input.for}}" class="form-select grid col-span-2 w-5/6 text-black pl-2 h-10" id="{{input.id}}">
                                   <option *ngFor="let option of input.options" value="{{ option.valor }}">
                                       {{ option.nombre }}
                                   </option>
@@ -131,4 +131,3 @@
           <app-shared-paginacion (dataState)="saveData()" [pages]="6" [state]="state" (pageChange)="onPageChange($event)" [currentPage]="currentPage"></app-shared-paginacion>
         </div>
   </div>
-  

@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-medicina-revision-sistemas',
@@ -34,17 +35,17 @@ export class MedicinaRevisionSistemasComponent implements OnInit {
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "dermatologico", nombre: "Dermatológico", for: "dermatologico", options: this.referencia},
-    { id: "osteomuscular", nombre: "Osteomuscular", for: "osteomuscular", options: this.referencia},
-    { id: "osteoarticular", nombre: "Osteoarticular", for: "osteoarticular", options: this.referencia},
-    { id: "genitourinario", nombre: "Genitourinario", for: "genitourinario", options: this.referencia},
-    { id: "metabolico", nombre: "Metabólico", for: "metabolico", options: this.referencia},
-    { id: "neurologico", nombre: "Neurológico", for: "neurologico", options: this.referencia},
-    { id: "cardiorespiratorio", nombre: "Cardiorespiratorio", for: "cardiorespiratorio", options: this.referencia},
-    { id: "endocrinologico", nombre: "Endocrinológico", for: "endocrinologico", options: this.referencia},
-    { id: "urologico", nombre: "Urológico", for: "urologico", options: this.referencia},
-    { id: "gastrointestinal", nombre: "Gastrointestinal", for: "gastrointestinal", options: this.referencia},
-    { id: "orl", nombre: "ORL", for: "orl", options: this.referencia},
+    { id: "sis_derma", nombre: "Dermatológico", for: "sis_derma", options: this.referencia},
+    { id: "sis_ost_musc", nombre: "Osteomuscular", for: "sis_ost_musc", options: this.referencia},
+    { id: "sis_ost_arti", nombre: "Osteoarticular", for: "sis_ost_arti", options: this.referencia},
+    { id: "sis_geni", nombre: "Genitourinario", for: "sis_geni", options: this.referencia},
+    { id: "sis_meta", nombre: "Metabólico", for: "sis_meta", options: this.referencia},
+    { id: "sis_neur", nombre: "Neurológico", for: "sis_neur", options: this.referencia},
+    { id: "sis_carf", nombre: "Cardiorespiratorio", for: "sis_carf", options: this.referencia},
+    { id: "sis_endo", nombre: "Endocrinológico", for: "sis_endo", options: this.referencia},
+    { id: "sis_uro", nombre: "Urológico", for: "sis_uro", options: this.referencia},
+    { id: "sis_gatro", nombre: "Gastrointestinal", for: "sis_gatro", options: this.referencia},
+    { id: "sis_orl", nombre: "ORL", for: "sis_orl", options: this.referencia},
   ]);
 
   public get lifecycle$() {
@@ -59,33 +60,18 @@ export class MedicinaRevisionSistemasComponent implements OnInit {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      dermatologico: [data ? data.dermatologico : this.referencia[0]["valor"] , Validators.required],
-      osteomuscular: [data ? data.osteomuscular : this.referencia[0]["valor"] , Validators.required],
-      osteoarticular: [data ? data.osteoarticular : this.referencia[0]["valor"] ,Validators.required],
-      genitourinario: [data ? data.genitourinario : this.referencia[0]["valor"] ,Validators.required],
-      metabolico: [data ? data.metabolico : this.referencia[0]["valor"] ,Validators.required],
-      neurologico: [data ? data.neurologico : this.referencia[0]["valor"]],
-      cardiorespiratorio: [data ? data.cardiorespiratorio : this.referencia[0]["valor"] ,Validators.required],
-      endocrinologico: [data ? data.endocrinologico : this.referencia[0]["valor"] ,Validators.required],
-      urologico: [data ? data.urologico : this.referencia[0]["valor"] ,Validators.required],
-      psiquiatrico: [data ? data.psiquiatrico : this.referencia[0]["valor"] ,Validators.required],
-      gastrointestinal: [data ? data.gastrointestinal : this.referencia[0]["valor"] ,Validators.required],
-      orl: [data ? data.orl : this.referencia[0]["valor"] ,Validators.required],
-      observacionesRevisionMedicina: [data ? data.observacionesRevisionMedicina : ''],
+      sis_derma: [data ? data.sis_derma : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
+      sis_ost_musc: [data ? data.sis_ost_musc : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
+      sis_ost_arti: [data ? data.sis_ost_arti : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      sis_geni: [data ? data.sis_geni : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      sis_meta: [data ? data.sis_meta : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      sis_neur: [data ? data.sis_neur : this.referencia[0]["valor"]],
+      sis_carf: [data ? data.sis_carf : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      sis_endo: [data ? data.sis_endo : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      sis_uro: [data ? data.sis_uro : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      sis_gatro: [data ? data.sis_gatro : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
+      sis_orl: [data ? data.sis_orl : this.referencia[0]["valor"] ,[Validators.required, inAnexoValidator(this.referencia)]],
     });
-  }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
   }
 
   ngOnInit(): void {
@@ -95,21 +81,20 @@ export class MedicinaRevisionSistemasComponent implements OnInit {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["referencia"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.referencia = this.formatear_datos(response.referencia)
+        this.referencia = this.obtenerAnexosService.formatear_datos(response.referencia)
 
         this.inputs$ = of([
-          { id: "dermatologico", nombre: "Dermatológico", for: "dermatologico", options: this.referencia},
-          { id: "osteomuscular", nombre: "Osteomuscular", for: "osteomuscular", options: this.referencia},
-          { id: "osteoarticular", nombre: "Osteoarticular", for: "osteoarticular", options: this.referencia},
-          { id: "genitourinario", nombre: "Genitourinario", for: "genitourinario", options: this.referencia},
-          { id: "metabolico", nombre: "Metabólico", for: "metabolico", options: this.referencia},
-          { id: "neurologico", nombre: "Neurológico", for: "neurologico", options: this.referencia},
-          { id: "cardiorespiratorio", nombre: "Cardiorespiratorio", for: "cardiorespiratorio", options: this.referencia},
-          { id: "endocrinologico", nombre: "Endocrinológico", for: "endocrinologico", options: this.referencia},
-          { id: "urologico", nombre: "Urológico", for: "urologico", options: this.referencia},
-          { id: "psiquiatrico", nombre: "Psiquiátrico", for: "psiquiatrico", options: this.referencia},
-          { id: "gastrointestinal", nombre: "Gastrointestinal", for: "gastrointestinal", options: this.referencia},
-          { id: "orl", nombre: "ORL", for: "orl", options: this.referencia},
+          { id: "sis_derma", nombre: "Dermatológico", for: "sis_derma", options: this.referencia},
+          { id: "sis_ost_musc", nombre: "Osteomuscular", for: "sis_ost_musc", options: this.referencia},
+          { id: "sis_ost_arti", nombre: "Osteoarticular", for: "sis_ost_arti", options: this.referencia},
+          { id: "sis_geni", nombre: "Genitourinario", for: "sis_geni", options: this.referencia},
+          { id: "sis_meta", nombre: "Metabólico", for: "sis_meta", options: this.referencia},
+          { id: "sis_neur", nombre: "Neurológico", for: "sis_neur", options: this.referencia},
+          { id: "sis_carf", nombre: "Cardiorespiratorio", for: "sis_carf", options: this.referencia},
+          { id: "sis_endo", nombre: "Endocrinológico", for: "sis_endo", options: this.referencia},
+          { id: "sis_uro", nombre: "Urológico", for: "sis_uro", options: this.referencia},
+          { id: "sis_gatro", nombre: "Gastrointestinal", for: "sis_gatro", options: this.referencia},
+          { id: "sis_orl", nombre: "ORL", for: "sis_orl", options: this.referencia},
         ])
 
         this.loaded$ = of(true);

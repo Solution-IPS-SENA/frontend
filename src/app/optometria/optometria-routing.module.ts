@@ -8,7 +8,6 @@ import { OptometriaAntecedentesPersonalesComponent } from './components/optometr
 import { OptometriaAntecedentesOcupacionalesComponent } from './components/optometria-antecedentes-ocupacionales/optometria-antecedentes-ocupacionales.component';
 import { OptometriaSintomasComponent } from './components/optometria-sintomas/optometria-sintomas.component';
 import { OptometriaHallazgosComponent } from './components/optometria-hallazgos/optometria-hallazgos.component';
-import { SharedCierreHistoriaClinicaComponent } from '../shared/components/shared-cierre-historia-clinica/shared-cierre-historia-clinica.component';
 import { OptometriaCierreHistoriaClinicaComponent } from './components/optometria-cierre-historia-clinica/optometria-cierre-historia-clinica.component';
 
 const routes: Routes = [

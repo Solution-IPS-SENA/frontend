@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { InputDatosType } from '../../interfaces/input-datos';
+import { InputDatos } from '../../interfaces/input-datos';
 import { delay, Observable, of, pipe, tap } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
@@ -21,8 +21,8 @@ export class SharedDatosPersonalesComponent implements OnInit {
 
   loaded$ = of(false);
 
-  inputs$?: Observable<InputDatosType[]> = of([
-    { id: "nombres", nombre: "Nombres", type: "text", for: "nombres", value: "Ji" },
+  inputs$?: Observable<InputDatos[]> = of([
+    { id: "nombres", nombre: "Nombres", type: "text", for: "nombres" },
     { id: "apellidos", nombre: "Apellidos", type: "text", for: "apellidos" },
     { id: "fechaNacimiento", nombre: "Fecha de Nacimiento", type: "date", for: "fechaNacimiento" },
     { id: "edad", nombre: "Edad", type: "text", for: "edad" },
@@ -35,14 +35,18 @@ export class SharedDatosPersonalesComponent implements OnInit {
 
   constructor(private obtenerAnexosService: ObtenerAnexosService, private fb: FormBuilder){
 
+
+  }
+
+  ngOnInit(): void {
     this.obtenerAnexosService.getAnexos(["genero", "lugarDeNacimiento","paises"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.genero = this.formatear_datos(response.genero)
-        this.lugarDeNacimiento = this.formatear_datos(response.lugarDeNacimiento)
-        this.paises = this.formatear_datos(response.paises)
+        this.genero = this.obtenerAnexosService.formatear_datos(response.genero)
+        this.lugarDeNacimiento = this.obtenerAnexosService.formatear_datos(response.lugarDeNacimiento)
+        this.paises = this.obtenerAnexosService.formatear_datos(response.paises, 'iso', 'pais')
 
         this.inputs$ = of([
-          { id: "nombres", nombre: "Nombres", type: "text", for: "nombres", value: "Ji" },
+          { id: "nombres", nombre: "Nombres", type: "text", for: "nombres" },
           { id: "apellidos", nombre: "Apellidos", type: "text", for: "apellidos" },
           { id: "fechaNacimiento", nombre: "Fecha de Nacimiento", type: "date", for: "fechaNacimiento" },
           { id: "edad", nombre: "Edad", type: "text", for: "edad" },
@@ -51,33 +55,21 @@ export class SharedDatosPersonalesComponent implements OnInit {
           { id: "genero", nombre: "Genero", type: "select", for: "genero",options: this.genero},
           { id: "direccion", nombre: "Direccion", type: "text", for: "direccion" },
           { id: "telefono", nombre: "Telefono", type: "text", for: "telefono" }
-  ])
+        ])
+        this.createForm()
         this.loaded$ = of(true);
       }
     )
   }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
-  ngOnInit(): void {
+  createForm(){
 
     this.form = this.fb.group({
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
       edad: ['', Validators.required],
-      nacionalidad: ['', Validators.required],
+      nacionalidad: ['' , Validators.required],
       lugarNacimiento: ['', Validators.required],
       genero: ['', Validators.required],
       direccion: ['', Validators.required],

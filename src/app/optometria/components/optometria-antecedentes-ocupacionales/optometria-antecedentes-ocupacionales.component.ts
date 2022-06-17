@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-optometria-antecedentes-ocupacionales',
@@ -33,14 +34,14 @@ export class OptometriaAntecedentesOcupacionalesComponent implements OnInit, OnD
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "exposicionVideoTerminales", nombre: "Exposicion a video - terminales", for: "exposicionVideoTerminales",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "accidenteOcular", nombre: "Accidente Ocular", for: "accidenteOcular",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "temperaturasExtremas", nombre: "Temperaturas extremas", for: "temperaturasExtremas",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "materialParticulado", nombre: "Material particulado", for: "materialParticulado",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "radiacionNoIonizante", nombre: "Radiacion no Ionizante", for: "radiacionNoIonizante",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "radiacionIonizante", nombre: "Radiacion Ionizante", for: "radiacionIonizante",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "exposicionQuimicos", nombre: "Exposicion a quimicos", for: "exposicionQuimicos",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "exposicionSolventes", nombre: "Exposicion a solventes", for: "exposicionSolventes",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_exp_vide", nombre: "Exposicion a video - terminales", for: "ant_ocu_exp_vide",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_acc", nombre: "Accidente Ocular", for: "ant_ocu_acc",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_temp", nombre: "Temperaturas extremas", for: "ant_ocu_temp",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_mate", nombre: "Material particulado", for: "ant_ocu_mate",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_ra_no_io", nombre: "Radiacion no Ionizante", for: "ant_ocu_ra_no_io",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_ra_io", nombre: "Radiacion Ionizante", for: "ant_ocu_ra_io",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_exp_quim", nombre: "Exposicion a quimicos", for: "ant_ocu_exp_quim",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_exp_solv", nombre: "Exposicion a solventes", for: "ant_ocu_exp_solv",img:"../../../../assets/logos/026.JPG", options: this.sino },
   ]);
 
   public get lifecycle$() {
@@ -55,30 +56,17 @@ export class OptometriaAntecedentesOcupacionalesComponent implements OnInit, OnD
 
     createForm(data?: any){
       this.form = this.fb.group({
-        exposicionVideoTerminales: [data ? data.exposicionVideoTerminales : this.sino[0]["valor"], Validators.required],
-        accidenteOcular: [data ? data.accidenteOcular : this.sino[0]["valor"], Validators.required],
-        temperaturasExtremas: [data ? data.temperaturasExtremas : this.sino[0]["valor"] ,Validators.required],
-        materialParticulado: [data ? data.materialParticulado : this.sino[0]["valor"] ,Validators.required],
-        radiacionNoIonizante: [data ? data.radiacionNoIonizante :this.sino[0]["valor"], Validators.required],
-        radiacionIonizante: [data ? data.radiacionIonizante : this.sino[0]["valor"] ,Validators.required],
-        exposicionQuimicos: [data ? data.exposicionQuimicos :this.sino[0]["valor"], Validators.required],
-        exposicionSolventes: [data ? data.exposicionSolventes : this.sino[0]["valor"], Validators.required],
-        observacionesAntecedentesOcupacionales: [data ? data.observacionesAntecedentesOcupacionales :'']
+        ant_ocu_exp_vide: [data ? data.ant_ocu_exp_vide : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        ant_ocu_acc: [data ? data.ant_ocu_acc : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        ant_ocu_temp: [data ? data.ant_ocu_temp : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+        ant_ocu_mate: [data ? data.ant_ocu_mate : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+        ant_ocu_ra_no_io: [data ? data.ant_ocu_ra_no_io :this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        ant_ocu_ra_io: [data ? data.ant_ocu_ra_io : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+        ant_ocu_exp_quim: [data ? data.ant_ocu_exp_quim :this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        ant_ocu_exp_solv: [data ? data.ant_ocu_exp_solv : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        ant_ocu_obs: [data ? data.ant_ocu_obs :'']
       });
     }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
 
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("optometriaAntecedentesOcupacionales");
@@ -87,17 +75,17 @@ export class OptometriaAntecedentesOcupacionalesComponent implements OnInit, OnD
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["sino"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.sino = this.formatear_datos(response.sino)
+        this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
 
         this.inputs$ = of([
-          { id: "exposicionVideoTerminales", nombre: "Exposicion a video - terminales", for: "exposicionVideoTerminales",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "accidenteOcular", nombre: "Accidente Ocular", for: "accidenteOcular",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "temperaturasExtremas", nombre: "Temperaturas extremas", for: "temperaturasExtremas",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "materialParticulado", nombre: "Material particulado", for: "materialParticulado",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "radiacionNoIonizante", nombre: "Radiacion no Ionizante", for: "radiacionNoIonizante",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "radiacionIonizante", nombre: "Radiacion Ionizante", for: "radiacionIonizante",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "exposicionQuimicos", nombre: "Exposicion a quimicos", for: "exposicionQuimicos",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "exposicionSolventes", nombre: "Exposicion a solventes", for: "exposicionSolventes",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_exp_vide", nombre: "Exposicion a video - terminales", for: "ant_ocu_exp_vide",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_acc", nombre: "Accidente Ocular", for: "ant_ocu_acc",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_temp", nombre: "Temperaturas extremas", for: "ant_ocu_temp",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_mate", nombre: "Material particulado", for: "ant_ocu_mate",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_ra_no_io", nombre: "Radiacion no Ionizante", for: "ant_ocu_ra_no_io",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_ra_io", nombre: "Radiacion Ionizante", for: "ant_ocu_ra_io",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_exp_quim", nombre: "Exposicion a quimicos", for: "ant_ocu_exp_quim",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_exp_solv", nombre: "Exposicion a solventes", for: "ant_ocu_exp_solv",img:"../../../../assets/logos/026.JPG", options: this.sino },
         ])
         this.loaded$ = of(true);
         this.createForm(dataRecovery);

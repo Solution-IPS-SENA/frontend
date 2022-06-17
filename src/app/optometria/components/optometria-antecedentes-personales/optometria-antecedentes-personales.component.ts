@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { InputDatos } from 'src/app/shared/interfaces/input-datos';
 import { ObtenerAnexosService } from 'src/app/shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-optometria-antecedentes-personales',
@@ -33,17 +34,17 @@ export class OptometriaAntecedentesPersonalesComponent implements OnInit, OnDest
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "defectosRefractivos", nombre: "Defectos refractivos", for: "defectosRefractivos", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "cxOcular", nombre: "CX Ocular", for: "cxOcular", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "estrabismos", nombre: "Estrabismos", for: "estrabismos", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "patologiasOculares", nombre: "Patologias oculares", for: "patologiasOculares",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "ttoOrtoptico", nombre: "TTO ortoptico", for: "ttoOrtoptico",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "hipertensionArterial", nombre: "Hipertension arterial", for: "hipertensionArterial",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "diabetesMellitus", nombre: "Diabetes mellitus", for: "diabetesMellitus",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "desordenesTiroides", nombre: "Desordenes tiroides", for: "desordenesTiroides",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_def_refra", nombre: "Defectos refractivos", for: "ant_def_refra", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_def_cx", nombre: "CX Ocular", for: "ant_def_cx", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_estra", nombre: "Estrabismos", for: "ant_estra", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_pato", nombre: "Patologias oculares", for: "ant_pato",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_tto", nombre: "TTO ortoptico", for: "ant_tto",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_hiper", nombre: "Hipertension arterial", for: "ant_hiper",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_diab", nombre: "Diabetes mellitus", for: "ant_diab",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_desor", nombre: "Desordenes tiroides", for: "ant_desor",img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "observacionesAntecedentesPersonalesOpto", nombre: "Observaciones", for: "observacionesAntecedentesPersonalesOpto",img:"../../../../assets/logos/003.jpg" },
-    { id: "accidenteCerebroVascular", nombre: "Accidente cerebro vascular", for: "accidenteCerebroVascular",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "traumaCraneoEncefalico", nombre: "Trauma craneo encefalico", for: "traumaCraneoEncefalico",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_acc", nombre: "Accidente cerebro vascular", for: "ant_acc",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_trau", nombre: "Trauma craneo encefalico", for: "ant_trau",img:"../../../../assets/logos/026.JPG", options: this.sino },
   ]);
 
   public get lifecycle$() {
@@ -58,54 +59,41 @@ export class OptometriaAntecedentesPersonalesComponent implements OnInit, OnDest
 
     createForm(data?: any){
       this.form = this.fb.group({
-        defectosRefractivos: [data ? data.defectosRefractivos : this.sino[0]["valor"], Validators.required],
-        cxOcular: [data ? data.cxOcular : this.sino[0]["valor"], Validators.required],
-        estrabismos: [data ? data.estrabismos : this.sino[0]["valor"] ,Validators.required],
-        patologiasOculares: [data ? data.patologiasOculares : this.sino[0]["valor"] ,Validators.required],
-        ttoOrtoptico: [data ? data.ttoOrtoptico : this.sino[0]["valor"] ,Validators.required],
-        hipertensionArterial: [data ? data.hipertensionArterial : this.sino[0]["valor"], Validators.required],
-        diabetesMellitus: [data ? data.diabetesMellitus :this.sino[0]["valor"], Validators.required],
-        desordenesTiroides: [data ? data.desordenesTiroides : this.sino[0]["valor"] ,Validators.required],
-        observacionesAntecedentesPersonalesOpto: [data ? data.observacionesAntecedentesPersonalesOpto : '' ],
-        accidenteCerebroVascular: [data ? data.accidenteCerebroVascular : this.sino[0]["valor"], Validators.required],
-        traumaCraneoEncefalico: [data ? data.traumaCraneoEncefalico : this.sino[0]["valor"], Validators.required],
+        ant_def_refra: [data ? data.ant_def_refra : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        ant_def_cx: [data ? data.ant_def_cx : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        ant_estra: [data ? data.ant_estra : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+        ant_pato: [data ? data.ant_pato : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+        ant_tto: [data ? data.ant_tto : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+        ant_hiper: [data ? data.ant_hiper : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        ant_diab: [data ? data.ant_diab :this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        ant_desor: [data ? data.ant_desor : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+        ant_obs: [data ? data.ant_obs : '' ],
+        ant_acc: [data ? data.ant_acc : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        ant_trau: [data ? data.ant_trau : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
       });
     }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
-    let dataRecovery = localStorage.getItem("OptometriaAntecedentesPersonales");
+    let dataRecovery = localStorage.getItem("optometriaAntecedentesPersonales");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["sino"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.sino = this.formatear_datos(response.sino)
+        this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
 
         this.inputs$ = of([
-          { id: "defectosRefractivos", nombre: "Defectos refractivos", for: "defectosRefractivos", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "cxOcular", nombre: "CX Ocular", for: "cxOcular", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "estrabismos", nombre: "Estrabismos", for: "estrabismos", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "patologiasOculares", nombre: "Patologias oculares", for: "patologiasOculares",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "ttoOrtoptico", nombre: "TTO ortoptico", for: "ttoOrtoptico",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "hipertensionArterial", nombre: "Hipertension arterial", for: "hipertensionArterial",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "diabetesMellitus", nombre: "Diabetes mellitus", for: "diabetesMellitus",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "desordenesTiroides", nombre: "Desordenes tiroides", for: "desordenesTiroides",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_def_refra", nombre: "Defectos refractivos", for: "ant_def_refra", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_def_cx", nombre: "CX Ocular", for: "ant_def_cx", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_estra", nombre: "Estrabismos", for: "ant_estra", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_pato", nombre: "Patologias oculares", for: "ant_pato",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_tto", nombre: "TTO ortoptico", for: "ant_tto",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_hiper", nombre: "Hipertension arterial", for: "ant_hiper",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_diab", nombre: "Diabetes mellitus", for: "ant_diab",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_desor", nombre: "Desordenes tiroides", for: "ant_desor",img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "observacionesAntecedentesPersonalesOpto", nombre: "Observaciones", for: "observacionesAntecedentesPersonalesOpto",img:"../../../../assets/logos/003.jpg" },
-          { id: "accidenteCerebroVascular", nombre: "Accidente cerebro vascular", for: "accidenteCerebroVascular",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "traumaCraneoEncefalico", nombre: "Trauma craneo encefalico", for: "traumaCraneoEncefalico",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_acc", nombre: "Accidente cerebro vascular", for: "ant_acc",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_trau", nombre: "Trauma craneo encefalico", for: "ant_trau",img:"../../../../assets/logos/026.JPG", options: this.sino },
         ])
         this.loaded$ = of(true);
         this.createForm(dataRecovery);
@@ -130,6 +118,6 @@ export class OptometriaAntecedentesPersonalesComponent implements OnInit, OnDest
 
   saveData(){
     let data = this.form.value;
-    localStorage.setItem("OptometriaAntecedentesPersonales", JSON.stringify(data));
+    localStorage.setItem("optometriaAntecedentesPersonales", JSON.stringify(data));
   }
 }

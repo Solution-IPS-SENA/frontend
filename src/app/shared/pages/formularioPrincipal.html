@@ -1,6 +1,6 @@
 <main *ngIf="loaded$ | async; else elseBlock">
   <form [formGroup]="form" class="w-full flex flex-row justify-end items-center gap-x-3 pr-10">
-    <select class="form-select  flex w-1/7 self-center bg-gray-200 text-black pl-2 h-10" id="tipoDeDocumento" formControlName="tipo_documento">
+    <select class="form-select rounded-lg flex w-1/7 self-center bg-gray-200 text-black pl-2 h-10" id="tipo_documento" formControlName="tipo_documento">
         <option *ngFor="let option of ((input$ | async)!.options)" value="{{ option.valor }}">
           {{ option.nombre }}
         </option>

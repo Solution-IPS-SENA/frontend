@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-medicina-inmunizaciones',
@@ -34,18 +35,18 @@ export class MedicinaInmunizacionesComponent implements OnInit, OnDestroy {
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "hepatitisA", nombre: "Hepatitis A", for: "hepatitisA", options: this.nroVacuna},
-    { id: "hepatitisB", nombre: "HepatitisB", for: "hepatitisB", options: this.nroVacuna},
-    { id: "tripleViral", nombre: "Triple viral", for: "tripleViral", options: this.nroVacuna},
-    { id: "tétanos", nombre: "Tétanos", for: "tétanos", options: this.nroVacuna},
-    { id: "malaria", nombre: "Malaria", for: "malaria", options: this.nroVacuna},
-    { id: "fAmarilla", nombre: "F. Amarilla", for: "fAmarilla", options: this.nroVacuna},
-    { id: "fTifoidea", nombre: "F. Tifoidea", for: "fTifoidea", options: this.nroVacuna},
-    { id: "covid", nombre: "Covid", for: "covid", options: this.nroVacuna},
+    { id: "inm_hep_a", nombre: "Hepatitis A", for: "inm_hep_a", options: this.nroVacuna},
+    { id: "inm_hep_b", nombre: "Hepatitis B", for: "inm_hep_b", options: this.nroVacuna},
+    { id: "inm_trip", nombre: "Triple viral", for: "inm_trip", options: this.nroVacuna},
+    { id: "inm_teta", nombre: "Tétanos", for: "inm_teta", options: this.nroVacuna},
+    { id: "inm_mala", nombre: "Malaria", for: "inm_mala", options: this.nroVacuna},
+    { id: "inm_amar", nombre: "F. Amarilla", for: "inm_amar", options: this.nroVacuna},
+    { id: "inm_tifo", nombre: "F. Tifoidea", for: "inm_tifo", options: this.nroVacuna},
+    { id: "inm_cov", nombre: "Covid", for: "inm_cov", options: this.nroVacuna},
   ]);
 
   inputs2$?: Observable<InputDatos[]> = of([
-    { id: "carneManipulacionAlimentos", nombre: "Carné manipulacion de alimentos", for: "carneManipulacionAlimentos"},
+    { id: "mani_ali", nombre: "Carné manipulacion de alimentos", for: "mani_ali"},
   ]);
 
   public get lifecycle$() {
@@ -60,30 +61,17 @@ export class MedicinaInmunizacionesComponent implements OnInit, OnDestroy {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      hepatitisA: [data ? data.hepatitisA : this.nroVacuna[0]["valor"] , Validators.required],
-      hepatitisB: [data ? data.hepatitisB : this.nroVacuna[0]["valor"] , Validators.required],
-      tripleViral: [data ? data.tripleViral : this.nroVacuna[0]["valor"] ,Validators.required],
-      tétanos: [data ? data.tétanos : this.nroVacuna[0]["valor"] ,Validators.required],
-      malaria: [data ? data.malaria : this.nroVacuna[0]["valor"] ,Validators.required],
-      fAmarilla: [data ? data.fAmarilla : this.nroVacuna[0]["valor"], Validators.required],
-      fTifoidea: [data ? data.fTifoidea : this.nroVacuna[0]["valor"], Validators.required],
-      covid: [data ? data.covid : this.nroVacuna[0]["valor"], Validators.required],
-      carneManipulacionAlimentos: [data ? data.carneManipulacionAlimentos : '', Validators.required],
-      observacionesInmunizacionesMedicina: [data ? data.observacionesInmunizacionesMedicina : ''],
+      inm_hep_a: [data ? data.inm_hep_a : this.nroVacuna[0]["valor"] , [Validators.required, inAnexoValidator(this.nroVacuna)]],
+      inm_hep_b: [data ? data.inm_hep_b : this.nroVacuna[0]["valor"] , [Validators.required, inAnexoValidator(this.nroVacuna)]],
+      inm_trip: [data ? data.inm_trip : this.nroVacuna[0]["valor"] ,[Validators.required, inAnexoValidator(this.nroVacuna)]],
+      inm_teta: [data ? data.inm_teta : this.nroVacuna[0]["valor"] ,[Validators.required, inAnexoValidator(this.nroVacuna)]],
+      inm_mala: [data ? data.inm_mala : this.nroVacuna[0]["valor"] ,[Validators.required, inAnexoValidator(this.nroVacuna)]],
+      inm_amar: [data ? data.inm_amar : this.nroVacuna[0]["valor"], [Validators.required, inAnexoValidator(this.nroVacuna)]],
+      inm_tifo: [data ? data.inm_tifo : this.nroVacuna[0]["valor"], [Validators.required, inAnexoValidator(this.nroVacuna)]],
+      inm_cov: [data ? data.inm_cov : this.nroVacuna[0]["valor"], [Validators.required, inAnexoValidator(this.nroVacuna)]],
+      mani_ali: [data ? data.mani_ali : '', Validators.required],
+      inm_obs: [data ? data.inm_obs : ''],
     });
-  }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
   }
 
   ngOnInit(): void {
@@ -93,21 +81,21 @@ export class MedicinaInmunizacionesComponent implements OnInit, OnDestroy {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["nroVacuna"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.nroVacuna = this.formatear_datos(response.nroVacuna)
+        this.nroVacuna = this.obtenerAnexosService.formatear_datos(response.nroVacuna)
 
         this.inputs$ = of([
-          { id: "hepatitisA", nombre: "Hepatitis A", for: "hepatitisA", options: this.nroVacuna},
-          { id: "hepatitisB", nombre: "HepatitisB", for: "hepatitisB", options: this.nroVacuna},
-          { id: "tripleViral", nombre: "Triple viral", for: "tripleViral", options: this.nroVacuna},
-          { id: "tétanos", nombre: "Tétanos", for: "tétanos", options: this.nroVacuna},
-          { id: "malaria", nombre: "Malaria", for: "malaria", options: this.nroVacuna},
-          { id: "fAmarilla", nombre: "F. Amarilla", for: "fAmarilla", options: this.nroVacuna},
-          { id: "fTifoidea", nombre: "F. Tifoidea", for: "fTifoidea", options: this.nroVacuna},
-          { id: "covid", nombre: "Covid", for: "covid", options: this.nroVacuna},
+          { id: "inm_hep_a", nombre: "Hepatitis A", for: "inm_hep_a", options: this.nroVacuna},
+          { id: "inm_hep_b", nombre: "Hepatitis B", for: "inm_hep_b", options: this.nroVacuna},
+          { id: "inm_trip", nombre: "Triple viral", for: "inm_trip", options: this.nroVacuna},
+          { id: "inm_teta", nombre: "Tétanos", for: "inm_teta", options: this.nroVacuna},
+          { id: "inm_mala", nombre: "Malaria", for: "inm_mala", options: this.nroVacuna},
+          { id: "inm_amar", nombre: "F. Amarilla", for: "inm_amar", options: this.nroVacuna},
+          { id: "inm_tifo", nombre: "F. Tifoidea", for: "inm_tifo", options: this.nroVacuna},
+          { id: "inm_cov", nombre: "Covid", for: "inm_cov", options: this.nroVacuna},
         ])
 
         this.inputs2$ = of([
-          { id: "carneManipulacionAlimentos", nombre: "Carné manipulacion de alimentos", for: "carneManipulacionAlimentos"},
+          { id: "mani_ali", nombre: "Carné manipulacion de alimentos", for: "mani_ali"},
         ])
 
         this.loaded$ = of(true);

@@ -2,9 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
-import { InputDatosDoble } from 'src/app/shared/interfaces/input-datos';
+import { InputDatos } from 'src/app/shared/interfaces/input-datos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-optometria-agudeza-visual',
@@ -37,20 +38,20 @@ export class OptometriaAgudezaVisualComponent implements OnInit, OnDestroy {
   loaded$ = of(false);
 
 
-  inputsAVCerca$?: Observable<InputDatosDoble[]> = of([
-    { id: "ojoDerechoCerca", nombre: "OD", for: "ojoDerechoCercaSC", for2:"ojoDerechoCercaCC", options: this.agudezaVisual, options2: this.agudezaVisual },
-    { id: "ojoIzquierdoCerca", nombre: "OI",for: "ojoIzquierdoCercaSC", for2:"ojoIzquierdoCercaCC", options: this.agudezaVisual, options2: this.agudezaVisual },
-    { id: "ambosCerca", nombre: "AMBOS",for: "ambosCercaSC", for2:"ambosCercaCC",  options: this.agudezaVisual, options2: this.agudezaVisual },
+  inputsAVCerca$?: Observable<InputDatos[]> = of([
+    { id: "ojoDerechoCerca", nombre: "OD", for: "agu_cer_sc1", for2:"agu_cer_cc1", options: this.agudezaVisual, options2: this.agudezaVisual },
+    { id: "ojoIzquierdoCerca", nombre: "OI",for: "agu_cer_sc2", for2:"agu_cer_cc2", options: this.agudezaVisual, options2: this.agudezaVisual },
+    { id: "ambosCerca", nombre: "AMBOS",for: "agu_cer_sc3", for2:"agu_cer_cc3",  options: this.agudezaVisual, options2: this.agudezaVisual },
   ]);
-  inputsAVLejos$?: Observable<InputDatosDoble[]> = of([
-    { id: "ojoDerechoLejos", nombre: "OD", for: "ojoDerechoLejosSC", for2:"ojoDerechoLejosCC", options: this.agudezaVisual, options2: this.agudezaVisual },
-    { id: "ojoIzquierdoLejos", nombre: "OI",for: "ojoIzquierdoLejosSC", for2:"ojoIzquierdoLejosCC", options: this.agudezaVisual, options2: this.agudezaVisual },
-    { id: "ambosLejos", nombre: "AMBOS", for: "ambosLejosSC", for2:"ambosLejosCC", options: this.agudezaVisual, options2: this.agudezaVisual },
+  inputsAVLejos$?: Observable<InputDatos[]> = of([
+    { id: "ojoDerechoLejos", nombre: "OD", for: "agu_lej_sc1", for2:"agu_lej_cc1", options: this.agudezaVisual, options2: this.agudezaVisual },
+    { id: "ojoIzquierdoLejos", nombre: "OI",for: "agu_lej_sc2", for2:"agu_lej_cc2", options: this.agudezaVisual, options2: this.agudezaVisual },
+    { id: "ambosLejos", nombre: "AMBOS", for: "agu_lej_sc3", for2:"agu_lej_cc3", options: this.agudezaVisual, options2: this.agudezaVisual },
   ]);
-  inputsLensometria$?: Observable<InputDatosDoble[]> = of([
-    { id: "ojoDerechoLensometria", nombre: "OD", for: "prescripcionOjoDerecho", for2:"valorPrescripcionOjoDerecho", options: this.sino, options2: this.lensometria },
-    { id: "ojoIzquierdoLensometria", nombre: "OI", for: "prescripcionOjoIzquierdo", for2:"valorPrescripcionOjoIzquierdo", options: this.sino, options2: this.lensometria },
-    { id: "tiempoUsoLensometria", for:"tiempoUsoLensometria", nombre: "Tiempo de uso", options: this.tiempo },
+  inputsLensometria$?: Observable<InputDatos[]> = of([
+    { id: "ojoDerechoLensometria", nombre: "OD", for: "agu_len_pre_od1", for2:"agu_len_pre_od2", options: this.sino, options2: this.lensometria },
+    { id: "ojoIzquierdoLensometria", nombre: "OI", for: "agu_len_pre_oi1", for2:"agu_len_pre_oi2", options: this.sino, options2: this.lensometria },
+    { id: "agu_len_tiem", for:"agu_len_tiem", nombre: "Tiempo de uso", options: this.tiempo },
   ]);
 
   public get lifecycle$() {
@@ -65,38 +66,25 @@ export class OptometriaAgudezaVisualComponent implements OnInit, OnDestroy {
 
     createForm(data?: any){
       this.form = this.fb.group({
-        ojoDerechoCercaSC: [data ? data.ojoDerechoCercaSC : this.agudezaVisual[0]["valor"], Validators.required],
-        ojoDerechoCercaCC: [data ? data.ojoDerechoCercaCC :this.agudezaVisual[0]["valor"], Validators.required],
-        ojoIzquierdoCercaSC: [data ? data.ojoIzquierdoCercaSC : this.agudezaVisual[0]["valor"] ,Validators.required],
-        ojoIzquierdoCercaCC: [data ? data.ojoIzquierdoCercaCC : this.agudezaVisual[0]["valor"] ,Validators.required],
-        ambosCercaSC: [data ? data.ambosCercaSC :this.agudezaVisual[0]["valor"], Validators.required],
-        ambosCercaCC: [data ? data.ambosCercaCC : this.agudezaVisual[0]["valor"] ,Validators.required],
-        ojoDerechoLejosSC: [data ? data.ojoDerechoLejosSC :this.agudezaVisual[0]["valor"], Validators.required],
-        ojoDerechoLejosCC: [data ? data.ojoDerechoLejosCC : this.agudezaVisual[0]["valor"], Validators.required],
-        ojoIzquierdoLejosSC: [data ? data.ojoIzquierdoLejosSC : this.agudezaVisual[0]["valor"], Validators.required],
-        ojoIzquierdoLejosCC: [data ? data.ojoIzquierdoLejosCC :this.agudezaVisual[0]["valor"], Validators.required],
-        ambosLejosSC: [data ? data.ambosLejosSC : this.agudezaVisual[0]["valor"] ,Validators.required],
-        ambosLejosCC: [data ? data.ambosLejosCC : this.agudezaVisual[0]["valor"] ,Validators.required],
-        prescripcionOjoDerecho: [data ? data.prescripcionOjoDerecho :this.sino[0]["valor"], Validators.required],
-        valorPrescripcionOjoDerecho: [data ? data.valorPrescripcionOjoDerecho : this.lensometria[0]["valor"] ,Validators.required],
-        prescripcionOjoIzquierdo: [data ? data.prescripcionOjoIzquierdo :this.sino[0]["valor"], Validators.required],
-        valorPrescripcionOjoIzquierdo: [data ? data.valorPrescripcionOjoIzquierdo : this.lensometria[0]["valor"], Validators.required],
-        tiempoUsoLensometria: [data ? data.tiempoUsoLensometria :this.tiempo[0]["valor"], Validators.required]
+        agu_cer_sc1: [data ? data.agu_cer_sc1 : this.agudezaVisual[0]["valor"], [Validators.required, inAnexoValidator(this.agudezaVisual)]],
+        agu_cer_cc1: [data ? data.agu_cer_cc1 :this.agudezaVisual[0]["valor"], [Validators.required, inAnexoValidator(this.agudezaVisual)]],
+        agu_cer_sc2: [data ? data.agu_cer_sc2 : this.agudezaVisual[0]["valor"] ,[Validators.required, inAnexoValidator(this.agudezaVisual)]],
+        agu_cer_cc2: [data ? data.agu_cer_cc2 : this.agudezaVisual[0]["valor"] ,[Validators.required, inAnexoValidator(this.agudezaVisual)]],
+        agu_cer_sc3: [data ? data.agu_cer_sc3 :this.agudezaVisual[0]["valor"], [Validators.required, inAnexoValidator(this.agudezaVisual)]],
+        agu_cer_cc3: [data ? data.agu_cer_cc3 : this.agudezaVisual[0]["valor"] ,[Validators.required, inAnexoValidator(this.agudezaVisual)]],
+        agu_lej_sc1: [data ? data.agu_lej_sc1 :this.agudezaVisual[0]["valor"], [Validators.required, inAnexoValidator(this.agudezaVisual)]],
+        agu_lej_cc1: [data ? data.agu_lej_cc1 : this.agudezaVisual[0]["valor"], [Validators.required, inAnexoValidator(this.agudezaVisual)]],
+        agu_lej_sc2: [data ? data.agu_lej_sc2 : this.agudezaVisual[0]["valor"], [Validators.required, inAnexoValidator(this.agudezaVisual)]],
+        agu_lej_cc2: [data ? data.agu_lej_cc2 :this.agudezaVisual[0]["valor"], [Validators.required, inAnexoValidator(this.agudezaVisual)]],
+        agu_lej_sc3: [data ? data.agu_lej_sc3 : this.agudezaVisual[0]["valor"] ,[Validators.required, inAnexoValidator(this.agudezaVisual)]],
+        agu_lej_cc3: [data ? data.agu_lej_cc3 : this.agudezaVisual[0]["valor"] ,[Validators.required, inAnexoValidator(this.agudezaVisual)]],
+        agu_len_pre_od1: [data ? data.agu_len_pre_od1 :this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        agu_len_pre_od2: [data ? data.agu_len_pre_od2 : this.lensometria[0]["valor"] ,[Validators.required, inAnexoValidator(this.lensometria)]],
+        agu_len_pre_oi1: [data ? data.agu_len_pre_oi1 :this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        agu_len_pre_oi2: [data ? data.agu_len_pre_oi2 : this.lensometria[0]["valor"], [Validators.required, inAnexoValidator(this.lensometria)]],
+        agu_len_tiem: [data ? data.agu_len_tiem :this.tiempo[0]["valor"], [Validators.required, inAnexoValidator(this.tiempo)]]
       });
     }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
 
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("optometriaAgudezaVisual");
@@ -105,26 +93,26 @@ export class OptometriaAgudezaVisualComponent implements OnInit, OnDestroy {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["lensometria", "tiempo", "agudezaVisual", "sino"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.tiempo = this.formatear_datos(response.tiempo);
-        this.lensometria = this.formatear_datos(response.lensometria);
-        this.agudezaVisual = this.formatear_datos(response.agudezaVisual);
-        this.sino = this.formatear_datos(response.sino);
+        this.tiempo = this.obtenerAnexosService.formatear_datos(response.tiempo);
+        this.lensometria = this.obtenerAnexosService.formatear_datos(response.lensometria);
+        this.agudezaVisual = this.obtenerAnexosService.formatear_datos(response.agudezaVisual);
+        this.sino = this.obtenerAnexosService.formatear_datos(response.sino);
 
         this.inputsAVCerca$ = of([
-          { id: "ojoDerechoCerca", nombre: "OD", for: "ojoDerechoCercaSC", for2:"ojoDerechoCercaCC", options: this.agudezaVisual, options2: this.agudezaVisual },
-          { id: "ojoIzquierdoCerca", nombre: "OI",for: "ojoIzquierdoCercaSC", for2:"ojoIzquierdoCercaCC", options: this.agudezaVisual, options2: this.agudezaVisual },
-          { id: "ambosCerca", nombre: "AMBOS",for: "ambosCercaSC", for2:"ambosCercaCC",  options: this.agudezaVisual, options2: this.agudezaVisual },
+          { id: "ojoDerechoCerca", nombre: "OD", for: "agu_cer_sc1", for2:"agu_cer_cc1", options: this.agudezaVisual, options2: this.agudezaVisual },
+          { id: "ojoIzquierdoCerca", nombre: "OI",for: "agu_cer_sc2", for2:"agu_cer_cc2", options: this.agudezaVisual, options2: this.agudezaVisual },
+          { id: "ambosCerca", nombre: "AMBOS",for: "agu_cer_sc3", for2:"agu_cer_cc3",  options: this.agudezaVisual, options2: this.agudezaVisual },
         ]);
         this.inputsAVLejos$ = of([
-          { id: "ojoDerechoLejos", nombre: "OD", for: "ojoDerechoLejosSC", for2:"ojoDerechoLejosCC", options: this.agudezaVisual, options2: this.agudezaVisual },
-          { id: "ojoIzquierdoLejos", nombre: "OI",for: "ojoIzquierdoLejosSC", for2:"ojoIzquierdoLejosCC", options: this.agudezaVisual, options2: this.agudezaVisual },
-          { id: "ambosLejos", nombre: "AMBOS", for: "ambosLejosSC", for2:"ambosLejosCC", options: this.agudezaVisual, options2: this.agudezaVisual },
+          { id: "ojoDerechoLejos", nombre: "OD", for: "agu_lej_sc1", for2:"agu_lej_cc1", options: this.agudezaVisual, options2: this.agudezaVisual },
+          { id: "ojoIzquierdoLejos", nombre: "OI",for: "agu_lej_sc2", for2:"agu_lej_cc2", options: this.agudezaVisual, options2: this.agudezaVisual },
+          { id: "ambosLejos", nombre: "AMBOS", for: "agu_lej_sc3", for2:"agu_lej_cc3", options: this.agudezaVisual, options2: this.agudezaVisual },
         ]);
 
         this.inputsLensometria$= of([
-          { id: "ojoDerechoLensometria", nombre: "OD", for: "prescripcionOjoDerecho", for2:"valorPrescripcionOjoDerecho", options: this.sino, options2: this.lensometria },
-          { id: "ojoIzquierdoLensometria", nombre: "OI", for: "prescripcionOjoIzquierdo", for2:"valorPrescripcionOjoIzquierdo", options: this.sino, options2: this.lensometria },
-          { id: "tiempoUsoLensometria", for:"tiempoUsoLensometria", nombre: "Tiempo de uso", options: this.tiempo },
+          { id: "ojoDerechoLensometria", nombre: "OD", for: "agu_len_pre_od1", for2:"agu_len_pre_od2", options: this.sino, options2: this.lensometria },
+          { id: "ojoIzquierdoLensometria", nombre: "OI", for: "agu_len_pre_oi1", for2:"agu_len_pre_oi2", options: this.sino, options2: this.lensometria },
+          { id: "agu_len_tiem", for:"agu_len_tiem", nombre: "Tiempo de uso", options: this.tiempo },
         ]);
 
         this.loaded$ = of(true);

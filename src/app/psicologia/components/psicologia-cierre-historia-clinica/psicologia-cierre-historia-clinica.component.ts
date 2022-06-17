@@ -5,6 +5,11 @@ import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
+import { EnvioHistoriaService } from 'src/app/shared/services/envio-historia.service';
+import { ClientService } from 'src/app/shared/services/client.service';
+import { environment } from 'src/environments/environment';
+import { MessagesService } from 'src/app/shared/services/messages.service';
 
 @Component({
   selector: 'app-psicologia-cierre-historia-clinica',
@@ -13,6 +18,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestroy {
 
+  llavesData = ["psicologiaAccidentes","psicologiaEmpresa","psicologiaObservacion","psicologiaCierreHistoria"]
   public currentPage = 0;
   form!: FormGroup;
   state: boolean = false;
@@ -37,7 +43,7 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
 
   inputs$?: Observable<InputDatos[]> = of([
     { id: "motivo", nombre: "Motivo", for: "motivo", options: this.motivo},
-    { id: "remitido", nombre: "Remitido", for: "remitido", options: this.remitido},
+    { id: "cie_concep_reco_mot", nombre: "Remitido", for: "cie_concep_reco_mot", options: this.remitido},
   ]);
 
   inputConcepto$?: Observable<InputDatos[]> = of([
@@ -50,37 +56,22 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
 
   constructor(
     private obtenerAnexosService: ObtenerAnexosService,
+    private client: ClientService,
     private router: Router,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private envioHistoria: EnvioHistoriaService,
+    private messages: MessagesService) { }
 
   createForm(data?: any){
     this.form = this.fb.group({
-      motivo: [data ? data.motivo : this.motivo[0]["valor"]],
-      remitido: [data ? data.remitido : this.remitido[0]["valor"]],
-      checkboxAplazado: [data ? data.checkboxAplazado : ''],
-      concepto: [data ? data.concepto : this.concepto[0]["valor"] , Validators.required],
-      psicologiaHistoriaFamiliar: [data ? data.psicologiaHistoriaFamiliar : '', Validators.required],
-      psicologiaRestricciones: [data ? data.psicologiaRestricciones : '', Validators.required],
-      psicologiaObservaciones: [data ? data.psicologiaObservaciones : '', Validators.required],
+      motivo: [data ? data.motivo : this.motivo[0]["valor"], [Validators.required, inAnexoValidator(this.motivo)]],
+      cie_concep_reco_mot: [data ? data.cie_concep_reco_mot : this.remitido[0]["valor"], [Validators.required, inAnexoValidator(this.remitido)]],
+      estado: [data ? data.estado : ''],
+      concepto: [data ? data.concepto : this.concepto[0]["valor"] , [Validators.required, inAnexoValidator(this.concepto)]],
+      histo_famili: [data ? data.histo_famili : '', Validators.required],
+      cie_concep_reco: [data ? data.cie_concep_reco : '', Validators.required],
+      cie_obs: [data ? data.cie_obs : '', Validators.required],
     });
-  }
-
-  isSelect(){
-
-  }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
   }
 
   ngOnInit(): void {
@@ -90,13 +81,13 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.motivo = this.formatear_datos(response.motivo)
-        this.remitido = this.formatear_datos(response.remitido)
-        this.concepto = this.formatear_datos(response.concepto)
+        this.motivo = this.obtenerAnexosService.formatear_datos(response.motivo)
+        this.remitido = this.obtenerAnexosService.formatear_datos(response.remitido)
+        this.concepto = this.obtenerAnexosService.formatear_datos(response.concepto)
 
         this.inputs$ = of([
           { id: "motivo", nombre: "Motivo", for: "motivo", options: this.motivo},
-          { id: "remitido", nombre: "Remitido", for: "remitido", options: this.remitido},
+          { id: "cie_concep_reco_mot", nombre: "Remitido", for: "cie_concep_reco_mot", options: this.remitido},
         ])
 
         this.inputConcepto$ = of([
@@ -129,5 +120,30 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     let data = this.form.value;
     localStorage.setItem("psicologiaCierreHistoria", JSON.stringify(data));
     alert("Sisas")
+    let historia = this.envioHistoria.enviarHistoria(this.llavesData)
+
+    if (historia){
+      this.client.post(environment.API_AUTH_URL + environment.LOGIN_ENDPOINT, historia)
+      .subscribe(
+        {
+          next: (res: any) => {
+            console.log("Historia enviada");
+
+          },
+          error: (err) => {
+            console.log(err.status, err.error.response)
+            this.messages.error(err.error.response)
+          }
+        }
+      )
+    }else {
+      console.log("Form error");
+    }
   }
+
+
+
+
+
 }
+

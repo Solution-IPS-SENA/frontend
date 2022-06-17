@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, filter, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,10 @@ export class ClientService {
       responseType: "json"
     };
     if (token) {
+      const header = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      config["headers"] = header;
     };
-    const header = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    config["headers"] = header;
     return this.http.post(url, data, config)
   }
-
-  
 
 }

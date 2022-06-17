@@ -2,7 +2,7 @@
     <img class="w-14 rounded-lg" src="../../../../assets/logos/001.jpg" alt="">
     <h1 class="text-3xl pl-4 font-semibold">HALLAZGOS</h1>
   </div>
-  
+
   <div class="px-10 flex flex-col gap-y-5">
     <div class="flex items-center justify-center h-96" *ngIf="!(loaded$ | async); else formulario">
       <img class="w-8 h-8 absolute rounded-lg" src="../../../../assets/logos/simbolo solo.png">
@@ -69,7 +69,7 @@
                                 {{ option.nombre }}
                             </option>
                         </select>
-                        <textarea formControlName="observacionesOptoHallazgos" *ngIf="(input.id == 'observacionesOptoHallazgos')" id="" class="col-span-3 resize-none pl-2 h-full w-full"></textarea>
+                        <textarea formControlName="hal_obs" *ngIf="(input.id == 'observacionesOptoHallazgos')" id="hal_obs" class="col-span-3 resize-none pl-2 h-full w-full"></textarea>
                     </div>
                 </div>
             </div>
@@ -79,4 +79,3 @@
       <app-shared-paginacion (dataState)="saveData()" [pages]="6" [state]="state" (pageChange)="onPageChange($event)" [currentPage]="currentPage"></app-shared-paginacion>
     </div>
   </div>
-  

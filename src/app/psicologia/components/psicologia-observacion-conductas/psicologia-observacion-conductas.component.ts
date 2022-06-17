@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-psicologia-observacion-conductas',
@@ -33,14 +34,14 @@ export class PsicologiaObservacionConductasComponent implements OnInit, OnDestro
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "presentacion", nombre: "Presentacion", for: "presentacion", options: this.adecuacion},
-    { id: "postura", nombre: "Postura", for: "postura", options: this.adecuacion},
-    { id: "discursoRitmo", nombre: "Discurso - Ritmo", for: "discursoRitmo", options: this.adecuacion},
-    { id: "tono", nombre: "Tono", for: "tono", options: this.adecuacion},
-    { id: "articulacion", nombre: "Articulacion", for: "articulacion", options: this.adecuacion},
-    { id: "orientacionTiempo", nombre: "Orientacion - Tiempo", for: "orientacionTiempo", options: this.adecuacion},
-    { id: "orientacionEspacio", nombre: "Orientacion - Espacio", for: "orientacionEspacio", options: this.adecuacion},
-    { id: "orientacionPersona", nombre: "Orientacion - Persona", for: "orientacionPersona", options: this.adecuacion},
+    { id: "obs_cond_pres", nombre: "Presentacion", for: "obs_cond_pres", options: this.adecuacion},
+    { id: "obs_cond_post", nombre: "Postura", for: "obs_cond_post", options: this.adecuacion},
+    { id: "obs_cond_disc", nombre: "Discurso - Ritmo", for: "obs_cond_disc", options: this.adecuacion},
+    { id: "obs_cond_tono", nombre: "Tono", for: "obs_cond_tono", options: this.adecuacion},
+    { id: "obs_cond_arti", nombre: "Articulacion", for: "obs_cond_arti", options: this.adecuacion},
+    { id: "obs_cond_orien_tiem", nombre: "Orientacion - Tiempo", for: "obs_cond_orien_tiem", options: this.adecuacion},
+    { id: "obs_cond_orien_esp", nombre: "Orientacion - Espacio", for: "obs_cond_orien_esp", options: this.adecuacion},
+    { id: "obs_cond_orien_perso", nombre: "Orientacion - Persona", for: "obs_cond_orien_perso", options: this.adecuacion},
   ]);
 
   public get lifecycle$() {
@@ -53,30 +54,17 @@ export class PsicologiaObservacionConductasComponent implements OnInit, OnDestro
     private fb: FormBuilder
     ) {}
 
-    createForm(data?: any){
-      this.form = this.fb.group({
-        presentacion: [data ? data.presentacion : this.adecuacion[0]["valor"], Validators.required],
-        postura: [data ? data.postura : this.adecuacion[0]["valor"], Validators.required],
-        discursoRitmo: [data ? data.discursoRitmo : this.adecuacion[0]["valor"] ,Validators.required],
-        tono: [data ? data.tono : this.adecuacion[0]["valor"] ,Validators.required],
-        articulacion: [data ? data.articulacion :this.adecuacion[0]["valor"], Validators.required],
-        orientacionTiempo: [data ? data.orientacionTiempo : this.adecuacion[0]["valor"] ,Validators.required],
-        orientacionEspacio: [data ? data.orientacionEspacio :this.adecuacion[0]["valor"], Validators.required],
-        orientacionPersona: [data ? data.orientacionPersona : this.adecuacion[0]["valor"], Validators.required],
-      });
-    }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
+  createForm(data?: any){
+    this.form = this.fb.group({
+      obs_cond_pres: [data ? data.obs_cond_pres : this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_post: [data ? data.obs_cond_post : this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_disc: [data ? data.obs_cond_disc : this.adecuacion[0]["valor"] ,[Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_tono: [data ? data.obs_cond_tono : this.adecuacion[0]["valor"] ,[Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_arti: [data ? data.obs_cond_arti :this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_orien_tiem: [data ? data.obs_cond_orien_tiem : this.adecuacion[0]["valor"] ,[Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_orien_esp: [data ? data.obs_cond_orien_esp :this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_orien_perso: [data ? data.obs_cond_orien_perso : this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
+    });
   }
 
   ngOnInit(): void {
@@ -86,20 +74,20 @@ export class PsicologiaObservacionConductasComponent implements OnInit, OnDestro
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["adecuacion"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.adecuacion = this.formatear_datos(response.adecuacion)
+        this.adecuacion = this.obtenerAnexosService.formatear_datos(response.adecuacion)
 
         this.inputs$ = of([
-          { id: "presentacion", nombre: "Presentacion", for: "presentacion", options: this.adecuacion},
-          { id: "postura", nombre: "Postura", for: "postura", options: this.adecuacion},
-          { id: "discursoRitmo", nombre: "Discurso - Ritmo", for: "discursoRitmo", options: this.adecuacion},
-          { id: "tono", nombre: "Tono", for: "tono", options: this.adecuacion},
-          { id: "articulacion", nombre: "Articulacion", for: "articulacion", options: this.adecuacion},
-          { id: "orientacionTiempo", nombre: "Orientacion - Tiempo", for: "orientacionTiempo", options: this.adecuacion},
-          { id: "orientacionEspacio", nombre: "Orientacion - Espacio", for: "orientacionEspacio", options: this.adecuacion},
-          { id: "orientacionPersona", nombre: "Orientacion - Persona", for: "orientacionPersona", options: this.adecuacion},
+          { id: "obs_cond_pres", nombre: "Presentacion", for: "obs_cond_pres", options: this.adecuacion},
+          { id: "obs_cond_post", nombre: "Postura", for: "obs_cond_post", options: this.adecuacion},
+          { id: "obs_cond_disc", nombre: "Discurso - Ritmo", for: "obs_cond_disc", options: this.adecuacion},
+          { id: "obs_cond_tono", nombre: "Tono", for: "obs_cond_tono", options: this.adecuacion},
+          { id: "obs_cond_arti", nombre: "Articulacion", for: "obs_cond_arti", options: this.adecuacion},
+          { id: "obs_cond_orien_tiem", nombre: "Orientacion - Tiempo", for: "obs_cond_orien_tiem", options: this.adecuacion},
+          { id: "obs_cond_orien_esp", nombre: "Orientacion - Espacio", for: "obs_cond_orien_esp", options: this.adecuacion},
+          { id: "obs_cond_orien_perso", nombre: "Orientacion - Persona", for: "obs_cond_orien_perso", options: this.adecuacion},
   ])
-        this.loaded$ = of(true);
         this.createForm(dataRecovery);
+        this.loaded$ = of(true);
         this.state = this.form.valid
         this.form.valueChanges
         .pipe(

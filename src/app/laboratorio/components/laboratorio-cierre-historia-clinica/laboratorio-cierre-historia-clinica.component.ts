@@ -5,6 +5,7 @@ import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EnvioHistoriaService } from 'src/app/shared/services/envio-historia.service';
 
 @Component({
   selector: 'app-laboratorio-cierre-historia-clinica',
@@ -12,6 +13,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./laboratorio-cierre-historia-clinica.component.css']
 })
 export class LaboratorioCierreHistoriaClinicaComponent implements OnInit, OnDestroy {
+
+  llavesData = ["laboratorioExamenes1","laboratorioExamenes2","laboratorioCierreHistoria"]
 
   public currentPage = 0;
   form!: FormGroup;
@@ -51,7 +54,8 @@ export class LaboratorioCierreHistoriaClinicaComponent implements OnInit, OnDest
   constructor(
     private obtenerAnexosService: ObtenerAnexosService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private envioHistoria: EnvioHistoriaService
   ) {}
 
   createForm(data?: any){
@@ -66,23 +70,6 @@ export class LaboratorioCierreHistoriaClinicaComponent implements OnInit, OnDest
     });
   }
 
-  isSelect(){
-
-  }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("laboratorioCierreHistoria");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -90,9 +77,9 @@ export class LaboratorioCierreHistoriaClinicaComponent implements OnInit, OnDest
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.motivo = this.formatear_datos(response.motivo)
-        this.remitido = this.formatear_datos(response.remitido)
-        this.concepto = this.formatear_datos(response.concepto)
+        this.motivo = this.obtenerAnexosService.formatear_datos(response.motivo)
+        this.remitido = this.obtenerAnexosService.formatear_datos(response.remitido)
+        this.concepto = this.obtenerAnexosService.formatear_datos(response.concepto)
 
         this.inputs$ = of([
           { id: "motivo", nombre: "Motivo", for: "motivo", options: this.motivo},
@@ -129,5 +116,6 @@ export class LaboratorioCierreHistoriaClinicaComponent implements OnInit, OnDest
     let data = this.form.value;
     localStorage.setItem("laboratorioCierreHistoria", JSON.stringify(data));
     alert("Sisas")
+    this.envioHistoria.enviarHistoria(this.llavesData)
   }
 }

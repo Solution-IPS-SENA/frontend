@@ -5,6 +5,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-optometria-sintomas',
@@ -33,17 +34,17 @@ export class OptometriaSintomasComponent implements OnInit, OnDestroy {
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "malaVisionLejos", nombre: "Mala vision de lejos", for: "malaVisionLejos", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "malaVisionCerca", nombre: "Mala vision de cerca", for: "malaVisionCerca", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "cefalea", nombre: "Cefalea", for: "cefalea", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "hiperemia", nombre: "Hiperemia", for: "hiperemia", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "visionDoble", nombre: "Vision doble", for: "visionDoble", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "vertigo", nombre: "Vertigo", for: "vertigo", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "lagrimeo", nombre: "Lagrimeo", for: "lagrimeo", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "mareo", nombre: "Mareo", for: "mareo", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_mal_lej", nombre: "Mala vision de lejos", for: "sis_mal_lej", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_mal_cer", nombre: "Mala vision de cerca", for: "sis_mal_cer", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_cel", nombre: "Cefalea", for: "sis_cel", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_hiper", nombre: "Hiperemia", for: "sis_hiper", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_vis_dob", nombre: "Vision doble", for: "sis_vis_dob", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_vert", nombre: "Vertigo", for: "sis_vert", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_lagri", nombre: "Lagrimeo", for: "sis_lagri", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_mare", nombre: "Mareo", for: "sis_mare", img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "observacionesSintomasOpto", nombre: "Otro", for: "observacionesSintomasOpto", img:"../../../../assets/logos/003.jpg"},
-    { id: "Secrecion", nombre: "Secreción", for: "Secrecion",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "resequedadOcular", nombre: "Resequedad ocular", for: "resequedadOcular", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_secr", nombre: "Secreción", for: "sis_secr",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_rese", nombre: "Resequedad ocular", for: "sis_rese", img:"../../../../assets/logos/026.JPG", options: this.sino },
   ]);
 
   public get lifecycle$() {
@@ -58,55 +59,41 @@ export class OptometriaSintomasComponent implements OnInit, OnDestroy {
 
     createForm(data?: any){
       this.form = this.fb.group({
-        malaVisionLejos: [data ? data.malaVisionLejos : this.sino[0]["valor"], Validators.required],
-        malaVisionCerca: [data ? data.malaVisionCerca : this.sino[0]["valor"], Validators.required],
-        cefalea: [data ? data.cefalea : this.sino[0]["valor"] ,Validators.required],
-        hiperemia: [data ? data.hiperemia : this.sino[0]["valor"] ,Validators.required],
-        visionDoble: [data ? data.visionDoble : this.sino[0]["valor"] ,Validators.required],
-        vertigo: [data ? data.vertigo : this.sino[0]["valor"], Validators.required],
-        lagrimeo: [data ? data.lagrimeo :this.sino[0]["valor"], Validators.required],
-        mareo: [data ? data.mareo : this.sino[0]["valor"] ,Validators.required],
-        observacionesSintomasOpto: [data ? data.observacionesSintomasOpto : '' ],
-        Secrecion: [data ? data.Secrecion : this.sino[0]["valor"], Validators.required],
-        resequedadOcular: [data ? data.resequedadOcular : this.sino[0]["valor"], Validators.required]
+        sis_mal_lej: [data ? data.sis_mal_lej : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        sis_mal_cer: [data ? data.sis_mal_cer : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        sis_cel: [data ? data.sis_cel : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+        sis_hiper: [data ? data.sis_hiper : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+        sis_vis_dob: [data ? data.sis_vis_dob : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+        sis_vert: [data ? data.sis_vert : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        sis_lagri: [data ? data.sis_lagri :this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        sis_mare: [data ? data.sis_mare : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]],
+        sis_otro: [data ? data.sis_otro : '' ],
+        sis_secr: [data ? data.sis_secr : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        sis_rese: [data ? data.sis_rese : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]]
       });
     }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
-    let dataRecovery = localStorage.getItem("OptometriaSintomas");
+    let dataRecovery = localStorage.getItem("optometriaSintomas");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["sino"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.sino = this.formatear_datos(response.sino)
+        this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
 
         this.inputs$ = of([
-          { id: "malaVisionLejos", nombre: "Mala vision de lejos", for: "malaVisionLejos", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "malaVisionCerca", nombre: "Mala vision de cerca", for: "malaVisionCerca", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "cefalea", nombre: "Cefalea", for: "cefalea", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "hiperemia", nombre: "Hiperemia", for: "hiperemia", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "visionDoble", nombre: "Vision doble", for: "visionDoble", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "vertigo", nombre: "Vertigo", for: "vertigo", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "lagrimeo", nombre: "Lagrimeo", for: "lagrimeo", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "mareo", nombre: "Mareo", for: "mareo", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_mal_lej", nombre: "Mala vision de lejos", for: "sis_mal_lej", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_mal_cer", nombre: "Mala vision de cerca", for: "sis_mal_cer", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_cel", nombre: "Cefalea", for: "sis_cel", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_hiper", nombre: "Hiperemia", for: "sis_hiper", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_vis_dob", nombre: "Vision doble", for: "sis_vis_dob", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_vert", nombre: "Vertigo", for: "sis_vert", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_lagri", nombre: "Lagrimeo", for: "sis_lagri", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_mare", nombre: "Mareo", for: "sis_mare", img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "observacionesSintomasOpto", nombre: "Otro", for: "observacionesSintomasOpto", img:"../../../../assets/logos/003.jpg"},
-          { id: "Secrecion", nombre: "Secreción", for: "Secrecion",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "resequedadOcular", nombre: "Resequedad ocular", for: "resequedadOcular", img:"../../../../assets/logos/026.JPG", options: this.sino },
-
+          { id: "sis_secr", nombre: "Secreción", for: "sis_secr",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_rese", nombre: "Resequedad ocular", for: "sis_rese", img:"../../../../assets/logos/026.JPG", options: this.sino },
         ])
 
         this.loaded$ = of(true);
@@ -133,6 +120,7 @@ export class OptometriaSintomasComponent implements OnInit, OnDestroy {
 
   saveData(){
     let data = this.form.value;
-    localStorage.setItem("OptometriaSintomas", JSON.stringify(data));
+    localStorage.setItem("optometriaSintomas", JSON.stringify(data));
+
   }
 }

@@ -5,7 +5,8 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
- 
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
+
 @Component({
   selector: 'app-psicologia-accidentes-enfermedades',
   templateUrl: './psicologia-accidentes-enfermedades.component.html',
@@ -33,9 +34,9 @@ export class PsicologiaAccidentesEnfermedadesComponent implements OnInit, OnDest
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "tratamientoPsicologico", nombre: "Ha estado en consulta o tratamiento psicologico o psiquiatrico:", for: "tratamientoPsicologico", options: this.sino },
-    { id: "enfermedadesPsicologicas", nombre: "Ha sufrido enfermedades psicologicas laborales o derivadas del estres laboral:", for: "enfermedadesPsicologicas", options: this.sino},
-    { id: "alteracionesSueño", nombre: "Presenta alteraciones del sueño:", for: "alteracionesSueño",  options: this.sino},
+    { id: "ant_tra", nombre: "Ha estado en consulta o tratamiento psicologico o psiquiatrico:", for: "ant_tra", options: this.sino },
+    { id: "ant_enf", nombre: "Ha sufrido enfermedades psicologicas laborales o derivadas del estres laboral:", for: "ant_enf", options: this.sino},
+    { id: "ant_sueño", nombre: "Presenta alteraciones del sueño:", for: "ant_sueño",  options: this.sino},
   ]);
 
   public get lifecycle$() {
@@ -50,41 +51,28 @@ export class PsicologiaAccidentesEnfermedadesComponent implements OnInit, OnDest
 
     createForm(data?: any){
       this.form = this.fb.group({
-        tratamientoPsicologico: [data ? data.tratamientoPsicologico : this.sino[0]["valor"], Validators.required],
-        enfermedadesPsicologicas: [data ? data.enfermedadesPsicologicas : this.sino[0]["valor"], Validators.required],
-        alteracionesSueño: [data ? data.alteracionesSueño : this.sino[0]["valor"] ,Validators.required]
+        ant_tra: [data ? data.ant_tra : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        ant_enf: [data ? data.ant_enf : this.sino[0]["valor"], [Validators.required, inAnexoValidator(this.sino)]],
+        ant_sueño: [data ? data.ant_sueño : this.sino[0]["valor"] ,[Validators.required, inAnexoValidator(this.sino)]]
       });
     }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
-    let dataRecovery = localStorage.getItem("PsicologiaAccidentes");
+    let dataRecovery = localStorage.getItem("psicologiaAccidentes");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["sino"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.sino = this.formatear_datos(response.sino)
+        this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
 
         this.inputs$ = of([
-          { id: "tratamientoPsicologico", nombre: "Ha estado en consulta o tratamiento psicologico o psiquiatrico:", for: "tratamientoPsicologico", options: this.sino },
-          { id: "enfermedadesPsicologicas", nombre: "Ha sufrido enfermedades psicologicas laborales o derivadas del estres laboral:", for: "enfermedadesPsicologicas", options: this.sino},
-          { id: "alteracionesSueño", nombre: "Presenta alteraciones del sueño:", for: "alteracionesSueño",  options: this.sino},
+          { id: "ant_tra", nombre: "Ha estado en consulta o tratamiento psicologico o psiquiatrico:", for: "ant_tra", options: this.sino },
+          { id: "ant_enf", nombre: "Ha sufrido enfermedades psicologicas laborales o derivadas del estres laboral:", for: "ant_enf", options: this.sino},
+          { id: "ant_sueño", nombre: "Presenta alteraciones del sueño:", for: "ant_sueño",  options: this.sino},
   ])
-        this.loaded$ = of(true);
         this.createForm(dataRecovery);
+        this.loaded$ = of(true);
         this.state = this.form.valid
         this.form.valueChanges
         .pipe(
@@ -106,6 +94,6 @@ export class PsicologiaAccidentesEnfermedadesComponent implements OnInit, OnDest
 
   saveData(){
     let data = this.form.value;
-    localStorage.setItem("PsicologiaAccidentes", JSON.stringify(data));
+    localStorage.setItem("psicologiaAccidentes", JSON.stringify(data));
   }
 }

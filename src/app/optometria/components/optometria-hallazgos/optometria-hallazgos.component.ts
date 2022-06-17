@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { InputDatosDoble } from 'src/app/shared/interfaces/input-datos';
+import { InputDatos } from 'src/app/shared/interfaces/input-datos';
 import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 
 @Component({
   selector: 'app-optometria-hallazgos',
@@ -32,16 +33,16 @@ export class OptometriaHallazgosComponent implements OnInit, OnDestroy {
   normalidad: any = [];
   loaded$ = of(false);
 
-  inputsHallazgo1$?: Observable<InputDatosDoble[]> = of([
-    { id: "examenExterno", nombre: "Examen externo", for:"ojoDerechoExamenExterno", for2:"ojoIzquierdoExamenExterno", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-    { id: "motilidadOcular", nombre: "Motilidad ocular" ,for:"ojoDerechoMotilidadOcular", for2:"ojoIzquierdoMotilidadOcular", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-    { id: "oftalmoscopia", nombre: "Oftalmoscopia" ,for:"ojoDerechoOftalmoscopia", for2:"ojoIzquierdoOftalmoscopia", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-    { id: "campoVisualConfrontacion", nombre: "Campo visual por confrontacion" ,for:"ojoDerechoCampoVisualConfrontacion", for2:"ojoIzquierdoCampoVisualConfrontacion", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+  inputsHallazgo1$?: Observable<InputDatos[]> = of([
+    { id: "examenExterno", nombre: "Examen externo", for:"hal_ext_od", for2:"hal_ext_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+    { id: "motilidadOcular", nombre: "Motilidad ocular" ,for:"hal_mot_od", for2:"hal_mot_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+    { id: "oftalmoscopia", nombre: "Oftalmoscopia" ,for:"hal_ofta_od", for2:"hal_ofta_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+    { id: "campoVisualConfrontacion", nombre: "Campo visual por confrontacion" ,for:"hal_camp_od", for2:"hal_camp_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
   ]);
 
-  inputsHallazgo2$?: Observable<InputDatosDoble[]> = of([
-    { id: "Estereopsis", nombre: "Estereopsis" , for:"ojoDerechoEstereopsis", for2:"ojoIzquierdoEstereopsis", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-    { id: "Percepcioncromatica", nombre: "Percepcion cromatica" , for:"ojoDerechoPercepcioncromatica", for2:"ojoIzquierdoPercepcioncromatica", img:"../../../../assets/logos/026.JPG",options: this.normalidad, options2: this.normalidad},
+  inputsHallazgo2$?: Observable<InputDatos[]> = of([
+    { id: "Estereopsis", nombre: "Estereopsis" , for:"hal_est_od", for2:"hal_est_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+    { id: "Percepcioncromatica", nombre: "Percepcion cromatica" , for:"hal_crom_od", for2:"hal_crom_oi", img:"../../../../assets/logos/026.JPG",options: this.normalidad, options2: this.normalidad},
     { id: "observacionesOptoHallazgos", nombre: "Observaciones",img:"../../../../assets/logos/003.jpg"}
   ]);
 
@@ -57,34 +58,21 @@ export class OptometriaHallazgosComponent implements OnInit, OnDestroy {
 
     createForm(data?: any){
       this.form = this.fb.group({
-        ojoDerechoExamenExterno: [data ? data.ojoDerechoExamenExterno : this.normalidad[0]["valor"], Validators.required],
-        ojoIzquierdoExamenExterno: [data ? data.ojoIzquierdoExamenExterno :this.normalidad[0]["valor"], Validators.required],
-        ojoDerechoMotilidadOcular: [data ? data.ojoDerechoMotilidadOcular : this.normalidad[0]["valor"] ,Validators.required],
-        ojoIzquierdoMotilidadOcular: [data ? data.ojoIzquierdoMotilidadOcular : this.normalidad[0]["valor"] ,Validators.required],
-        ojoDerechoOftalmoscopia: [data ? data.ojoDerechoOftalmoscopia :this.normalidad[0]["valor"], Validators.required],
-        ojoIzquierdoOftalmoscopia: [data ? data.ojoIzquierdoOftalmoscopia : this.normalidad[0]["valor"] ,Validators.required],
-        ojoDerechoCampoVisualConfrontacion: [data ? data.ojoDerechoCampoVisualConfrontacion :this.normalidad[0]["valor"], Validators.required],
-        ojoIzquierdoCampoVisualConfrontacion: [data ? data.ojoIzquierdoCampoVisualConfrontacion : this.normalidad[0]["valor"], Validators.required],
-        ojoDerechoEstereopsis: [data ? data.ojoDerechoEstereopsis: this.normalidad[0]["valor"], Validators.required],
-        ojoIzquierdoEstereopsis: [data ? data.ojoIzquierdoEstereopsis :this.normalidad[0]["valor"], Validators.required],
-        ojoDerechoPercepcioncromatica: [data ? data.ojoDerechoPercepcioncromatica : this.normalidad[0]["valor"] ,Validators.required],
-        ojoIzquierdoPercepcioncromatica: [data ? data.ojoIzquierdoPercepcioncromatica : this.normalidad[0]["valor"] ,Validators.required],
-        observacionesOptoHallazgos: [data ? data.observacionesOptoHallazgos :'']
+        hal_ext_od: [data ? data.hal_ext_od : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+        hal_ext_oi: [data ? data.hal_ext_oi :this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+        hal_mot_od: [data ? data.hal_mot_od : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+        hal_mot_oi: [data ? data.hal_mot_oi : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+        hal_ofta_od: [data ? data.hal_ofta_od :this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+        hal_ofta_oi: [data ? data.hal_ofta_oi : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+        hal_camp_od: [data ? data.hal_camp_od :this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+        hal_camp_oi: [data ? data.hal_camp_oi : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+        hal_est_od: [data ? data.hal_est_od: this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+        hal_est_oi: [data ? data.hal_est_oi :this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+        hal_crom_od: [data ? data.hal_crom_od : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+        hal_crom_oi: [data ? data.hal_crom_oi : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+        hal_obs: [data ? data.hal_obs :'']
       });
     }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
 
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("optometriaHallazgos");
@@ -93,18 +81,18 @@ export class OptometriaHallazgosComponent implements OnInit, OnDestroy {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["normalidad"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.normalidad = this.formatear_datos(response.normalidad)
+        this.normalidad = this.obtenerAnexosService.formatear_datos(response.normalidad)
 
         this.inputsHallazgo1$ = of([
-          { id: "examenExterno", nombre: "Examen externo", for:"ojoDerechoExamenExterno", for2:"ojoIzquierdoExamenExterno", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-          { id: "motilidadOcular", nombre: "Motilidad ocular" ,for:"ojoDerechoMotilidadOcular", for2:"ojoIzquierdoMotilidadOcular", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-          { id: "oftalmoscopia", nombre: "Oftalmoscopia" ,for:"ojoDerechoOftalmoscopia", for2:"ojoIzquierdoOftalmoscopia", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-          { id: "campoVisualConfrontacion", nombre: "Campo visual por confrontacion" ,for:"ojoDerechoCampoVisualConfrontacion", for2:"ojoIzquierdoCampoVisualConfrontacion", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+          { id: "examenExterno", nombre: "Examen externo", for:"hal_ext_od", for2:"hal_ext_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+          { id: "motilidadOcular", nombre: "Motilidad ocular" ,for:"hal_mot_od", for2:"hal_mot_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+          { id: "oftalmoscopia", nombre: "Oftalmoscopia" ,for:"hal_ofta_od", for2:"hal_ofta_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+          { id: "campoVisualConfrontacion", nombre: "Campo visual por confrontacion" ,for:"hal_camp_od", for2:"hal_camp_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
         ])
 
         this.inputsHallazgo2$ = of([
-          { id: "Estereopsis", nombre: "Estereopsis" , for:"ojoDerechoEstereopsis", for2:"ojoIzquierdoEstereopsis", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-          { id: "Percepcioncromatica", nombre: "Percepcion cromatica" , for:"ojoDerechoPercepcioncromatica", for2:"ojoIzquierdoPercepcioncromatica", img:"../../../../assets/logos/026.JPG",options: this.normalidad, options2: this.normalidad},
+          { id: "Estereopsis", nombre: "Estereopsis" , for:"hal_est_od", for2:"hal_est_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+          { id: "Percepcioncromatica", nombre: "Percepcion cromatica" , for:"hal_crom_od", for2:"hal_crom_oi", img:"../../../../assets/logos/026.JPG",options: this.normalidad, options2: this.normalidad},
           { id: "observacionesOptoHallazgos", nombre: "Observaciones",img:"../../../../assets/logos/003.jpg"}
         ])
 
