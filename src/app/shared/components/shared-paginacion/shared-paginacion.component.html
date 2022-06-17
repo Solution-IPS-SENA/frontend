@@ -1,0 +1,11 @@
+<div class="flex flex-row gap-x-3 items-center">
+    <img *ngIf="currentPage > 1; else elseBlock1" class="cursor-pointer w-11 h-11 rounded-lg" src="../../../../assets/logos/011.jpg" alt="volver" (click)="previousPage()">
+    <ng-template #elseBlock1>
+      <img class="w-11 h-11 rounded-lg" src="../../../../assets/logos/033.jpg" alt="avanzar-sin-avanzar">
+    </ng-template>
+    <p class="border-solid border-black border-b-2 w-24 text-center text-2xl">{{ currentPage }} / {{ pages }}</p>
+    <img *ngIf="state && currentPage != pages; else elseBlock2" class="cursor-pointer w-11 h-11 rounded-lg" src="../../../../assets/logos/012.JPG" alt="avanzar" (click)="nextPage()">
+    <ng-template #elseBlock2>
+      <img class="w-11 h-11 rounded-lg" src="../../../../assets/logos/032.jpg" alt="avanzar-sin-avanzar">
+    </ng-template>
+</div>

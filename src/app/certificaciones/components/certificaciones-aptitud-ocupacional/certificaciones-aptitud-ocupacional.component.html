@@ -1,0 +1,124 @@
+<div class="flex flex-row justify-center py-8 gap-x-2 items-center">
+  <h1 class="text-5xl font-semibold">CERTIFICADO APTITUD OCUPACIONAL</h1>
+</div>
+
+<div class="flex items-center justify-center h-96" *ngIf="!(loaded$ | async); else formulario">
+  <img class="w-8 h-8 absolute rounded-lg" src="../../../../assets/logos/simbolo solo.png">
+  <div class="border-blue-700 border-4 rounded-xl shadow-sm w-14 h-14 animate-spin"></div>
+</div>
+<ng-template #formulario>
+  <div class="px-28 flex flex-col gap-y-5">
+      <div class="flex flex-row items-center gap-x-2 py-5">
+          <img class="w-14" src="../../../../assets/logos/001.jpg" alt="">
+          <h2 class="text-3xl font-bold">Datos Pacientes</h2>
+      </div>
+      <form action="">
+          <div class="grid grid-cols-2 items-center">
+              <div>
+                  <div *ngFor="let input of inputs$ | async">
+                      <div class="grid grid-cols-2 py-4 items-center">
+                          <div class="flex flex-col col-span-2">
+                              <div class="flex items-center gap-x-2">
+                                  <img class="w-12" src="../../../../assets/logos/030.JPG" alt="">
+                                  <div>
+                                      <input type="text" class="form-input w-[34rem] text-black pl-2 h-10 border-solid border-[1.5px] bg-gray-200" id="{{ input.id }}" />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="px-80">
+                  <img class="w-52 h-64" src="../../../../assets/logos/Annotation.png" alt="">
+              </div>
+          </div>
+
+          <div class="grid grid-cols-certificadosGrid pt-6">
+              <div class="flex flex-row items-center gap-x-2 py-5">
+                  <img class="w-14" src="../../../../assets/logos/001.jpg" alt="">
+                  <h2 class="text-3xl font-bold">Valoraciones Clinicas</h2>
+              </div>
+              <div class="flex flex-row items-center gap-x-2 py-5 px-10">
+                  <img class="w-14" src="../../../../assets/logos/001.jpg" alt="">
+                  <h2 class="text-3xl font-bold">Concepto</h2>
+              </div>
+              <div class="flex flex-row items-center gap-x-2 py-5 px-10 ">
+                  <img class="w-14" src="../../../../assets/logos/001.jpg" alt="">
+                  <h2 class="text-3xl font-bold">Recomendaciones</h2>
+              </div>
+          </div>
+
+          <div class="grid grid-cols-certificadosGrid py-4 items-center">
+              <div>
+                  <div *ngFor="let input of inputsCol1$ | async">
+                      <div class="flex flex-col py-3">
+                          <div class="flex items-center">
+                              <img class="w-12" src="../../../../assets/logos/030.JPG" alt="">
+                              <label for="{{input.for}}" class="text-center pl-2 w-17 text-2xl">{{input.nombre}}</label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <div *ngFor="let input of inputsCol2$ | async">
+                      <div class="flex flex-col py-3 px-10">
+                          <div class="flex items-center">
+                              <img class="w-12" src="../../../../assets/logos/030.JPG" alt="">
+                              <label for="{{input.for}}" class="text-center pl-2 w-17 text-2xl">{{input.nombre}}</label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <div *ngFor="let input of inputsCol3$ | async">
+                      <div class="flex flex-col py-3 px-10">
+                          <div class="flex items-center">
+                              <img class="w-12" src="../../../../assets/logos/030.JPG" alt="">
+                              <label for="{{input.for}}" class="text-left pl-2 w-17 text-2xl">{{input.nombre}}</label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <section class="signatures grid grid-cols-2 gap-40 w-full col-span-3 px-12 box-border py-12">
+              <div class="w-5/6 ">
+                  <div class=" w-full flex justify-end py-4">
+                      <div class="w-32 h-32 bg-gray-200"></div>
+                  </div>
+                  <div class="pt-4 border-b-2 border-gray-500" ></div>
+                  <h2 class="text-3xl text-center">Firma y huella paciente</h2>
+                  <div>
+                      <div *ngFor="let input of inputsCol4$ | async">
+                          <div class="flex flex-col w-full">
+                              <div class="flex items-center py-3 gap-x-2 w-full">
+                                  <div class="w-full">
+                                      <input type="text" class="form-input w-full text-black pl-2 h-10 border-solid border-[1.5px] bg-gray-200" id="{{ input.id }}" />
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+              <div class="w-5/6">
+                  <div class=" w-full flex justify-end py-4">
+                      <div class="w-32 h-32 bg-white"></div>
+                  </div>
+                  <div class="pt-4 border-b-2 border-gray-500" ></div>
+                  <h2 class="text-3xl text-center">Firma y sello profesional de la salud</h2>
+                  <div>
+                      <div *ngFor="let input of inputsCol4$ | async">
+                          <div class="flex flex-col w-full">
+                              <div class="flex items-center py-3 gap-x-2 w-full">
+                                  <div class="w-full">
+                                      <input type="text" class="form-input w-full text-black pl-2 h-10 border-solid border-[1.5px] bg-gray-200" id="{{ input.id }}" />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+      </form>
+  </div>
+</ng-template>

@@ -1,0 +1,27 @@
+<form class="grid grid-cols-3 items-center p-10">
+    <div class="flex items-center p-10">
+        <section class="flex bg-gray-200 w-full h-4/6 p-10 rounded-lg">
+            <div class="w-full h-full flex flex-col gap-y-5">
+                <div class="flex flex-row items-center gap-4">
+                    <img class="w-14 rounded-lg" src="../../../../assets/logos/018.JPG" alt="Logo Inicio Sesion">
+                    <h1 class="text-4xl">Identificacion</h1>
+                </div>
+                <div class="flex w-full justify-center ">
+                    <div class="flex flex-col gap-y-5 w-4/6">
+                        <select class="form-select block pt-1 text-black pl-2 h-10 bg-gray-200" id="afp">
+                            <option>Tipo ID</option>
+                            <option>Cedula de Ciudadania</option>
+                            <option>Tarjeta de Identidad</option>
+                        </select>
+                        <div class="flex flex-col gap-y-5 justify-center">
+                            <input type="text" class="form-input rounded-full text-black pl-2 h-10 border-solid border-black border-2"/>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-[36px] border border-black-700 rounded-full " src="https://i.imgur.com/GjZKjAZ.jpeg" alt="Logo Inicio Sesion">Guardar</button>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <app-shared-datos-personales (termino)="evento1()"></app-shared-datos-personales>
+    <app-shared-datos-ocupacionales></app-shared-datos-ocupacionales>
+</form>

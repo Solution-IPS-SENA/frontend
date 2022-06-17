@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  PRODUCTION: false,
+  //API_ANEXOS_URL: "https://api-valores.herokuapp.com"
+  API_ANEXOS_URL: "http://localhost:5000",
+  API_AUTH_URL: "http://localhost:3000/api/v01"
 };
 
 /*

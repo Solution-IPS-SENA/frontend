@@ -1,0 +1,46 @@
+<div class="flex flex-row justify-center py-8 items-center">
+    <img class="w-14 rounded-lg" src="../../../../assets/logos/001.jpg" alt="">
+    <h1 class="text-3xl pl-4 font-semibold">PRINCIPALES RIESGOS PSICOSOCIALES INTRALABORALES</h1>
+  </div>
+  
+  <div class="px-10 flex flex-col gap-y-5">
+    <div class="flex items-center justify-center h-96" *ngIf="!(loaded$ | async); else formulario">
+      <img class="w-8 h-8 absolute rounded-lg" src="../../../../assets/logos/simbolo solo.png">
+      <div class="border-blue-700 border-4 rounded-xl shadow-sm w-14 h-14 animate-spin"></div>
+    </div>
+    <ng-template #formulario>
+        <div class="flex flex-row items-center gap-x-2">
+            <img class="w-14 rounded-lg" src="../../../../assets/logos/029.JPG" alt="">
+            <h2 class="text-3xl">Empresa</h2>
+        </div>
+        <form [formGroup]="form" action="">
+            <div class="bg-gray-200 rounded-lg grid grid-cols-3 items-center">
+                <div *ngFor="let input of inputs$ | async">
+                    <div class="grid grid-cols-3 py-4 items-center">
+                        <div class="flex flex-col col-span-2">
+                            <div class="flex items-center gap-x-2 mx-5">
+                                <img class="w-12 rounded-lg" src="../../../../assets/logos/030.JPG" alt="">
+                                <label for="{{input.for}}" class="text-left w-17 text-2xl">{{input.nombre}}</label>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <select formControlName="{{input.for}}" class="form-select w-36 text-black pl-2 h-10 border-solid border-black items-" id="{{input.id}}">
+                                <option *ngFor="let option of input.options" value="{{ option.valor }}">
+                                    {{ option.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-row gap-x-5 items-center pt-5">
+                <img class="w-14 rounded-lg" src="../../../../assets/logos/018.JPG" alt="">
+                <textarea formControlName="observacionesEmpresa" class="h-10 w-full text-black pl-2 border-solid border-black border-[1.5px] rounded-full resize-none" placeholder="Observaciones"></textarea>
+            </div>
+        </form>
+    </ng-template>
+    <div class="flex py-5 justify-center">
+      <app-shared-paginacion (dataState)="saveData()" [pages]="4" [state]="state" (pageChange)="onPageChange($event)" [currentPage]="currentPage"></app-shared-paginacion>
+    </div>
+  </div>
+  

@@ -1,0 +1,22 @@
+<main *ngIf="loaded$ | async; else elseBlock">
+  <form [formGroup]="form" class="w-full flex flex-row justify-end items-center gap-x-3 pr-10">
+    <select class="form-select  flex w-1/7 self-center bg-gray-200 text-black pl-2 h-10" id="tipoDeDocumento" formControlName="tipo_documento">
+        <option *ngFor="let option of ((input$ | async)!.options)" value="{{ option.valor }}">
+          {{ option.nombre }}
+        </option>
+    </select>
+    <input id="documento" name="documento" formControlName="documento" type="text" class=" rounded-full form-input w-1/5 text-black pl-2 h-10 border-solid border-black border-[1.5px]" />
+    <img src="./../../../../assets/logos/007.jpg" alt="Lupa" class="w-12 h-12 rounded-full hand_cursor" (click)="onSubmit()" (click)="alerta()"/>
+  </form>
+  <div class="grid grid-cols-3 items-center w-full">
+    <app-shared-datos-personales #sharedPersonales class="flex pt-10 basis-2/6"></app-shared-datos-personales>
+    <app-shared-datos-ocupacionales #sharedOcupacionales class="flex pt-10 basis-2/6"></app-shared-datos-ocupacionales>
+    <app-shared-observaciones #sharedObservaciones class="flex basis-2/6"></app-shared-observaciones>
+  </div>
+</main>
+<ng-template #elseBlock>
+  <div class=" flex items-center justify-center h-96">
+    <img class="w-8 h-8 absolute" src="../../../../assets/logos/simbolo solo.png">
+    <div class="border-blue-700 border-4 rounded-xl shadow-sm w-14 h-14  animate-spin"></div>
+</div>
+</ng-template>
