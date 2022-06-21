@@ -24,19 +24,19 @@ export class SharedDatosPersonalesComponent implements OnInit {
   inputs$?: Observable<InputDatos[]> = of([
     { id: "nombres", nombre: "Nombres", type: "text", for: "nombres" },
     { id: "apellidos", nombre: "Apellidos", type: "text", for: "apellidos" },
-    { id: "fechaNacimiento", nombre: "Fecha de Nacimiento", type: "date", for: "fechaNacimiento" },
+    { id: "fecha_nacimiento", nombre: "Fecha de Nacimiento", type: "date", for: "fecha_nacimiento" },
     { id: "edad", nombre: "Edad", type: "text", for: "edad" },
     { id: "nacionalidad", nombre: "Nacionalidad", type: "select", for: "nacionalidad", options: this.paises},
-    { id: "lugarNacimiento", nombre: "Lugar de Nacimiento", type: "select", for: "lugarNacimiento",options: this.lugarDeNacimiento},
+    { id: "lugar_nacimiento", nombre: "Lugar de Nacimiento", type: "select", for: "lugar_nacimiento",options: this.lugarDeNacimiento},
     { id: "genero", nombre: "Genero", type: "select", for: "genero",options: this.genero},
     { id: "direccion", nombre: "Direccion", type: "text", for: "direccion" },
     { id: "telefono", nombre: "Telefono", type: "text", for: "telefono" }
   ]);
 
-  constructor(private obtenerAnexosService: ObtenerAnexosService, private fb: FormBuilder){
-
-
-  }
+  constructor(
+    private obtenerAnexosService: ObtenerAnexosService,
+    private fb: FormBuilder
+  ){}
 
   ngOnInit(): void {
     this.obtenerAnexosService.getAnexos(["genero", "lugarDeNacimiento","paises"]).pipe(delay(1000)).subscribe(
@@ -48,10 +48,10 @@ export class SharedDatosPersonalesComponent implements OnInit {
         this.inputs$ = of([
           { id: "nombres", nombre: "Nombres", type: "text", for: "nombres" },
           { id: "apellidos", nombre: "Apellidos", type: "text", for: "apellidos" },
-          { id: "fechaNacimiento", nombre: "Fecha de Nacimiento", type: "date", for: "fechaNacimiento" },
+          { id: "fecha_nacimiento", nombre: "Fecha de Nacimiento", type: "date", for: "fecha_nacimiento" },
           { id: "edad", nombre: "Edad", type: "text", for: "edad" },
           { id: "nacionalidad", nombre: "Nacionalidad", type: "select", for: "nacionalidad", options: this.paises},
-          { id: "lugarNacimiento", nombre: "Lugar de Nacimiento", type: "select", for: "lugarNacimiento",options: this.lugarDeNacimiento},
+          { id: "lugar_nacimiento", nombre: "Lugar de Nacimiento", type: "select", for: "lugar_nacimiento",options: this.lugarDeNacimiento},
           { id: "genero", nombre: "Genero", type: "select", for: "genero",options: this.genero},
           { id: "direccion", nombre: "Direccion", type: "text", for: "direccion" },
           { id: "telefono", nombre: "Telefono", type: "text", for: "telefono" }
@@ -67,10 +67,10 @@ export class SharedDatosPersonalesComponent implements OnInit {
     this.form = this.fb.group({
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
-      fechaNacimiento: ['', Validators.required],
+      fecha_nacimiento: ['', Validators.required],
       edad: ['', Validators.required],
       nacionalidad: ['' , Validators.required],
-      lugarNacimiento: ['', Validators.required],
+      lugar_nacimiento: ['', Validators.required],
       genero: ['', Validators.required],
       direccion: ['', Validators.required],
       telefono: ['', Validators.required],

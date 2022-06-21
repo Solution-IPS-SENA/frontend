@@ -6,12 +6,12 @@ export const environment = {
   PRODUCTION: false,
 
   URLS: {
-    ANEXOS: "http://localhost:5000",
-    AUTH: "http://10.199.0.61:3000/api/v01",
-    MEDICINA: 'http://10.199.0.61:3000/api/v01',
-    LABORATORIO: 'http://10.199.0.61:3000/api/v01',
-    OPTOMETRIA: 'http://10.199.0.61:3000/api/v01',
-    PSICOLOGIA: 'http://10.199.0.61:3000/api/v01',
+    ANEXOS: 'http://localhost:5000',
+    AUTH: 'http://10.199.0.88:3001/api/v01',
+    MEDICINA: 'http://10.199.0.88:3003/api/v01',
+    LABORATORIO: 'http://10.199.0.88:3002/api/v01',
+    OPTOMETRIA: 'http://10.199.0.88:3004/api/v01',
+    PSICOLOGIA: 'http://10.199.0.88:3005/api/v01',
   },
 
   ENDPOINTS: {

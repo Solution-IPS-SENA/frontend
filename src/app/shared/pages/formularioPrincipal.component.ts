@@ -5,6 +5,7 @@ import { environment } from "src/environments/environment";
 import { SharedDatosOcupacionalesComponent } from "../components/shared-datos-ocupacionales/shared-datos-ocupacionales.component";
 import { SharedDatosPersonalesComponent } from "../components/shared-datos-personales/shared-datos-personales.component";
 import { SharedObservacionesComponent } from "../components/shared-observaciones/shared-observaciones.component";
+import { DatosHistoria } from "../interfaces/datos-historia";
 import { InformacionAnexos } from "../interfaces/informacion-anexos";
 import { InputDatos } from "../interfaces/input-datos";
 import { ClientService } from "../services/client.service";
@@ -27,6 +28,7 @@ export class formularioPrincipalComponent {
   );
 
   loaded$: Observable<boolean> = of(false);
+  historia!: DatosHistoria ;
 
   constructor(
     private obtenerAnexosService: ObtenerAnexosService,
@@ -36,7 +38,6 @@ export class formularioPrincipalComponent {
     ){}
 
   ngOnInit(): void {
-
     this.obtenerAnexosService.getAnexos(["tipoDocumento"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
         this.tipoDocumento = this.obtenerAnexosService.formatear_datos(response.tipoDocumento, "abreviacion", "completo")
@@ -55,14 +56,15 @@ export class formularioPrincipalComponent {
   saveData(){
     let data = this.form.value;
     localStorage.setItem("documento", JSON.stringify(data));
-    alert("Sisas")
 
     if (data){
-      this.client.get(environment.URLS.AUTH + environment.ENDPOINTS.QUERY_PACIENTE)
+      this.client.post(environment.URLS.AUTH + environment.ENDPOINTS.QUERY_PACIENTE, data)
       .subscribe(
         {
           next: (res: any) => {
             console.log("Usuario Obtenido");
+            this.historia = res;
+            this.alerta(this.historia)
           },
           error: (err) => {
             console.log(err.status, err.error.response)
@@ -89,38 +91,38 @@ export class formularioPrincipalComponent {
   @ViewChild(SharedDatosOcupacionalesComponent) public sharedOcupacionales?: SharedDatosOcupacionalesComponent;
   @ViewChild(SharedObservacionesComponent) public sharedObservaciones?: SharedObservacionesComponent;
 
-  alerta(){
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({fechaNacimiento: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({edad: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nacionalidad: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({lugarNacimiento: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({genero: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({direccion: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({telefono: "hola"}));
+  alerta(his: DatosHistoria){
+    console.warn(this.sharedPersonales?.form.patchValue({nombres: his.nombres}));
+    console.warn(this.sharedPersonales?.form.patchValue({apellidos: his.apellidos}));
+    console.warn(this.sharedPersonales?.form.patchValue({fecha_nacimiento: his.fecha_nacimiento}));
+    console.warn(this.sharedPersonales?.form.patchValue({edad: this.calcularEdad(his.fecha_nacimiento)}));
+    console.warn(this.sharedPersonales?.form.patchValue({nacionalidad: his.nacionalidad}));
+    console.warn(this.sharedPersonales?.form.patchValue({lugar_nacimiento: his.lugar_nacimiento}));
+    console.warn(this.sharedPersonales?.form.patchValue({genero: his.genero}));
+    console.warn(this.sharedPersonales?.form.patchValue({direccion: his.direccion}));
+    console.warn(this.sharedPersonales?.form.patchValue({telefono: his.telefono}));
+    console.warn(this.sharedOcupacionales?.form.patchValue({empresa: his.empresa}));
+    console.warn(this.sharedOcupacionales?.form.patchValue({cargo: his}));
+    console.warn(this.sharedOcupacionales?.form.patchValue({fecha_ingreso: his}));
+    console.warn(this.sharedOcupacionales?.form.patchValue({tiempo_cargo: his}));
+    console.warn(this.sharedOcupacionales?.form.patchValue({arl: his}));
+    console.warn(this.sharedOcupacionales?.form.patchValue({eps: his}));
+    console.warn(this.sharedOcupacionales?.form.patchValue({afp: his}));
+    console.warn(this.sharedOcupacionales?.form.patchValue({correo: his}));
+    console.warn(this.sharedOcupacionales?.form.patchValue({telefono_empresa: his}));
+    console.warn(this.sharedObservaciones?.form.patchValue({observaciones: his}));
+  }
 
+  calcularEdad(fecha: string): string {
+    let today = new Date();
+    let nacimiento = new Date(fecha);
+    let edad =  today.getFullYear() - nacimiento.getFullYear();
+    let month = today.getMonth() - nacimiento.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < nacimiento.getDate())) {
+      edad--;
+    }
 
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: "hola"}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: "como estas"}));
+    console.log(`${edad}`);
+    return "";
   }
 }
