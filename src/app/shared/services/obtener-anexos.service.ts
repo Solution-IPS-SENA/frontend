@@ -13,7 +13,7 @@ export class ObtenerAnexosService {
   constructor(private clientService: ClientService) {}
 
   getAnexos(valores: string[]): any{
-    return this.clientService.get<InformacionAnexos>(`${environment.API_ANEXOS_URL}/anexos`).pipe(
+    return this.clientService.get<InformacionAnexos>(`${environment.URLS.ANEXOS}/anexos`).pipe(
       map(
         (response: any) => {
           let data: any = {};

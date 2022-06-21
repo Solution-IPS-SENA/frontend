@@ -35,7 +35,7 @@ export class AuthLoginComponent implements OnInit {
 
   onSubmit(){
     if (this.form.valid) {
-      this.client.post(environment.API_AUTH_URL + environment.LOGIN_ENDPOINT, {
+      this.client.post(environment.URLS.AUTH + environment.ENDPOINTS.LOGIN, {
         correo: this.form.value.emailLogin,
         password: this.form.value.passwordLogin
       })

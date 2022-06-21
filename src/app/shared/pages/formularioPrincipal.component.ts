@@ -1,11 +1,14 @@
 import { Component, Input, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { delay, Observable, of } from "rxjs";
+import { environment } from "src/environments/environment";
 import { SharedDatosOcupacionalesComponent } from "../components/shared-datos-ocupacionales/shared-datos-ocupacionales.component";
 import { SharedDatosPersonalesComponent } from "../components/shared-datos-personales/shared-datos-personales.component";
 import { SharedObservacionesComponent } from "../components/shared-observaciones/shared-observaciones.component";
 import { InformacionAnexos } from "../interfaces/informacion-anexos";
 import { InputDatos } from "../interfaces/input-datos";
+import { ClientService } from "../services/client.service";
+import { MessagesService } from "../services/messages.service";
 import { ObtenerAnexosService } from "../services/obtener-anexos.service";
 
 @Component({
@@ -27,7 +30,9 @@ export class formularioPrincipalComponent {
 
   constructor(
     private obtenerAnexosService: ObtenerAnexosService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private client: ClientService,
+    private messages: MessagesService
     ){}
 
   ngOnInit(): void {
@@ -45,6 +50,29 @@ export class formularioPrincipalComponent {
         this.loaded$ = of(true);
       }
     )
+  }
+
+  saveData(){
+    let data = this.form.value;
+    localStorage.setItem("documento", JSON.stringify(data));
+    alert("Sisas")
+
+    if (data){
+      this.client.get(environment.URLS.AUTH + environment.ENDPOINTS.QUERY_PACIENTE)
+      .subscribe(
+        {
+          next: (res: any) => {
+            console.log("Usuario Obtenido");
+          },
+          error: (err) => {
+            console.log(err.status, err.error.response)
+            this.messages.error(err.error.response)
+          }
+        }
+      )
+    }else {
+      console.log("Form error");
+    }
   }
 
   onSubmit() {

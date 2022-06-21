@@ -4,10 +4,24 @@
 
 export const environment = {
   PRODUCTION: false,
-  //API_ANEXOS_URL: "https://api-valores.herokuapp.com"
-  API_ANEXOS_URL: "http://localhost:5000",
-  API_AUTH_URL: "http://10.199.0.61:3000/api/v01",
-  LOGIN_ENDPOINT: '/login'
+
+  URLS: {
+    ANEXOS: "http://localhost:5000",
+    AUTH: "http://10.199.0.61:3000/api/v01",
+    MEDICINA: 'http://10.199.0.61:3000/api/v01',
+    LABORATORIO: 'http://10.199.0.61:3000/api/v01',
+    OPTOMETRIA: 'http://10.199.0.61:3000/api/v01',
+    PSICOLOGIA: 'http://10.199.0.61:3000/api/v01',
+  },
+
+  ENDPOINTS: {
+    LOGIN: '/login',
+    QUERY_PACIENTE:'/paciente',
+    HISTORIA_PSICOLOGIA:'/historia_psicologia',
+    HISTORIA_MEDICA:'/historia_psicologia',
+    HISTORIA_OPTOMETRIA:'/historia_optometria',
+    HISTORIA_LABORATORIO:'/historia_laboratorio',
+  }
 };
 
 /*

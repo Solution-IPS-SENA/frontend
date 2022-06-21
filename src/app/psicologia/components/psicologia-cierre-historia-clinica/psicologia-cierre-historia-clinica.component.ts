@@ -18,7 +18,7 @@ import { MessagesService } from 'src/app/shared/services/messages.service';
 })
 export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestroy {
 
-  llavesData = ["psicologiaAccidentes","psicologiaEmpresa","psicologiaObservacion","psicologiaCierreHistoria"]
+  llavesData = ["documento","psicologiaAccidentes","psicologiaEmpresa","psicologiaObservacion","psicologiaCierreHistoria"]
   public currentPage = 0;
   form!: FormGroup;
   state: boolean = false;
@@ -123,12 +123,11 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     let historia = this.envioHistoria.enviarHistoria(this.llavesData)
 
     if (historia){
-      this.client.post(environment.API_AUTH_URL + environment.LOGIN_ENDPOINT, historia)
+      this.client.post(environment.URLS.PSICOLOGIA + environment.ENDPOINTS.HISTORIA_PSICOLOGIA, historia)
       .subscribe(
         {
           next: (res: any) => {
             console.log("Historia enviada");
-
           },
           error: (err) => {
             console.log(err.status, err.error.response)
