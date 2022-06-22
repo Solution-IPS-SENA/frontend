@@ -50,4 +50,5 @@ export interface InformacionAnexos {
     paises?: string[];
     motivo?: string[];
     concepto?: string[];
+    rol?: string[];
 }

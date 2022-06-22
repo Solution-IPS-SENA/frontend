@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { InputDatos } from '../../interfaces/input-datos';
 import { delay, Observable, of, pipe, tap } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SharedDatosOcupacionalesComponent implements OnInit {
 
+  @Input()
   eps = [];
   afp = [];
   arl = [];
@@ -29,6 +30,11 @@ export class SharedDatosOcupacionalesComponent implements OnInit {
     { id: "correo", nombre: "Correo", type: "text", for: "correo" },
     { id: "telefono_empresa", nombre: "Telefono", type: "text", for: "telefono_empresa" },
   ]);
+
+  constructor(
+    private obtenerAnexosService: ObtenerAnexosService,
+    private fb: FormBuilder
+  ){}
 
 
   ngOnInit(): void {
@@ -76,10 +82,4 @@ export class SharedDatosOcupacionalesComponent implements OnInit {
       console.log("nonas")
     }
   }
-
-  constructor(
-    private obtenerAnexosService: ObtenerAnexosService,
-    private fb: FormBuilder
-    ){}
-
 }

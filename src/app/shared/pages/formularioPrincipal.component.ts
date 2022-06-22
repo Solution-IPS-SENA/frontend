@@ -41,12 +41,11 @@ export class formularioPrincipalComponent {
     this.obtenerAnexosService.getAnexos(["tipoDocumento"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
         this.tipoDocumento = this.obtenerAnexosService.formatear_datos(response.tipoDocumento, "abreviacion", "completo")
-        console.log(this.tipoDocumento);
 
         this.input$ = of({ options: this.tipoDocumento })
         this.form = this.fb.group({
           tipo_documento: [this.tipoDocumento[0]["valor"], Validators.required],
-          documento: ['', Validators.required]
+          documento: ['', Validators.required],
         });
         this.loaded$ = of(true);
       }
@@ -62,8 +61,7 @@ export class formularioPrincipalComponent {
       .subscribe(
         {
           next: (res: any) => {
-            console.log("Usuario Obtenido");
-            this.historia = res;
+            this.historia = res['response'];
             this.alerta(this.historia)
           },
           error: (err) => {
@@ -92,25 +90,35 @@ export class formularioPrincipalComponent {
   @ViewChild(SharedObservacionesComponent) public sharedObservaciones?: SharedObservacionesComponent;
 
   alerta(his: DatosHistoria){
-    console.warn(this.sharedPersonales?.form.patchValue({nombres: his.nombres}));
-    console.warn(this.sharedPersonales?.form.patchValue({apellidos: his.apellidos}));
-    console.warn(this.sharedPersonales?.form.patchValue({fecha_nacimiento: his.fecha_nacimiento}));
-    console.warn(this.sharedPersonales?.form.patchValue({edad: this.calcularEdad(his.fecha_nacimiento)}));
-    console.warn(this.sharedPersonales?.form.patchValue({nacionalidad: his.nacionalidad}));
-    console.warn(this.sharedPersonales?.form.patchValue({lugar_nacimiento: his.lugar_nacimiento}));
-    console.warn(this.sharedPersonales?.form.patchValue({genero: his.genero}));
-    console.warn(this.sharedPersonales?.form.patchValue({direccion: his.direccion}));
-    console.warn(this.sharedPersonales?.form.patchValue({telefono: his.telefono}));
-    console.warn(this.sharedOcupacionales?.form.patchValue({empresa: his.empresa}));
-    console.warn(this.sharedOcupacionales?.form.patchValue({cargo: his}));
-    console.warn(this.sharedOcupacionales?.form.patchValue({fecha_ingreso: his}));
-    console.warn(this.sharedOcupacionales?.form.patchValue({tiempo_cargo: his}));
-    console.warn(this.sharedOcupacionales?.form.patchValue({arl: his}));
-    console.warn(this.sharedOcupacionales?.form.patchValue({eps: his}));
-    console.warn(this.sharedOcupacionales?.form.patchValue({afp: his}));
-    console.warn(this.sharedOcupacionales?.form.patchValue({correo: his}));
-    console.warn(this.sharedOcupacionales?.form.patchValue({telefono_empresa: his}));
-    console.warn(this.sharedObservaciones?.form.patchValue({observaciones: his}));
+    this.sharedPersonales?.form.patchValue({nombres: his.nombres});
+    this.sharedPersonales?.form.patchValue({apellidos: his.apellidos});
+    this.sharedPersonales?.form.patchValue({fecha_nacimiento: his.fecha_nacimiento});
+    this.sharedPersonales?.form.patchValue({edad: this.calcularEdad(his.fecha_nacimiento)});
+    this.sharedPersonales?.form.patchValue({nacionalidad: his.nacionalidad});
+    this.sharedPersonales?.form.patchValue({lugar_nacimiento: his.lugar_nacimiento});
+    this.sharedPersonales?.form.patchValue({genero: this.recuperarGenero(his.genero)});
+    this.sharedPersonales?.form.patchValue({direccion: his.direccion});
+    this.sharedPersonales?.form.patchValue({telefono: his.telefono});
+    this.sharedOcupacionales?.form.patchValue({empresa: his.empresa});
+    this.sharedOcupacionales?.form.patchValue({cargo: his.cargo});
+    this.sharedOcupacionales?.form.patchValue({fecha_ingreso: his.fecha_ingreso});
+    this.sharedOcupacionales?.form.patchValue({tiempo_cargo: his.tiempo_cargo});
+    this.sharedOcupacionales?.form.patchValue({arl: his.arl});
+    this.sharedOcupacionales?.form.patchValue({eps: his.eps});
+    this.sharedOcupacionales?.form.patchValue({afp: his.afp});
+    this.sharedOcupacionales?.form.patchValue({correo: his.correo});
+    this.sharedOcupacionales?.form.patchValue({telefono_empresa: his.telefono_empresa});
+  }
+
+  recuperarGenero(genero: string){
+    if(genero == 'M'){
+      return 'MASCULINO'
+    } else {
+      if(genero == 'F'){
+        return 'FEMENINO'
+      }
+    }
+    return 'OTRO'
   }
 
   calcularEdad(fecha: string): string {
@@ -121,8 +129,6 @@ export class formularioPrincipalComponent {
     if (month < 0 || (month === 0 && today.getDate() < nacimiento.getDate())) {
       edad--;
     }
-
-    console.log(`${edad}`);
-    return "";
+    return `${edad}`;
   }
 }

@@ -63,7 +63,6 @@ export class SharedDatosPersonalesComponent implements OnInit {
   }
 
   createForm(){
-
     this.form = this.fb.group({
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
