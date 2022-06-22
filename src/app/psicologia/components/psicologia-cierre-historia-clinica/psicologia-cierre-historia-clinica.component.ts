@@ -6,6 +6,10 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
+import { EnvioHistoriaService } from 'src/app/shared/services/envio-historia.service';
+import { ClientService } from 'src/app/shared/services/client.service';
+import { environment } from 'src/environments/environment';
+import { MessagesService } from 'src/app/shared/services/messages.service';
 
 @Component({
   selector: 'app-psicologia-cierre-historia-clinica',
@@ -14,7 +18,7 @@ import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 })
 export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestroy {
 
-  llavesData = ["psicologiaAccidentes","psicologiaEmpresa","psicologiaObservacion","psicologiaCierreHistoria"]
+  llavesData = ["documento","psicologiaAccidentes","psicologiaEmpresa","psicologiaObservacion","psicologiaCierreHistoria"]
   public currentPage = 0;
   form!: FormGroup;
   state: boolean = false;
@@ -52,9 +56,11 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
 
   constructor(
     private obtenerAnexosService: ObtenerAnexosService,
+    private client: ClientService,
     private router: Router,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private envioHistoria: EnvioHistoriaService,
+    private messages: MessagesService) { }
 
   createForm(data?: any){
     this.form = this.fb.group({
@@ -67,18 +73,6 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
       cie_obs: [data ? data.cie_obs : '', Validators.required],
     });
   }
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
 
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("psicologiaCierreHistoria");
@@ -87,9 +81,9 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.motivo = this.formatear_datos(response.motivo)
-        this.remitido = this.formatear_datos(response.remitido)
-        this.concepto = this.formatear_datos(response.concepto)
+        this.motivo = this.obtenerAnexosService.formatear_datos(response.motivo)
+        this.remitido = this.obtenerAnexosService.formatear_datos(response.remitido)
+        this.concepto = this.obtenerAnexosService.formatear_datos(response.concepto)
 
         this.inputs$ = of([
           { id: "motivo", nombre: "Motivo", for: "motivo", options: this.motivo},
@@ -126,15 +120,29 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     let data = this.form.value;
     localStorage.setItem("psicologiaCierreHistoria", JSON.stringify(data));
     alert("Sisas")
-    this.enviarHistoria(this.llavesData)
+    let historia = this.envioHistoria.enviarHistoria(this.llavesData)
+
+    if (historia){
+      this.client.post(environment.URLS.PSICOLOGIA + environment.ENDPOINTS.HISTORIA_PSICOLOGIA, historia)
+      .subscribe(
+        {
+          next: (res: any) => {
+            console.log("Historia enviada");
+          },
+          error: (err) => {
+            console.log(err.status, err.error.response)
+            this.messages.error(err.error.response)
+          }
+        }
+      )
+    }else {
+      console.log("Form error");
+    }
   }
 
-  enviarHistoria(llavesData: string[]){
-    let data = {};
-    llavesData.forEach(element => {
-      data = Object.assign(data, JSON.parse(localStorage.getItem(element)!))
-    });
-    console.log(JSON.stringify(data));
-  }
+
+
+
+
 }
 

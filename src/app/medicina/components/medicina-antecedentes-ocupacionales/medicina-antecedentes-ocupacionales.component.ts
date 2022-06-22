@@ -49,30 +49,30 @@ export class MedicinaAntecedentesOcupacionalesComponent implements OnInit, OnDes
   ]);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "fisicoFactorRiesgoOcupacional1", nombre: "Dermatológico", for: "fisicoFactorRiesgoOcupacional1", options: this.fisico},
-    { id: "biologicoFactorRiesgoOcupacional1", nombre: "Osteomuscular", for: "biologicoFactorRiesgoOcupacional1", options: this.biologico},
-    { id: "quimicoFactorRiesgoOcupacional1", nombre: "Osteoarticular", for: "quimicoFactorRiesgoOcupacional1", options: this.quimico},
-    { id: "seguridadFactorRiesgoOcupacional1", nombre: "Genitourinario", for: "seguridadFactorRiesgoOcupacional1", options: this.seguridad},
-    { id: "biomecanicoFactorRiesgoOcupacional1", nombre: "Metabólico", for: "biomecanicoFactorRiesgoOcupacional1", options: this.biomecanico},
-    { id: "psicosocialFactorRiesgoOcupacional1", nombre: "Neurológico", for: "psicosocialFactorRiesgoOcupacional1", options: this.psicosocial},
-    { id: "fisicoFactorRiesgoOcupacional2", nombre: "Dermatológico", for: "fisicoFactorRiesgoOcupacional2", options: this.fisico},
-    { id: "biologicoFactorRiesgoOcupacional2", nombre: "Osteomuscular", for: "biologicoFactorRiesgoOcupacional2", options: this.biologico},
-    { id: "quimicoFactorRiesgoOcupacional2", nombre: "Osteoarticular", for: "quimicoFactorRiesgoOcupacional2", options: this.quimico},
-    { id: "seguridadFactorRiesgoOcupacional2", nombre: "Genitourinario", for: "seguridadFactorRiesgoOcupacional2", options: this.seguridad},
-    { id: "biomecanicoFactorRiesgoOcupacional2", nombre: "Metabólico", for: "biomecanicoFactorRiesgoOcupacional2", options: this.biomecanico},
-    { id: "psicosocialFactorRiesgoOcupacional2", nombre: "Neurológico", for: "psicosocialFactorRiesgoOcupacional2", options: this.psicosocial},
-    { id: "fisicoFactorRiesgoOcupacional3", nombre: "Dermatológico", for: "fisicoFactorRiesgoOcupacional3", options: this.fisico},
-    { id: "biologicoFactorRiesgoOcupacional3", nombre: "Osteomuscular", for: "biologicoFactorRiesgoOcupacional3", options: this.biologico},
-    { id: "quimicoFactorRiesgoOcupacional3", nombre: "Osteoarticular", for: "quimicoFactorRiesgoOcupacional3", options: this.quimico},
-    { id: "seguridadFactorRiesgoOcupacional3", nombre: "Genitourinario", for: "seguridadFactorRiesgoOcupacional3", options: this.seguridad},
-    { id: "biomecanicoFactorRiesgoOcupacional3", nombre: "Metabólico", for: "biomecanicoFactorRiesgoOcupacional3", options: this.biomecanico},
-    { id: "psicosocialFactorRiesgoOcupacional3", nombre: "Neurológico", for: "psicosocialFactorRiesgoOcupacional3", options: this.psicosocial},
-    { id: "fisicoFactorRiesgoOcupacional4", nombre: "Dermatológico", for: "fisicoFactorRiesgoOcupacional4", options: this.fisico},
-    { id: "biologicoFactorRiesgoOcupacional4", nombre: "Osteomuscular", for: "biologicoFactorRiesgoOcupacional4", options: this.biologico},
-    { id: "quimicoFactorRiesgoOcupacional4", nombre: "Osteoarticular", for: "quimicoFactorRiesgoOcupacional4", options: this.quimico},
-    { id: "seguridadFactorRiesgoOcupacional4", nombre: "Genitourinario", for: "seguridadFactorRiesgoOcupacional4", options: this.seguridad},
-    { id: "biomecanicoFactorRiesgoOcupacional4", nombre: "Metabólico", for: "biomecanicoFactorRiesgoOcupacional4", options: this.biomecanico},
-    { id: "psicosocialFactorRiesgoOcupacional4", nombre: "Neurológico", for: "psicosocialFactorRiesgoOcupacional4", options: this.psicosocial},
+    { id: "rie_ant_fis_1", nombre: "Dermatológico", for: "rie_ant_fis_1", options: this.fisico},
+    { id: "rie_ant_bio_1", nombre: "Osteomuscular", for: "rie_ant_bio_1", options: this.biologico},
+    { id: "rie_ant_quim_1", nombre: "Osteoarticular", for: "rie_ant_quim_1", options: this.quimico},
+    { id: "rie_ant_seg_1", nombre: "Genitourinario", for: "rie_ant_seg_1", options: this.seguridad},
+    { id: "rie_ant_biom_1", nombre: "Metabólico", for: "rie_ant_biom_1", options: this.biomecanico},
+    { id: "rie_ant_psico_1", nombre: "Neurológico", for: "rie_ant_psico_1", options: this.psicosocial},
+    { id: "rie_ant_fis_2", nombre: "Dermatológico", for: "rie_ant_fis_2", options: this.fisico},
+    { id: "rie_ant_bio_2", nombre: "Osteomuscular", for: "rie_ant_bio_2", options: this.biologico},
+    { id: "rie_ant_quim_2", nombre: "Osteoarticular", for: "rie_ant_quim_2", options: this.quimico},
+    { id: "rie_ant_seg_2", nombre: "Genitourinario", for: "rie_ant_seg_2", options: this.seguridad},
+    { id: "rie_ant_biom_2", nombre: "Metabólico", for: "rie_ant_biom_2", options: this.biomecanico},
+    { id: "rie_ant_psico_2", nombre: "Neurológico", for: "rie_ant_psico_2", options: this.psicosocial},
+    { id: "rie_ant_fis_3", nombre: "Dermatológico", for: "rie_ant_fis_3", options: this.fisico},
+    { id: "rie_ant_bio_3", nombre: "Osteomuscular", for: "rie_ant_bio_3", options: this.biologico},
+    { id: "rie_ant_quim_3", nombre: "Osteoarticular", for: "rie_ant_quim_3", options: this.quimico},
+    { id: "rie_ant_seg_3", nombre: "Genitourinario", for: "rie_ant_seg_3", options: this.seguridad},
+    { id: "rie_ant_biom_3", nombre: "Metabólico", for: "rie_ant_biom_3", options: this.biomecanico},
+    { id: "rie_ant_psico_3", nombre: "Neurológico", for: "rie_ant_psico_3", options: this.psicosocial},
+    { id: "rie_ant_fis_4", nombre: "Dermatológico", for: "rie_ant_fis_4", options: this.fisico},
+    { id: "rie_ant_bio_4", nombre: "Osteomuscular", for: "rie_ant_bio_4", options: this.biologico},
+    { id: "rie_ant_quim_4", nombre: "Osteoarticular", for: "rie_ant_quim_4", options: this.quimico},
+    { id: "rie_ant_seg_4", nombre: "Genitourinario", for: "rie_ant_seg_4", options: this.seguridad},
+    { id: "rie_ant_biom_4", nombre: "Metabólico", for: "rie_ant_biom_4", options: this.biomecanico},
+    { id: "rie_ant_psico_4", nombre: "Neurológico", for: "rie_ant_psico_4", options: this.psicosocial},
   ]);
 
   public get lifecycle$() {
@@ -87,46 +87,32 @@ export class MedicinaAntecedentesOcupacionalesComponent implements OnInit, OnDes
 
   createForm(data?: any){
     this.form = this.fb.group({
-      fisicoFactorRiesgoOcupacional1: [data ? data.fisicoFactorRiesgoOcupacional1 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
-      biologicoFactorRiesgoOcupacional1: [data ? data.biologicoFactorRiesgoOcupacional1 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
-      quimicoFactorRiesgoOcupacional1: [data ? data.quimicoFactorRiesgoOcupacional1 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
-      seguridadFactorRiesgoOcupacional1: [data ? data.seguridadFactorRiesgoOcupacional1 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
-      biomecanicoFactorRiesgoOcupacional1: [data ? data.biomecanicoFactorRiesgoOcupacional1 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
-      psicosocialFactorRiesgoOcupacional1: [data ? data.psicosocialFactorRiesgoOcupacional1 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
-      fisicoFactorRiesgoOcupacional2: [data ? data.fisicoFactorRiesgoOcupacional2 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
-      biologicoFactorRiesgoOcupacional2: [data ? data.biologicoFactorRiesgoOcupacional2 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
-      quimicoFactorRiesgoOcupacional2: [data ? data.quimicoFactorRiesgoOcupacional2 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
-      seguridadFactorRiesgoOcupacional2: [data ? data.seguridadFactorRiesgoOcupacional2 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
-      biomecanicoFactorRiesgoOcupacional2: [data ? data.biomecanicoFactorRiesgoOcupacional2 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
-      psicosocialFactorRiesgoOcupacional2: [data ? data.psicosocialFactorRiesgoOcupacional2 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
-      fisicoFactorRiesgoOcupacional3: [data ? data.fisicoFactorRiesgoOcupacional3 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
-      biologicoFactorRiesgoOcupacional3: [data ? data.biologicoFactorRiesgoOcupacional3 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
-      quimicoFactorRiesgoOcupacional3: [data ? data.quimicoFactorRiesgoOcupacional3 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
-      seguridadFactorRiesgoOcupacional3: [data ? data.seguridadFactorRiesgoOcupacional3 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
-      biomecanicoFactorRiesgoOcupacional3: [data ? data.biomecanicoFactorRiesgoOcupacional3 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
-      psicosocialFactorRiesgoOcupacional3: [data ? data.psicosocialFactorRiesgoOcupacional3 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
-      fisicoFactorRiesgoOcupacional4: [data ? data.fisicoFactorRiesgoOcupacional4 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
-      biologicoFactorRiesgoOcupacional4: [data ? data.biologicoFactorRiesgoOcupacional4 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
-      quimicoFactorRiesgoOcupacional4: [data ? data.quimicoFactorRiesgoOcupacional4 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
-      seguridadFactorRiesgoOcupacional4: [data ? data.seguridadFactorRiesgoOcupacional4 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
-      biomecanicoFactorRiesgoOcupacional4: [data ? data.biomecanicoFactorRiesgoOcupacional4 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
-      psicosocialFactorRiesgoOcupacional4: [data ? data.psicosocialFactorRiesgoOcupacional4 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
-      observacionesAntecedentesOcupacional: [data ? data.observacionesAntecedentesOcupacional : ''],
+      rie_ant_fis_1: [data ? data.rie_ant_fis_1 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
+      rie_ant_bio_1: [data ? data.rie_ant_bio_1 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
+      rie_ant_quim_1: [data ? data.rie_ant_quim_1 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
+      rie_ant_seg_1: [data ? data.rie_ant_seg_1 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
+      rie_ant_biom_1: [data ? data.rie_ant_biom_1 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
+      rie_ant_psico_1: [data ? data.rie_ant_psico_1 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
+      rie_ant_fis_2: [data ? data.rie_ant_fis_2 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
+      rie_ant_bio_2: [data ? data.rie_ant_bio_2 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
+      rie_ant_quim_2: [data ? data.rie_ant_quim_2 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
+      rie_ant_seg_2: [data ? data.rie_ant_seg_2 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
+      rie_ant_biom_2: [data ? data.rie_ant_biom_2 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
+      rie_ant_psico_2: [data ? data.rie_ant_psico_2 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
+      rie_ant_fis_3: [data ? data.rie_ant_fis_3 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
+      rie_ant_bio_3: [data ? data.rie_ant_bio_3 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
+      rie_ant_quim_3: [data ? data.rie_ant_quim_3 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
+      rie_ant_seg_3: [data ? data.rie_ant_seg_3 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
+      rie_ant_biom_3: [data ? data.rie_ant_biom_3 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
+      rie_ant_psico_3: [data ? data.rie_ant_psico_3 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
+      rie_ant_fis_4: [data ? data.rie_ant_fis_4 : this.fisico[0]["valor"] , [Validators.required, inAnexoValidator(this.fisico)]],
+      rie_ant_bio_4: [data ? data.rie_ant_bio_4 : this.biologico[0]["valor"] , [Validators.required, inAnexoValidator(this.biologico)]],
+      rie_ant_quim_4: [data ? data.rie_ant_quim_4 : this.quimico[0]["valor"] ,[Validators.required, inAnexoValidator(this.quimico)]],
+      rie_ant_seg_4: [data ? data.rie_ant_seg_4 : this.seguridad[0]["valor"] ,[Validators.required, inAnexoValidator(this.seguridad)]],
+      rie_ant_biom_4: [data ? data.rie_ant_biom_4 : this.biomecanico[0]["valor"] ,[Validators.required, inAnexoValidator(this.biomecanico)]],
+      rie_ant_psico_4: [data ? data.rie_ant_psico_4 : this.psicosocial[0]["valor"] ,[Validators.required, inAnexoValidator(this.psicosocial)]],
+      rie_ant_obs: [data ? data.rie_ant_obs : ''],
     });
-  }
-
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
   }
 
   ngOnInit(): void {
@@ -136,38 +122,38 @@ export class MedicinaAntecedentesOcupacionalesComponent implements OnInit, OnDes
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["fisico","biologico","quimico","seguridad","biomecanico","psicosocial"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.fisico = this.formatear_datos(response.fisico)
-        this.biologico = this.formatear_datos(response.biologico)
-        this.quimico = this.formatear_datos(response.quimico)
-        this.seguridad = this.formatear_datos(response.seguridad)
-        this.biomecanico = this.formatear_datos(response.biomecanico)
-        this.psicosocial = this.formatear_datos(response.psicosocial)
+        this.fisico = this.obtenerAnexosService.formatear_datos(response.fisico)
+        this.biologico = this.obtenerAnexosService.formatear_datos(response.biologico)
+        this.quimico = this.obtenerAnexosService.formatear_datos(response.quimico)
+        this.seguridad = this.obtenerAnexosService.formatear_datos(response.seguridad)
+        this.biomecanico = this.obtenerAnexosService.formatear_datos(response.biomecanico)
+        this.psicosocial = this.obtenerAnexosService.formatear_datos(response.psicosocial)
 
         this.inputs$ = of([
-          { id: "fisicoFactorRiesgoOcupacional1", nombre: "Dermatológico", for: "fisicoFactorRiesgoOcupacional1", options: this.fisico},
-          { id: "biologicoFactorRiesgoOcupacional1", nombre: "Osteomuscular", for: "biologicoFactorRiesgoOcupacional1", options: this.biologico},
-          { id: "quimicoFactorRiesgoOcupacional1", nombre: "Osteoarticular", for: "quimicoFactorRiesgoOcupacional1", options: this.quimico},
-          { id: "seguridadFactorRiesgoOcupacional1", nombre: "Genitourinario", for: "seguridadFactorRiesgoOcupacional1", options: this.seguridad},
-          { id: "biomecanicoFactorRiesgoOcupacional1", nombre: "Metabólico", for: "biomecanicoFactorRiesgoOcupacional1", options: this.biomecanico},
-          { id: "psicosocialFactorRiesgoOcupacional1", nombre: "Neurológico", for: "psicosocialFactorRiesgoOcupacional1", options: this.psicosocial},
-          { id: "fisicoFactorRiesgoOcupacional2", nombre: "Dermatológico", for: "fisicoFactorRiesgoOcupacional2", options: this.fisico},
-          { id: "biologicoFactorRiesgoOcupacional2", nombre: "Osteomuscular", for: "biologicoFactorRiesgoOcupacional2", options: this.biologico},
-          { id: "quimicoFactorRiesgoOcupacional2", nombre: "Osteoarticular", for: "quimicoFactorRiesgoOcupacional2", options: this.quimico},
-          { id: "seguridadFactorRiesgoOcupacional2", nombre: "Genitourinario", for: "seguridadFactorRiesgoOcupacional2", options: this.seguridad},
-          { id: "biomecanicoFactorRiesgoOcupacional2", nombre: "Metabólico", for: "biomecanicoFactorRiesgoOcupacional2", options: this.biomecanico},
-          { id: "psicosocialFactorRiesgoOcupacional2", nombre: "Neurológico", for: "psicosocialFactorRiesgoOcupacional2", options: this.psicosocial},
-          { id: "fisicoFactorRiesgoOcupacional3", nombre: "Dermatológico", for: "fisicoFactorRiesgoOcupacional3", options: this.fisico},
-          { id: "biologicoFactorRiesgoOcupacional3", nombre: "Osteomuscular", for: "biologicoFactorRiesgoOcupacional3", options: this.biologico},
-          { id: "quimicoFactorRiesgoOcupacional3", nombre: "Osteoarticular", for: "quimicoFactorRiesgoOcupacional3", options: this.quimico},
-          { id: "seguridadFactorRiesgoOcupacional3", nombre: "Genitourinario", for: "seguridadFactorRiesgoOcupacional3", options: this.seguridad},
-          { id: "biomecanicoFactorRiesgoOcupacional3", nombre: "Metabólico", for: "biomecanicoFactorRiesgoOcupacional3", options: this.biomecanico},
-          { id: "psicosocialFactorRiesgoOcupacional3", nombre: "Neurológico", for: "psicosocialFactorRiesgoOcupacional3", options: this.psicosocial},
-          { id: "fisicoFactorRiesgoOcupacional4", nombre: "Dermatológico", for: "fisicoFactorRiesgoOcupacional4", options: this.fisico},
-          { id: "biologicoFactorRiesgoOcupacional4", nombre: "Osteomuscular", for: "biologicoFactorRiesgoOcupacional4", options: this.biologico},
-          { id: "quimicoFactorRiesgoOcupacional4", nombre: "Osteoarticular", for: "quimicoFactorRiesgoOcupacional4", options: this.quimico},
-          { id: "seguridadFactorRiesgoOcupacional4", nombre: "Genitourinario", for: "seguridadFactorRiesgoOcupacional4", options: this.seguridad},
-          { id: "biomecanicoFactorRiesgoOcupacional4", nombre: "Metabólico", for: "biomecanicoFactorRiesgoOcupacional4", options: this.biomecanico},
-          { id: "psicosocialFactorRiesgoOcupacional4", nombre: "Neurológico", for: "psicosocialFactorRiesgoOcupacional4", options: this.psicosocial},
+          { id: "rie_ant_fis_1", nombre: "Dermatológico", for: "rie_ant_fis_1", options: this.fisico},
+          { id: "rie_ant_bio_1", nombre: "Osteomuscular", for: "rie_ant_bio_1", options: this.biologico},
+          { id: "rie_ant_quim_1", nombre: "Osteoarticular", for: "rie_ant_quim_1", options: this.quimico},
+          { id: "rie_ant_seg_1", nombre: "Genitourinario", for: "rie_ant_seg_1", options: this.seguridad},
+          { id: "rie_ant_biom_1", nombre: "Metabólico", for: "rie_ant_biom_1", options: this.biomecanico},
+          { id: "rie_ant_psico_1", nombre: "Neurológico", for: "rie_ant_psico_1", options: this.psicosocial},
+          { id: "rie_ant_fis_2", nombre: "Dermatológico", for: "rie_ant_fis_2", options: this.fisico},
+          { id: "rie_ant_bio_2", nombre: "Osteomuscular", for: "rie_ant_bio_2", options: this.biologico},
+          { id: "rie_ant_quim_2", nombre: "Osteoarticular", for: "rie_ant_quim_2", options: this.quimico},
+          { id: "rie_ant_seg_2", nombre: "Genitourinario", for: "rie_ant_seg_2", options: this.seguridad},
+          { id: "rie_ant_biom_2", nombre: "Metabólico", for: "rie_ant_biom_2", options: this.biomecanico},
+          { id: "rie_ant_psico_2", nombre: "Neurológico", for: "rie_ant_psico_2", options: this.psicosocial},
+          { id: "rie_ant_fis_3", nombre: "Dermatológico", for: "rie_ant_fis_3", options: this.fisico},
+          { id: "rie_ant_bio_3", nombre: "Osteomuscular", for: "rie_ant_bio_3", options: this.biologico},
+          { id: "rie_ant_quim_3", nombre: "Osteoarticular", for: "rie_ant_quim_3", options: this.quimico},
+          { id: "rie_ant_seg_3", nombre: "Genitourinario", for: "rie_ant_seg_3", options: this.seguridad},
+          { id: "rie_ant_biom_3", nombre: "Metabólico", for: "rie_ant_biom_3", options: this.biomecanico},
+          { id: "rie_ant_psico_3", nombre: "Neurológico", for: "rie_ant_psico_3", options: this.psicosocial},
+          { id: "rie_ant_fis_4", nombre: "Dermatológico", for: "rie_ant_fis_4", options: this.fisico},
+          { id: "rie_ant_bio_4", nombre: "Osteomuscular", for: "rie_ant_bio_4", options: this.biologico},
+          { id: "rie_ant_quim_4", nombre: "Osteoarticular", for: "rie_ant_quim_4", options: this.quimico},
+          { id: "rie_ant_seg_4", nombre: "Genitourinario", for: "rie_ant_seg_4", options: this.seguridad},
+          { id: "rie_ant_biom_4", nombre: "Metabólico", for: "rie_ant_biom_4", options: this.biomecanico},
+          { id: "rie_ant_psico_4", nombre: "Neurológico", for: "rie_ant_psico_4", options: this.psicosocial},
         ])
 
         this.loaded$ = of(true);

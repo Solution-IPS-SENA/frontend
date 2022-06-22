@@ -71,19 +71,6 @@ export class PsicologiaEmpresaComponent implements OnInit, OnDestroy {
       });
     }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("psicologiaEmpresa");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -93,9 +80,9 @@ export class PsicologiaEmpresaComponent implements OnInit, OnDestroy {
       (response: InformacionAnexos) => {
         console.log("Response:",response);
         if (!response) return;
-        this.sino = this.formatear_datos(response.sino)
-        this.medioAmbiente = this.formatear_datos(response.medioAmbiente)
-        this.carga = this.formatear_datos(response.carga)
+        this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
+        this.medioAmbiente = this.obtenerAnexosService.formatear_datos(response.medioAmbiente)
+        this.carga = this.obtenerAnexosService.formatear_datos(response.carga)
 
         this.inputs$ = of([
           { id: "ries_emp_gest_org", nombre: "Gestion organizacional", for: "ries_emp_gest_org", options: this.sino},

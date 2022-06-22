@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
-import { InputDatosType } from 'src/app/shared/interfaces/input-datos';
+import { InputDatos } from 'src/app/shared/interfaces/input-datos';
 import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
@@ -36,9 +36,9 @@ export class MedicinaDatosOcupacionalesComponent implements OnInit, OnDestroy {
 
   loaded$ = of(false);
 
-  inputsCondicionesActualesCargo$?: Observable<InputDatosType[]> = of([
-    { id: "equiposUtilizados", nombre: "Equipos utilizados", type: "select", for: "equiposUtilizados", options: this.equiposUtilizados},
-    { id: "actividadPrincipalRealizada", nombre: "Actividad principal realizada", type: "text", for: "actividadPrincipalRealizada" },
+  inputsCondicionesActualesCargo$?: Observable<InputDatos[]> = of([
+    { id: "ocu_equi", nombre: "Equipos utilizados", type: "select", for: "ocu_equi", options: this.equiposUtilizados},
+    { id: "ocu_acti", nombre: "Actividad principal realizada", type: "text", for: "ocu_acti" },
   ]);
 
   inputNumber$?: Observable<any> = of([
@@ -46,23 +46,23 @@ export class MedicinaDatosOcupacionalesComponent implements OnInit, OnDestroy {
     { id: "2"},
   ]);
 
-  inputsAccidentesEnfermedadesLaborales1$?: Observable<InputDatosType[]> = of([
-    { id: "empresa1", nombre: "Empresa", type: "text", for: "empresa1" },
-    { id: "diagnostico1", nombre: "Diagnostico", type: "text", for: "diagnostico1" },
+  inputsAccidentesEnfermedadesLaborales1$?: Observable<InputDatos[]> = of([
+    { id: "ocu_acc_emp1", nombre: "Empresa", type: "text", for: "ocu_acc_emp1" },
+    { id: "ocu_acc_diag1", nombre: "Diagnostico", type: "text", for: "ocu_acc_diag1" },
   ]);
 
-  inputsAccidentesEnfermedadesLaborales2$?: Observable<InputDatosType[]> = of([
+  inputsAccidentesEnfermedadesLaborales2$?: Observable<InputDatos[]> = of([
     { id: "empresa2", nombre: "Empresa", type: "text", for: "empresa2" },
     { id: "diagnostico2", nombre: "Diagnostico", type: "text", for: "diagnostico2" },
   ]);
 
-  inputsEmpresa1$?: Observable<InputDatosType[]> = of([
+  inputsEmpresa1$?: Observable<InputDatos[]> = of([
     { id: "select1Emp1", nombre: "Empresa1", for:"select1Emp1", type:"select", options: this.riesgosLaborales},
     { id: "select2Emp1", nombre: "Empresa1", for:"select2Emp1", type:"date"},
     { id: "select3Emp1", nombre: "Empresa1", for:"select3Emp1", type:"select", options: this.institucion}
   ]);
 
-  inputsEmpresa2$?: Observable<InputDatosType[]> = of([
+  inputsEmpresa2$?: Observable<InputDatos[]> = of([
     { id: "select1Emp2", nombre: "Empresa2", for:"select1Emp2", type:"select", options: this.riesgosLaborales},
     { id: "select2Emp2", nombre: "Empresa2", for:"select2Emp2", type:"date"},
     { id: "select3Emp2", nombre: "Empresa2", for:"select3Emp2", type:"select", options: this.institucion}
@@ -80,12 +80,12 @@ export class MedicinaDatosOcupacionalesComponent implements OnInit, OnDestroy {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      equiposUtilizados: [data ? data.equiposUtilizados : this.equiposUtilizados[0]["valor"] , [Validators.required, inAnexoValidator(this.equiposUtilizados)]],
-      actividadPrincipalRealizada: [data ? data.actividadPrincipalRealizada : ''],
-      empresa1: [data ? data.empresa1 : ''],
-      diagnostico1: [data ? data.diagnostico1 : ''],
-      empresa2: [data ? data.empresa2 : ''],
-      diagnostico2: [data ? data.diagnostico2 : ''],
+      ocu_equi: [data ? data.ocu_equi : this.equiposUtilizados[0]["valor"] , [Validators.required, inAnexoValidator(this.equiposUtilizados)]],
+      ocu_acti: [data ? data.ocu_acti : ''],
+      ocu_acc_emp1: [data ? data.ocu_acc_emp1 : ''],
+      ocu_acc_diag1: [data ? data.ocu_acc_diag1 : ''],
+      ocu_acc_emp2: [data ? data.ocu_acc_emp2 : ''],
+      ocu_acc_diag2: [data ? data.ocu_acc_diag2 : ''],
       select1Emp1: [data ? data.select1Emp1 : this.riesgosLaborales[0]["valor"] , [Validators.required, inAnexoValidator(this.riesgosLaborales)]],
       select2Emp1: [data ? data.select2Emp1 : ''],
       select3Emp1: [data ? data.select3Emp1 : this.institucion[0]["valor"] ,[Validators.required, inAnexoValidator(this.institucion)]],
@@ -95,19 +95,6 @@ export class MedicinaDatosOcupacionalesComponent implements OnInit, OnDestroy {
     });
   }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("medicinaDatosOcupacionales");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -115,13 +102,13 @@ export class MedicinaDatosOcupacionalesComponent implements OnInit, OnDestroy {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["equiposUtilizados","riesgosLaborales","institucion"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.equiposUtilizados = this.formatear_datos(response.equiposUtilizados)
-        this.riesgosLaborales = this.formatear_datos(response.riesgosLaborales)
-        this.institucion = this.formatear_datos(response.institucion)
+        this.equiposUtilizados = this.obtenerAnexosService.formatear_datos(response.equiposUtilizados)
+        this.riesgosLaborales = this.obtenerAnexosService.formatear_datos(response.riesgosLaborales)
+        this.institucion = this.obtenerAnexosService.formatear_datos(response.institucion)
 
         this.inputsCondicionesActualesCargo$ = of([
-          { id: "equiposUtilizados", nombre: "Equipos utilizados", type: "select", for: "equiposUtilizados", options: this.equiposUtilizados},
-          { id: "actividadPrincipalRealizada", nombre: "Actividad principal realizada", type: "text", for: "actividadPrincipalRealizada" },
+          { id: "ocu_equi", nombre: "Equipos utilizados", type: "select", for: "ocu_equi", options: this.equiposUtilizados},
+          { id: "ocu_acti", nombre: "Actividad principal realizada", type: "text", for: "ocu_acti" },
         ]);
 
         this.inputNumber$ = of([
@@ -130,13 +117,13 @@ export class MedicinaDatosOcupacionalesComponent implements OnInit, OnDestroy {
         ]);
 
         this.inputsAccidentesEnfermedadesLaborales1$ = of([
-          { id: "empresa1", nombre: "Empresa", type: "text", for: "empresa1" },
-          { id: "diagnostico1", nombre: "Diagnostico", type: "text", for: "diagnostico1" },
+          { id: "ocu_acc_emp1", nombre: "Empresa", type: "text", for: "ocu_acc_emp1" },
+          { id: "ocu_acc_diag1", nombre: "Diagnostico", type: "text", for: "ocu_acc_diag1" },
         ]);
 
         this.inputsAccidentesEnfermedadesLaborales2$ = of([
-          { id: "empresa2", nombre: "Empresa", type: "text", for: "empresa2" },
-          { id: "diagnostico2", nombre: "Diagnostico", type: "text", for: "diagnostico2" },
+          { id: "ocu_acc_emp2", nombre: "Empresa", type: "text", for: "ocu_acc_emp2" },
+          { id: "ocu_acc_diag2", nombre: "Diagnostico", type: "text", for: "ocu_acc_diag2" },
         ]);
 
         this.inputsEmpresa1$ = of([

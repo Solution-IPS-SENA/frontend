@@ -6,6 +6,7 @@ import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos'
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
+import { EnvioHistoriaService } from 'src/app/shared/services/envio-historia.service';
 
 @Component({
   selector: 'app-optometria-cierre-historia-clinica',
@@ -14,7 +15,8 @@ import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 })
 export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestroy {
 
-  llavesData = ["optometriaAntecedentesPersonales","optometriaAntecedentesOcupacionales","optometriaSintomas","optometriaAgudezaVisual","optometriaHallazgos","optometriaCierreHistoria"]
+  llavesData = ["optometriaAntecedentesPersonales","optometriaAntecedentesOcupacionales","optometriaSintomas",
+  "optometriaAgudezaVisual","optometriaHallazgos","optometriaCierreHistoria"]
   public currentPage = 0;
   form!: FormGroup;
   state: boolean = false;
@@ -53,7 +55,8 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
   constructor(
     private obtenerAnexosService: ObtenerAnexosService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private envioHistoria: EnvioHistoriaService
   ) {}
 
   createForm(data?: any){
@@ -68,19 +71,6 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     });
   }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("optometriaCierreHistoria");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -88,9 +78,9 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.motivo = this.formatear_datos(response.motivo)
-        this.remitido = this.formatear_datos(response.remitido)
-        this.concepto = this.formatear_datos(response.concepto)
+        this.motivo = this.obtenerAnexosService.formatear_datos(response.motivo)
+        this.remitido = this.obtenerAnexosService.formatear_datos(response.remitido)
+        this.concepto = this.obtenerAnexosService.formatear_datos(response.concepto)
 
         this.inputs$ = of([
           { id: "motivo", nombre: "Motivo", for: "motivo", options: this.motivo},
@@ -127,14 +117,7 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     let data = this.form.value;
     localStorage.setItem("optometriaCierreHistoria", JSON.stringify(data));
     alert("Sisas")
-    this.enviarHistoria(this.llavesData)
+    this.envioHistoria.enviarHistoria(this.llavesData)
   }
 
-  enviarHistoria(llavesData: string[]){
-    let data = {};
-    llavesData.forEach(element => {
-      data = Object.assign(data, JSON.parse(localStorage.getItem(element)!))
-    });
-    console.log(JSON.stringify(data));
-  }
 }

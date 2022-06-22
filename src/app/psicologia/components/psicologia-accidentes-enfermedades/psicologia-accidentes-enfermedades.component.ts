@@ -57,19 +57,6 @@ export class PsicologiaAccidentesEnfermedadesComponent implements OnInit, OnDest
       });
     }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("psicologiaAccidentes");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -77,7 +64,7 @@ export class PsicologiaAccidentesEnfermedadesComponent implements OnInit, OnDest
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["sino"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.sino = this.formatear_datos(response.sino)
+        this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
 
         this.inputs$ = of([
           { id: "ant_tra", nombre: "Ha estado en consulta o tratamiento psicologico o psiquiatrico:", for: "ant_tra", options: this.sino },

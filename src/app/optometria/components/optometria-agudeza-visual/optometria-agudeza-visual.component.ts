@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
-import { InputDatosDoble } from 'src/app/shared/interfaces/input-datos';
+import { InputDatos } from 'src/app/shared/interfaces/input-datos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
@@ -38,17 +38,17 @@ export class OptometriaAgudezaVisualComponent implements OnInit, OnDestroy {
   loaded$ = of(false);
 
 
-  inputsAVCerca$?: Observable<InputDatosDoble[]> = of([
+  inputsAVCerca$?: Observable<InputDatos[]> = of([
     { id: "ojoDerechoCerca", nombre: "OD", for: "agu_cer_sc1", for2:"agu_cer_cc1", options: this.agudezaVisual, options2: this.agudezaVisual },
     { id: "ojoIzquierdoCerca", nombre: "OI",for: "agu_cer_sc2", for2:"agu_cer_cc2", options: this.agudezaVisual, options2: this.agudezaVisual },
     { id: "ambosCerca", nombre: "AMBOS",for: "agu_cer_sc3", for2:"agu_cer_cc3",  options: this.agudezaVisual, options2: this.agudezaVisual },
   ]);
-  inputsAVLejos$?: Observable<InputDatosDoble[]> = of([
+  inputsAVLejos$?: Observable<InputDatos[]> = of([
     { id: "ojoDerechoLejos", nombre: "OD", for: "agu_lej_sc1", for2:"agu_lej_cc1", options: this.agudezaVisual, options2: this.agudezaVisual },
     { id: "ojoIzquierdoLejos", nombre: "OI",for: "agu_lej_sc2", for2:"agu_lej_cc2", options: this.agudezaVisual, options2: this.agudezaVisual },
     { id: "ambosLejos", nombre: "AMBOS", for: "agu_lej_sc3", for2:"agu_lej_cc3", options: this.agudezaVisual, options2: this.agudezaVisual },
   ]);
-  inputsLensometria$?: Observable<InputDatosDoble[]> = of([
+  inputsLensometria$?: Observable<InputDatos[]> = of([
     { id: "ojoDerechoLensometria", nombre: "OD", for: "agu_len_pre_od1", for2:"agu_len_pre_od2", options: this.sino, options2: this.lensometria },
     { id: "ojoIzquierdoLensometria", nombre: "OI", for: "agu_len_pre_oi1", for2:"agu_len_pre_oi2", options: this.sino, options2: this.lensometria },
     { id: "agu_len_tiem", for:"agu_len_tiem", nombre: "Tiempo de uso", options: this.tiempo },
@@ -86,19 +86,6 @@ export class OptometriaAgudezaVisualComponent implements OnInit, OnDestroy {
       });
     }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("optometriaAgudezaVisual");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -106,10 +93,10 @@ export class OptometriaAgudezaVisualComponent implements OnInit, OnDestroy {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["lensometria", "tiempo", "agudezaVisual", "sino"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.tiempo = this.formatear_datos(response.tiempo);
-        this.lensometria = this.formatear_datos(response.lensometria);
-        this.agudezaVisual = this.formatear_datos(response.agudezaVisual);
-        this.sino = this.formatear_datos(response.sino);
+        this.tiempo = this.obtenerAnexosService.formatear_datos(response.tiempo);
+        this.lensometria = this.obtenerAnexosService.formatear_datos(response.lensometria);
+        this.agudezaVisual = this.obtenerAnexosService.formatear_datos(response.agudezaVisual);
+        this.sino = this.obtenerAnexosService.formatear_datos(response.sino);
 
         this.inputsAVCerca$ = of([
           { id: "ojoDerechoCerca", nombre: "OD", for: "agu_cer_sc1", for2:"agu_cer_cc1", options: this.agudezaVisual, options2: this.agudezaVisual },

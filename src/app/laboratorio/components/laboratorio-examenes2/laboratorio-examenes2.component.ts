@@ -74,20 +74,7 @@ export class LaboratorioExamenes2Component implements OnInit {
       observacionesExamenes2Laboratorio: [data ? data.observacionesExamenes2Laboratorio : '']
     });
   }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
+  
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("laboratorioExamenes2");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -96,7 +83,7 @@ export class LaboratorioExamenes2Component implements OnInit {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["normalidad"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.normalidad = this.formatear_datos(response.normalidad)
+        this.normalidad = this.obtenerAnexosService.formatear_datos(response.normalidad)
 
         this.inputs$ = of([
           { id: "tsh", nombre: "Tsh", for: "tsh", options: this.normalidad},

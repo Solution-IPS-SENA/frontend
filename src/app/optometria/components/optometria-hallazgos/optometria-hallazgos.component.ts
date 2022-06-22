@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { InputDatosDoble } from 'src/app/shared/interfaces/input-datos';
+import { InputDatos } from 'src/app/shared/interfaces/input-datos';
 import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
@@ -33,14 +33,14 @@ export class OptometriaHallazgosComponent implements OnInit, OnDestroy {
   normalidad: any = [];
   loaded$ = of(false);
 
-  inputsHallazgo1$?: Observable<InputDatosDoble[]> = of([
+  inputsHallazgo1$?: Observable<InputDatos[]> = of([
     { id: "examenExterno", nombre: "Examen externo", for:"hal_ext_od", for2:"hal_ext_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
     { id: "motilidadOcular", nombre: "Motilidad ocular" ,for:"hal_mot_od", for2:"hal_mot_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
     { id: "oftalmoscopia", nombre: "Oftalmoscopia" ,for:"hal_ofta_od", for2:"hal_ofta_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
     { id: "campoVisualConfrontacion", nombre: "Campo visual por confrontacion" ,for:"hal_camp_od", for2:"hal_camp_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
   ]);
 
-  inputsHallazgo2$?: Observable<InputDatosDoble[]> = of([
+  inputsHallazgo2$?: Observable<InputDatos[]> = of([
     { id: "Estereopsis", nombre: "Estereopsis" , for:"hal_est_od", for2:"hal_est_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
     { id: "Percepcioncromatica", nombre: "Percepcion cromatica" , for:"hal_crom_od", for2:"hal_crom_oi", img:"../../../../assets/logos/026.JPG",options: this.normalidad, options2: this.normalidad},
     { id: "observacionesOptoHallazgos", nombre: "Observaciones",img:"../../../../assets/logos/003.jpg"}
@@ -74,19 +74,6 @@ export class OptometriaHallazgosComponent implements OnInit, OnDestroy {
       });
     }
 
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
-  }
-
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("optometriaHallazgos");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
@@ -94,7 +81,7 @@ export class OptometriaHallazgosComponent implements OnInit, OnDestroy {
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["normalidad"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.normalidad = this.formatear_datos(response.normalidad)
+        this.normalidad = this.obtenerAnexosService.formatear_datos(response.normalidad)
 
         this.inputsHallazgo1$ = of([
           { id: "examenExterno", nombre: "Examen externo", for:"hal_ext_od", for2:"hal_ext_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},

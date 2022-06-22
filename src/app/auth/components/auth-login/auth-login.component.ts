@@ -1,8 +1,11 @@
 import { Component, EventEmitter, NgModule, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
+import { filter } from 'rxjs';
 import { ClientService } from 'src/app/shared/services/client.service';
+import { MessagesService } from 'src/app/shared/services/messages.service';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-auth-login',
@@ -15,7 +18,12 @@ export class AuthLoginComponent implements OnInit {
 
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder, private client: ClientService) {
+  constructor(
+    private fb: FormBuilder,
+    private client: ClientService,
+    private auth: AuthService,
+    private route: Router,
+    private messages: MessagesService) {
   }
 
   ngOnInit(): void {
@@ -25,17 +33,31 @@ export class AuthLoginComponent implements OnInit {
     });
   }
 
-  async onSubmit(){
+  onSubmit(){
     if (this.form.valid) {
-      this.client.post(environment.API_AUTH_URL + environment.LOGIN_ENDPOINT, {
-        email: this.form.value.emailLogin,
+      this.client.post(environment.URLS.AUTH + environment.ENDPOINTS.LOGIN, {
+        correo: this.form.value.emailLogin,
         password: this.form.value.passwordLogin
-      }).subscribe()
+      })
+      .subscribe(
+        {
+          next: (res: any) => {
+            console.log("Entra");
+
+            //se almacena el token usando el servicio Auth
+            this.auth.login(res.token)
+            //se almacena el nombre del usuario en el almacenamiento de
+            //sesion
+            this.route.navigate( ['/recepcion'])
+          },
+          error: (err) => {
+            console.log(err.status, err.error.response)
+            this.messages.error(err.error.response)
+          }
+        }
+      )
     }else {
       console.log("Form error");
     }
   }
-
-
-
 }

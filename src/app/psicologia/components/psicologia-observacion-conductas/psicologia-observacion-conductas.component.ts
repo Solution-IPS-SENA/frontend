@@ -54,30 +54,17 @@ export class PsicologiaObservacionConductasComponent implements OnInit, OnDestro
     private fb: FormBuilder
     ) {}
 
-    createForm(data?: any){
-      this.form = this.fb.group({
-        obs_cond_pres: [data ? data.obs_cond_pres : this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
-        obs_cond_post: [data ? data.obs_cond_post : this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
-        obs_cond_disc: [data ? data.obs_cond_disc : this.adecuacion[0]["valor"] ,[Validators.required, inAnexoValidator(this.adecuacion)]],
-        obs_cond_tono: [data ? data.obs_cond_tono : this.adecuacion[0]["valor"] ,[Validators.required, inAnexoValidator(this.adecuacion)]],
-        obs_cond_arti: [data ? data.obs_cond_arti :this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
-        obs_cond_orien_tiem: [data ? data.obs_cond_orien_tiem : this.adecuacion[0]["valor"] ,[Validators.required, inAnexoValidator(this.adecuacion)]],
-        obs_cond_orien_esp: [data ? data.obs_cond_orien_esp :this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
-        obs_cond_orien_perso: [data ? data.obs_cond_orien_perso : this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
-      });
-    }
-
-  formatear_datos(objeto: any): any{
-    let data: {valor: string, nombre: string}[] = [];
-    objeto.forEach((el: any) => {
-      data.push(
-        {
-          valor: el,
-          nombre: el
-        }
-      )
-    })
-    return data
+  createForm(data?: any){
+    this.form = this.fb.group({
+      obs_cond_pres: [data ? data.obs_cond_pres : this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_post: [data ? data.obs_cond_post : this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_disc: [data ? data.obs_cond_disc : this.adecuacion[0]["valor"] ,[Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_tono: [data ? data.obs_cond_tono : this.adecuacion[0]["valor"] ,[Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_arti: [data ? data.obs_cond_arti :this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_orien_tiem: [data ? data.obs_cond_orien_tiem : this.adecuacion[0]["valor"] ,[Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_orien_esp: [data ? data.obs_cond_orien_esp :this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
+      obs_cond_orien_perso: [data ? data.obs_cond_orien_perso : this.adecuacion[0]["valor"], [Validators.required, inAnexoValidator(this.adecuacion)]],
+    });
   }
 
   ngOnInit(): void {
@@ -87,7 +74,7 @@ export class PsicologiaObservacionConductasComponent implements OnInit, OnDestro
     this.currentPage = this.getCurrentPageUrl();
     this.obtenerAnexosService.getAnexos(["adecuacion"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
-        this.adecuacion = this.formatear_datos(response.adecuacion)
+        this.adecuacion = this.obtenerAnexosService.formatear_datos(response.adecuacion)
 
         this.inputs$ = of([
           { id: "obs_cond_pres", nombre: "Presentacion", for: "obs_cond_pres", options: this.adecuacion},
