@@ -28,9 +28,10 @@ export class AuthRegistroComponent implements OnInit {
     private messages: MessagesService
   ){}
 
-  input$?: Observable<InputDatos> = of(
-    { options: this.tipoDocumento },
-  );
+  inputDoc$?: Observable<InputDatos[]> = of([
+    { id: "documento", nombre: "Documento", type: "text", for: "documento" },
+    { id:"tipo_documento", for:"tipo_documento", options: this.tipoDocumento },
+  ]);
 
   inputs$?:Observable<InputDatos[]> = of([
     { id: "salario", nombre: "Fecha de Ingreso", type: "date", for: "salario" }
@@ -50,34 +51,33 @@ export class AuthRegistroComponent implements OnInit {
         this.tipoDocumento = this.obtenerAnexosService.formatear_datos(response.tipoDocumento, "abreviacion", "completo")
         this.rol = this.obtenerAnexosService.formatear_datos(response.rol)
 
-        this.input$ = of(
-          { options: this.tipoDocumento }
-        )
+        this.inputDoc$ = of([
+          { id: "documento", nombre: "Documento", type: "text", for: "documento" },
+          { id:"tipoDoc", for:"tipoDoc", options: this.tipoDocumento }
+        ])
 
-        this.inputs$ = of(
+        this.inputs$ = of([
           { id: "salario", nombre: "Fecha de Ingreso", type: "date", for: "salario" }
-        )
+        ])
 
-        this.inputsEmpresa$ = of({
+        this.inputsEmpresa$ = of([
           { id: "rethus", nombre: "rethus", type: "text", for: "rethus" },
           { id: "rol", nombre: "rol", type: "text", for: "rol", options: this.rol },
           { id: "salario", nombre: "Fecha de Ingreso", type: "date", for: "salario" },
           { id: "secretaria_salud", nombre: "Tiempo en Cargo", type: "text", for: "secretaria_salud" },
-          { id: "tp", nombre: "tp", type: "select", for: "tp"},
-        })
-
+          { id: "tp", nombre: "tp", type: "select", for: "tp"}
+        ])
+        
         this.createForm()
-
-
         this.loaded$ = of(true);
       }
-
-      createForm() {
-        this.form = this.fb.group({
-          tipo_documento: [this.tipoDocumento[0]["valor"], Validators.required],
-          documento: ['', Validators.required],
-        });
-      }
     )
+  }
+
+  createForm() {
+    this.form = this.fb.group({
+      tipo_documento: [this.tipoDocumento[0]["valor"], Validators.required],
+      documento: ['', Validators.required],
+    });
   }
 }
