@@ -37,9 +37,12 @@ export class AuthRegistroComponent implements OnInit {
     { id: "salario", nombre: "Fecha de Ingreso", type: "date", for: "salario" }
   ]);
 
+  inputRol$?: Observable<InputDatos> = of(
+    { options: this.rol },
+  );
+
   inputsEmpresa$?: Observable<InputDatos[]> = of([
     { id: "rethus", nombre: "rethus", type: "text", for: "rethus" },
-    { id: "rol", nombre: "rol", type: "text", for: "rol", options: this.rol },
     { id: "salario", nombre: "Fecha de Ingreso", type: "date", for: "salario" },
     { id: "secretaria_salud", nombre: "Tiempo en Cargo", type: "text", for: "secretaria_salud" },
     { id: "tp", nombre: "tp", type: "select", for: "tp"},
@@ -49,25 +52,31 @@ export class AuthRegistroComponent implements OnInit {
     this.obtenerAnexosService.getAnexos(["tipoDocumento","rol"]).pipe(delay(1000)).subscribe(
       (response: InformacionAnexos) => {
         this.tipoDocumento = this.obtenerAnexosService.formatear_datos(response.tipoDocumento, "abreviacion", "completo")
+        console.log(this.tipoDocumento);
+
         this.rol = this.obtenerAnexosService.formatear_datos(response.rol)
 
         this.inputDoc$ = of([
-          { id: "documento", nombre: "Documento", type: "text", for: "documento" },
-          { id:"tipoDoc", for:"tipoDoc", options: this.tipoDocumento }
+          { id:"tipo_documento", for:"tipo_documento", options: this.tipoDocumento },
+          { id: "documento", nombre: "Documento", type: "text", for: "documento" }
         ])
 
         this.inputs$ = of([
           { id: "salario", nombre: "Fecha de Ingreso", type: "date", for: "salario" }
         ])
 
+        this.inputRol$ = of(
+          { options: this.rol },
+        )
+
         this.inputsEmpresa$ = of([
           { id: "rethus", nombre: "rethus", type: "text", for: "rethus" },
-          { id: "rol", nombre: "rol", type: "text", for: "rol", options: this.rol },
+
           { id: "salario", nombre: "Fecha de Ingreso", type: "date", for: "salario" },
           { id: "secretaria_salud", nombre: "Tiempo en Cargo", type: "text", for: "secretaria_salud" },
           { id: "tp", nombre: "tp", type: "select", for: "tp"}
         ])
-        
+
         this.createForm()
         this.loaded$ = of(true);
       }
