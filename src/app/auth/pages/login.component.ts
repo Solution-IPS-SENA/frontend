@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import { NgModule } from "@angular/core";
 
 @Component({
     selector: 'login',
@@ -9,6 +8,6 @@ export class LoginComponent {
   titulo: string;
 
   constructor() {
-    this.titulo = 'Ingreso: Usuarios registrados';
+    this.titulo = 'Ingreso';
   }
 }

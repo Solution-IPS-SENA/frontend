@@ -1,7 +1,6 @@
 import { Component, EventEmitter, NgModule, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterModule, Routes } from '@angular/router';
-import { filter } from 'rxjs';
+import { Router } from '@angular/router';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { MessagesService } from 'src/app/shared/services/messages.service';
 import { environment } from 'src/environments/environment';
