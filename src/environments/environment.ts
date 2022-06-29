@@ -2,16 +2,18 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+let devUrl = 'http://192.168.1.173';
+
 export const environment = {
   PRODUCTION: false,
 
   URLS: {
-    ANEXOS: 'http://localhost:5000',
-    AUTH: 'http://10.199.0.88:3001/api/v01',
-    MEDICINA: 'http://10.199.0.88:3003/api/v01',
-    LABORATORIO: 'http://10.199.0.88:3002/api/v01',
-    OPTOMETRIA: 'http://10.199.0.88:3004/api/v01',
-    PSICOLOGIA: 'http://10.199.0.88:3005/api/v01',
+    ANEXOS: `${devUrl}:3000`,
+    AUTH: `${devUrl}:3001/api/v01`,
+    MEDICINA: `${devUrl}:3003/api/v01`,
+    LABORATORIO: `${devUrl}:3002/api/v01`,
+    OPTOMETRIA: `${devUrl}:3004/api/v01`,
+    PSICOLOGIA: `${devUrl}:3005/api/v01`,
   },
 
   ENDPOINTS: {

@@ -55,7 +55,7 @@ export class CertificacionesAptitudOcupacionalComponent implements OnInit {
   ]);
 
   constructor(private obtenerAnexosService: ObtenerAnexosService){
-    this.obtenerAnexosService.getAnexos(["id"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["id"]).subscribe(
       (response: InformacionAnexos) => {
 
         this.inputs$ = of([

@@ -76,7 +76,7 @@ export class MedicinaCierreHistoriaClinicaComponent implements OnInit, OnDestroy
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).subscribe(
       (response: InformacionAnexos) => {
         this.motivo = this.obtenerAnexosService.formatear_datos(response.motivo)
         this.remitido = this.obtenerAnexosService.formatear_datos(response.remitido)

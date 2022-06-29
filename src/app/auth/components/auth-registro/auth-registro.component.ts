@@ -49,10 +49,9 @@ export class AuthRegistroComponent implements OnInit {
   ]);
 
   ngOnInit(): void {
-    this.obtenerAnexosService.getAnexos(["tipoDocumento","rol"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["tipoDocumento","rol"]).subscribe(
       (response: InformacionAnexos) => {
         this.tipoDocumento = this.obtenerAnexosService.formatear_datos(response.tipoDocumento, "abreviacion", "completo")
-        console.log(this.tipoDocumento);
 
         this.rol = this.obtenerAnexosService.formatear_datos(response.rol)
 

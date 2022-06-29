@@ -100,7 +100,7 @@ export class MedicinaDatosOcupacionalesComponent implements OnInit, OnDestroy {
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["equiposUtilizados","riesgosLaborales","institucion"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["equiposUtilizados","riesgosLaborales","institucion"]).subscribe(
       (response: InformacionAnexos) => {
         this.equiposUtilizados = this.obtenerAnexosService.formatear_datos(response.equiposUtilizados)
         this.riesgosLaborales = this.obtenerAnexosService.formatear_datos(response.riesgosLaborales)

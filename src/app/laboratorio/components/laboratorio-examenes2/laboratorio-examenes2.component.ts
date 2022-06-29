@@ -74,14 +74,14 @@ export class LaboratorioExamenes2Component implements OnInit {
       observacionesExamenes2Laboratorio: [data ? data.observacionesExamenes2Laboratorio : '']
     });
   }
-  
+
   ngOnInit(): void {
     let dataRecovery = localStorage.getItem("laboratorioExamenes2");
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["normalidad"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["normalidad"]).subscribe(
       (response: InformacionAnexos) => {
         this.normalidad = this.obtenerAnexosService.formatear_datos(response.normalidad)
 

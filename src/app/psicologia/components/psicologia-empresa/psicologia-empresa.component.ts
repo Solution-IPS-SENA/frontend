@@ -76,9 +76,8 @@ export class PsicologiaEmpresaComponent implements OnInit, OnDestroy {
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["sino", "medioAmbiente", "carga"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["sino", "medioAmbiente", "carga"]).subscribe(
       (response: InformacionAnexos) => {
-        console.log("Response:",response);
         if (!response) return;
         this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
         this.medioAmbiente = this.obtenerAnexosService.formatear_datos(response.medioAmbiente)

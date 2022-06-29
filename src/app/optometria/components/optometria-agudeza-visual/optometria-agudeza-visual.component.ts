@@ -91,7 +91,7 @@ export class OptometriaAgudezaVisualComponent implements OnInit, OnDestroy {
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["lensometria", "tiempo", "agudezaVisual", "sino"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["lensometria", "tiempo", "agudezaVisual", "sino"]).subscribe(
       (response: InformacionAnexos) => {
         this.tiempo = this.obtenerAnexosService.formatear_datos(response.tiempo);
         this.lensometria = this.obtenerAnexosService.formatear_datos(response.lensometria);

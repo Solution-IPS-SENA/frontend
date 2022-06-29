@@ -24,10 +24,8 @@ export class SharedNavBarComponent implements OnInit {
     return this.navBarConfig.rutaHistoriaClinica;
   }
 
-  logOut() : void {
-    localStorage.removeItem('token');
-    localStorage.clear();
-    this.route.navigate( ['/login'])
+  toMenu() : void {
+    this.route.navigate(['/recepcion']);
   }
 
 }

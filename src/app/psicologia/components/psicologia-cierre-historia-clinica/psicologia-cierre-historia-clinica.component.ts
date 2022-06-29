@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { InputDatos } from 'src/app/shared/interfaces/input-datos';
-import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
+import { filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -79,7 +79,7 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).subscribe(
       (response: InformacionAnexos) => {
         this.motivo = this.obtenerAnexosService.formatear_datos(response.motivo)
         this.remitido = this.obtenerAnexosService.formatear_datos(response.remitido)
@@ -117,32 +117,28 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
   }
 
   saveData(){
-    let data = this.form.value;
-    localStorage.setItem("psicologiaCierreHistoria", JSON.stringify(data));
-    alert("Sisas")
     let historia = this.envioHistoria.enviarHistoria(this.llavesData)
-
+    let largor = localStorage.length;
     if (historia){
       this.client.post(environment.URLS.PSICOLOGIA + environment.ENDPOINTS.HISTORIA_PSICOLOGIA, historia)
       .subscribe(
         {
           next: (res: any) => {
             console.log("Historia enviada");
+            for (let i = 0; i < largor; i++) {
+              let localStorageItem = localStorage.key(i) ? localStorage.key(i)!.match(/^psicologia([a-zA-Z0-9]+)?/) : null;
+              if(localStorageItem){
+                localStorage.removeItem(localStorageItem[0]);
+              }
+            }
           },
           error: (err) => {
-            console.log(err.status, err.error.response)
-            this.messages.error(err.error.response)
+            console.log(err.error.response)
           }
         }
       )
     }else {
-      console.log("Form error");
+      this.messages.error("Error en el formulario");
     }
   }
-
-
-
-
-
 }
-

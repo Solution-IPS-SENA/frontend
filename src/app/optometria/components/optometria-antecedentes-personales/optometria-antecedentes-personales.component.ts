@@ -78,7 +78,7 @@ export class OptometriaAntecedentesPersonalesComponent implements OnInit, OnDest
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["sino"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["sino"]).subscribe(
       (response: InformacionAnexos) => {
         this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
 

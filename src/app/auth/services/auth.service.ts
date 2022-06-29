@@ -34,7 +34,7 @@ export class AuthService {
   //usuario actual y enviar una señal al BehaviorSubject para establecer
   //su nuevo valor, en este caso false para indicar que no estamos logueados
   logout() : void {
-    localStorage.removeItem('token');
+    localStorage.clear();
     this.isLogin.next(false);
   }
 

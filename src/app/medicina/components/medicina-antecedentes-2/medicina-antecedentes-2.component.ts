@@ -73,7 +73,7 @@ export class MedicinaAntecedentes2Component implements OnInit, OnDestroy {
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["sino","normalidad"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["sino","normalidad"]).subscribe(
       (response: InformacionAnexos) => {
         this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
         this.normalidad = this.obtenerAnexosService.formatear_datos(response.normalidad)

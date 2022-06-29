@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { InputDatos } from '../../interfaces/input-datos';
-import { delay, Observable, of, pipe, tap } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -39,7 +39,7 @@ export class SharedDatosPersonalesComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    this.obtenerAnexosService.getAnexos(["genero", "lugarDeNacimiento","paises"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["genero", "lugarDeNacimiento","paises"]).subscribe(
       (response: InformacionAnexos) => {
         this.genero = this.obtenerAnexosService.formatear_datos(response.genero)
         this.lugarDeNacimiento = this.obtenerAnexosService.formatear_datos(response.lugarDeNacimiento)
@@ -58,9 +58,14 @@ export class SharedDatosPersonalesComponent implements OnInit {
         ])
         this.createForm()
         this.loaded$ = of(true);
+        let datos: any = localStorage.getItem("datos_paciente");
+        if(datos){
+          this.form.patchValue(JSON.parse(datos!));
+          this.form.controls["edad"].patchValue(this.calcularEdad(JSON.parse(datos!).fecha_nacimiento));
+        }
       }
-    )
-  }
+      )
+    }
 
   createForm(){
     this.form = this.fb.group({
@@ -76,11 +81,14 @@ export class SharedDatosPersonalesComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      console.log("sisas")
-    }else{
-      console.log("nonas")
+  calcularEdad(fecha: string): string {
+    let today = new Date();
+    let nacimiento = new Date(fecha);
+    let edad =  today.getFullYear() - nacimiento.getFullYear();
+    let month = today.getMonth() - nacimiento.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < nacimiento.getDate())) {
+      edad--;
     }
+    return `${edad}`;
   }
 }

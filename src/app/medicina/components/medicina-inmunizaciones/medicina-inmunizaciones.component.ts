@@ -79,7 +79,7 @@ export class MedicinaInmunizacionesComponent implements OnInit, OnDestroy {
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["nroVacuna"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["nroVacuna"]).subscribe(
       (response: InformacionAnexos) => {
         this.nroVacuna = this.obtenerAnexosService.formatear_datos(response.nroVacuna)
 

@@ -79,7 +79,7 @@ export class MedicinaRevisionSistemasComponent implements OnInit {
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["referencia"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["referencia"]).subscribe(
       (response: InformacionAnexos) => {
         this.referencia = this.obtenerAnexosService.formatear_datos(response.referencia)
 
