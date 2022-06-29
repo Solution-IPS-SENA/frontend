@@ -93,13 +93,15 @@ export class LaboratorioCierreHistoriaClinicaComponent implements OnInit, OnDest
         this.loaded$ = of(true);
         this.createForm(dataRecovery);
         this.state = this.form.valid;
+        localStorage.setItem("laboratorioCierreHistoria", JSON.stringify(this.form.value));
         this.form.valueChanges
         .pipe(
           takeUntil(this.lifecycle$.pipe(filter(state => state == "destroy")))
         )
         .subscribe(
           () => {
-            this.state = this.form.valid
+            this.state = this.form.valid;
+            localStorage.setItem("laboratorioCierreHistoria", JSON.stringify(this.form.value));
           }
         )
       }
@@ -113,9 +115,6 @@ export class LaboratorioCierreHistoriaClinicaComponent implements OnInit, OnDest
   }
 
   saveData(){
-    let data = this.form.value;
-    localStorage.setItem("laboratorioCierreHistoria", JSON.stringify(data));
-    alert("Sisas")
-    this.envioHistoria.enviarHistoria(this.llavesData)
+    this.envioHistoria.enviarHistoria("laboratorio", this.form.value, this.llavesData)
   }
 }

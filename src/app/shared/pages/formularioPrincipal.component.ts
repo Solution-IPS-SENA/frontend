@@ -52,7 +52,6 @@ export class formularioPrincipalComponent {
     )
   }
 
-
   saveData(){
     let data = this.form.value;
     if (data){

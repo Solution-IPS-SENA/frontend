@@ -33,6 +33,7 @@ export class MedicinaAntecedentesComponent implements OnInit, OnDestroy {
   patologicos = [];
   referencia = [];
   ets = [];
+  quimico = [];
 
   loaded$ = of(false);
 
@@ -43,7 +44,7 @@ export class MedicinaAntecedentesComponent implements OnInit, OnDestroy {
 
   inputsPersonales$?: Observable<InputDatos[]> = of([
     { id: "ant_per_pato", nombre: "Patológicos", for: "ant_per_pato", options: this.patologicos},
-    { id: "ant_per_qui", nombre: "Quirúrgicos", for: "ant_per_qui", options: this.referencia},
+    { id: "ant_per_qui", nombre: "Quirúrgicos", for: "ant_per_qui", options: this.quimico},
     { id: "ant_per_trau", nombre: "Traumáticos", for: "ant_per_trau", options: this.referencia},
     { id: "ant_per_toxi", nombre: "Tóxicos", for: "ant_per_toxi" , options: this.referencia},
     { id: "ant_per_alergi", nombre: "Alérgicos", for: "ant_per_alergi", options: this.referencia},
@@ -69,7 +70,7 @@ export class MedicinaAntecedentesComponent implements OnInit, OnDestroy {
       ant_madre_card: [data ? data.ant_madre_card : this.patologicos[0]["valor"] , [Validators.required, inAnexoValidator(this.patologicos)]],
       ant_madre_cong: [data ? data.ant_madre_cong : this.patologicos[0]["valor"] , [Validators.required, inAnexoValidator(this.patologicos)]],
       ant_per_pato: [data ? data.ant_per_pato : this.patologicos[0]["valor"] , [Validators.required, inAnexoValidator(this.patologicos)]],
-      ant_per_qui: [data ? data.ant_per_qui : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
+      ant_per_qui: [data ? data.ant_per_qui : this.quimico[0]["valor"] , [Validators.required, inAnexoValidator(this.quimico)]],
       ant_per_trau: [data ? data.ant_per_trau : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
       ant_per_toxi: [data ? data.ant_per_toxi : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
       ant_per_alergi: [data ? data.ant_per_alergi : this.referencia[0]["valor"] , [Validators.required, inAnexoValidator(this.referencia)]],
@@ -85,11 +86,12 @@ export class MedicinaAntecedentesComponent implements OnInit, OnDestroy {
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["patologicos","referencia","ets"]).subscribe(
+    this.obtenerAnexosService.getAnexos(["patologicos","referencia","ets", "quimico"]).subscribe(
       (response: InformacionAnexos) => {
         this.patologicos = this.obtenerAnexosService.formatear_datos(response.patologicos)
         this.referencia = this.obtenerAnexosService.formatear_datos(response.referencia)
         this.ets = this.obtenerAnexosService.formatear_datos(response.ets)
+        this.quimico = this.obtenerAnexosService.formatear_datos(response.quimico)
 
         this.inputsFamiliares$ = of([
           { id: "padre", nombre: "Padre",options: this.patologicos, options2: this.patologicos, for:"ant_padre_card", for2:"ant_padre_cong"},
@@ -97,7 +99,7 @@ export class MedicinaAntecedentesComponent implements OnInit, OnDestroy {
         ])
         this.inputsPersonales$ = of([
           { id: "ant_per_pato", nombre: "Patológicos", for: "ant_per_pato", options: this.patologicos},
-          { id: "ant_per_qui", nombre: "Quirúrgicos", for: "ant_per_qui", options: this.referencia},
+          { id: "ant_per_qui", nombre: "Quirúrgicos", for: "ant_per_qui", options: this.quimico},
           { id: "ant_per_trau", nombre: "Traumáticos", for: "ant_per_trau", options: this.referencia},
           { id: "ant_per_toxi", nombre: "Tóxicos", for: "ant_per_toxi" , options: this.referencia},
           { id: "ant_per_alergi", nombre: "Alérgicos", for: "ant_per_alergi", options: this.referencia},

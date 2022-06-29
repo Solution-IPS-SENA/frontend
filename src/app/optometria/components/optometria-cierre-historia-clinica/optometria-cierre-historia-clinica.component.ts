@@ -94,13 +94,15 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
         this.loaded$ = of(true);
         this.createForm(dataRecovery);
         this.state = this.form.valid;
+        localStorage.setItem("optometriaCierreHistoria", JSON.stringify(this.form.value));
         this.form.valueChanges
         .pipe(
           takeUntil(this.lifecycle$.pipe(filter(state => state == "destroy")))
         )
         .subscribe(
           () => {
-            this.state = this.form.valid
+            this.state = this.form.valid;
+            localStorage.setItem("optometriaCierreHistoria", JSON.stringify(this.form.value));
           }
         )
       }
@@ -114,10 +116,7 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
   }
 
   saveData(){
-    let data = this.form.value;
-    localStorage.setItem("optometriaCierreHistoria", JSON.stringify(data));
-    alert("Sisas")
-    this.envioHistoria.enviarHistoria(this.llavesData)
+    this.envioHistoria.enviarHistoria("optometria", this.form.value, this.llavesData)
   }
 
 }

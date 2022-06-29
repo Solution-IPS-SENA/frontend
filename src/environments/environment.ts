@@ -2,7 +2,7 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-let devUrl = 'http://192.168.1.173';
+let devUrl = 'http://10.199.0.88';
 
 export const environment = {
   PRODUCTION: false,
@@ -20,7 +20,7 @@ export const environment = {
     LOGIN: '/login',
     QUERY_PACIENTE:'/paciente',
     HISTORIA_PSICOLOGIA:'/historia_psicologia',
-    HISTORIA_MEDICA:'/historia_psicologia',
+    HISTORIA_MEDICA:'/historia_medica',
     HISTORIA_OPTOMETRIA:'/historia_optometria',
     HISTORIA_LABORATORIO:'/historia_laboratorio',
   }

@@ -66,7 +66,7 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     this.form = this.fb.group({
       motivo: [data ? data.motivo : this.motivo[0]["valor"], [Validators.required, inAnexoValidator(this.motivo)]],
       cie_concep_reco_mot: [data ? data.cie_concep_reco_mot : this.remitido[0]["valor"], [Validators.required, inAnexoValidator(this.remitido)]],
-      estado: [data ? data.estado : ''],
+      estado: [data ? data.estado : false],
       concepto: [data ? data.concepto : this.concepto[0]["valor"] , [Validators.required, inAnexoValidator(this.concepto)]],
       histo_famili: [data ? data.histo_famili : '', Validators.required],
       cie_concep_reco: [data ? data.cie_concep_reco : '', Validators.required],
@@ -97,6 +97,7 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
         this.loaded$ = of(true);
         this.createForm(dataRecovery);
         this.state = this.form.valid;
+        localStorage.setItem("psicologiaCierreHistoria", JSON.stringify(this.form.value));
         this.form.valueChanges
         .pipe(
           takeUntil(this.lifecycle$.pipe(filter(state => state == "destroy")))
@@ -104,6 +105,7 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
         .subscribe(
           () => {
             this.state = this.form.valid
+            localStorage.setItem("psicologiaCierreHistoria", JSON.stringify(this.form.value));
           }
         )
       }
@@ -117,28 +119,6 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
   }
 
   saveData(){
-    let historia = this.envioHistoria.enviarHistoria(this.llavesData)
-    let largor = localStorage.length;
-    if (historia){
-      this.client.post(environment.URLS.PSICOLOGIA + environment.ENDPOINTS.HISTORIA_PSICOLOGIA, historia)
-      .subscribe(
-        {
-          next: (res: any) => {
-            console.log("Historia enviada");
-            for (let i = 0; i < largor; i++) {
-              let localStorageItem = localStorage.key(i) ? localStorage.key(i)!.match(/^psicologia([a-zA-Z0-9]+)?/) : null;
-              if(localStorageItem){
-                localStorage.removeItem(localStorageItem[0]);
-              }
-            }
-          },
-          error: (err) => {
-            console.log(err.error.response)
-          }
-        }
-      )
-    }else {
-      this.messages.error("Error en el formulario");
-    }
+    this.envioHistoria.enviarHistoria("psicologia", this.form.value, this.llavesData)
   }
 }
