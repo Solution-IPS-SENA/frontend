@@ -41,22 +41,19 @@ export class AuthLoginComponent implements OnInit {
       .subscribe(
         {
           next: (res: any) => {
-            console.log("Entra");
-
-            //se almacena el token usando el servicio Auth
+          //se almacena el token usando el servicio Auth
             this.auth.login(res.token)
             //se almacena el nombre del usuario en el almacenamiento de
             //sesion
             this.route.navigate( ['/recepcion'])
           },
           error: (err) => {
-            console.log(err.status, err.error.response)
             this.messages.error(err.error.response)
           }
         }
       )
     }else {
-      console.log("Form error");
+      this.messages.error("Error en el formulario");
     }
   }
 }

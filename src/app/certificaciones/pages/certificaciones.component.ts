@@ -11,7 +11,7 @@ export class CertificacionesComponent {
 
   constructor(private router: Router) {
     this.currentPage = this.getCurrentPageUrl();
-    this.titulo = 'Módulo Clinico certificaciones';
+    this.titulo = 'Módulo Clínico certificaciones';
   }
 
   public currentPage = 0;

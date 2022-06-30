@@ -12,7 +12,7 @@ export class PsicologiaComponent {
 
   constructor(private router: Router) {
     this.currentPage = this.getCurrentPageUrl();
-    this.titulo = 'Módulo Clinico Psicologia';
+    this.titulo = 'Módulo Clínico Psicología';
   }
 
   public currentPage = 0;

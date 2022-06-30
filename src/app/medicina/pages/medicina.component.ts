@@ -11,7 +11,7 @@ export class MedicinaComponent {
 
   constructor(private router: Router) {
     this.currentPage = this.getCurrentPageUrl();
-    this.titulo = 'Módulo Clinico Medicina';
+    this.titulo = 'Módulo Clínico Medicina';
   }
 
   public currentPage = 0;

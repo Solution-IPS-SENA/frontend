@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { InputDatos } from 'src/app/shared/interfaces/input-datos';
-import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
+import { filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -66,7 +66,7 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     this.form = this.fb.group({
       motivo: [data ? data.motivo : this.motivo[0]["valor"], [Validators.required, inAnexoValidator(this.motivo)]],
       cie_concep_reco_mot: [data ? data.cie_concep_reco_mot : this.remitido[0]["valor"], [Validators.required, inAnexoValidator(this.remitido)]],
-      estado: [data ? data.estado : ''],
+      estado: [data ? data.estado : false],
       concepto: [data ? data.concepto : this.concepto[0]["valor"] , [Validators.required, inAnexoValidator(this.concepto)]],
       histo_famili: [data ? data.histo_famili : '', Validators.required],
       cie_concep_reco: [data ? data.cie_concep_reco : '', Validators.required],
@@ -79,7 +79,7 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).subscribe(
       (response: InformacionAnexos) => {
         this.motivo = this.obtenerAnexosService.formatear_datos(response.motivo)
         this.remitido = this.obtenerAnexosService.formatear_datos(response.remitido)
@@ -97,6 +97,7 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
         this.loaded$ = of(true);
         this.createForm(dataRecovery);
         this.state = this.form.valid;
+        localStorage.setItem("psicologiaCierreHistoria", JSON.stringify(this.form.value));
         this.form.valueChanges
         .pipe(
           takeUntil(this.lifecycle$.pipe(filter(state => state == "destroy")))
@@ -104,6 +105,7 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
         .subscribe(
           () => {
             this.state = this.form.valid
+            localStorage.setItem("psicologiaCierreHistoria", JSON.stringify(this.form.value));
           }
         )
       }
@@ -117,32 +119,6 @@ export class PsicologiaCierreHistoriaClinicaComponent implements OnInit, OnDestr
   }
 
   saveData(){
-    let data = this.form.value;
-    localStorage.setItem("psicologiaCierreHistoria", JSON.stringify(data));
-    alert("Sisas")
-    let historia = this.envioHistoria.enviarHistoria(this.llavesData)
-
-    if (historia){
-      this.client.post(environment.URLS.PSICOLOGIA + environment.ENDPOINTS.HISTORIA_PSICOLOGIA, historia)
-      .subscribe(
-        {
-          next: (res: any) => {
-            console.log("Historia enviada");
-          },
-          error: (err) => {
-            console.log(err.status, err.error.response)
-            this.messages.error(err.error.response)
-          }
-        }
-      )
-    }else {
-      console.log("Form error");
-    }
+    this.envioHistoria.enviarHistoria("psicologia", this.form.value, this.llavesData)
   }
-
-
-
-
-
 }
-

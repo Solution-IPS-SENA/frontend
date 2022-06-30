@@ -29,7 +29,7 @@ export class CertificacionesRemisionComponent implements OnInit {
   ]);
 
   constructor(private obtenerAnexosService: ObtenerAnexosService){
-    this.obtenerAnexosService.getAnexos(["id","remitido"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["id","remitido"]).subscribe(
       (response: InformacionAnexos) => {
 
         this.remitido = this.formatear_datos(response.remitido)

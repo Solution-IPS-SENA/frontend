@@ -36,13 +36,13 @@ export class OptometriaHallazgosComponent implements OnInit, OnDestroy {
   inputsHallazgo1$?: Observable<InputDatos[]> = of([
     { id: "examenExterno", nombre: "Examen externo", for:"hal_ext_od", for2:"hal_ext_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
     { id: "motilidadOcular", nombre: "Motilidad ocular" ,for:"hal_mot_od", for2:"hal_mot_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-    { id: "oftalmoscopia", nombre: "Oftalmoscopia" ,for:"hal_ofta_od", for2:"hal_ofta_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-    { id: "campoVisualConfrontacion", nombre: "Campo visual por confrontacion" ,for:"hal_camp_od", for2:"hal_camp_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+    { id: "oftalmoscopia", nombre: "Oftalmoscopía" ,for:"hal_ofta_od", for2:"hal_ofta_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+    { id: "campoVisualConfrontacion", nombre: "Campo visual por confrontación" ,for:"hal_camp_od", for2:"hal_camp_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
   ]);
 
   inputsHallazgo2$?: Observable<InputDatos[]> = of([
     { id: "Estereopsis", nombre: "Estereopsis" , for:"hal_est_od", for2:"hal_est_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-    { id: "Percepcioncromatica", nombre: "Percepcion cromatica" , for:"hal_crom_od", for2:"hal_crom_oi", img:"../../../../assets/logos/026.JPG",options: this.normalidad, options2: this.normalidad},
+    { id: "Percepcioncromatica", nombre: "Percepción cromatica" , for:"hal_crom_od", for2:"hal_crom_oi", img:"../../../../assets/logos/026.JPG",options: this.normalidad, options2: this.normalidad},
     { id: "observacionesOptoHallazgos", nombre: "Observaciones",img:"../../../../assets/logos/003.jpg"}
   ]);
 
@@ -79,20 +79,20 @@ export class OptometriaHallazgosComponent implements OnInit, OnDestroy {
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["normalidad"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["normalidad"]).subscribe(
       (response: InformacionAnexos) => {
         this.normalidad = this.obtenerAnexosService.formatear_datos(response.normalidad)
 
         this.inputsHallazgo1$ = of([
           { id: "examenExterno", nombre: "Examen externo", for:"hal_ext_od", for2:"hal_ext_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
           { id: "motilidadOcular", nombre: "Motilidad ocular" ,for:"hal_mot_od", for2:"hal_mot_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-          { id: "oftalmoscopia", nombre: "Oftalmoscopia" ,for:"hal_ofta_od", for2:"hal_ofta_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-          { id: "campoVisualConfrontacion", nombre: "Campo visual por confrontacion" ,for:"hal_camp_od", for2:"hal_camp_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+          { id: "oftalmoscopia", nombre: "Oftalmoscopía" ,for:"hal_ofta_od", for2:"hal_ofta_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
+          { id: "campoVisualConfrontacion", nombre: "Campo visual por confrontación" ,for:"hal_camp_od", for2:"hal_camp_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
         ])
 
         this.inputsHallazgo2$ = of([
           { id: "Estereopsis", nombre: "Estereopsis" , for:"hal_est_od", for2:"hal_est_oi", img:"../../../../assets/logos/026.JPG", options: this.normalidad, options2: this.normalidad},
-          { id: "Percepcioncromatica", nombre: "Percepcion cromatica" , for:"hal_crom_od", for2:"hal_crom_oi", img:"../../../../assets/logos/026.JPG",options: this.normalidad, options2: this.normalidad},
+          { id: "Percepcioncromatica", nombre: "Percepción cromatica" , for:"hal_crom_od", for2:"hal_crom_oi", img:"../../../../assets/logos/026.JPG",options: this.normalidad, options2: this.normalidad},
           { id: "observacionesOptoHallazgos", nombre: "Observaciones",img:"../../../../assets/logos/003.jpg"}
         ])
 

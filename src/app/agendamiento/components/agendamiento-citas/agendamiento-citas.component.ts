@@ -32,7 +32,7 @@ export class AgendamientoCitasComponent implements OnInit {
   constructor(private obtenerAnexosService: ObtenerAnexosService){
     this.titulo = 'Citas Medicas';
     this.myFilter
-    this.obtenerAnexosService.getAnexos(["sino","normalidad"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["sino","normalidad"]).subscribe(
       (response: InformacionAnexos) => {
         this.sino = this.formatear_datos(response.sino)
         this.normalidad = this.formatear_datos(response.normalidad)

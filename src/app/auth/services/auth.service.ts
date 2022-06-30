@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
+import jwt_decode from 'jwt-decode';
 
+type Rol = {
+  correo: string,
+  documento: string,
+  rol: string,
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -27,15 +33,32 @@ export class AuthService {
     if (this.checkToken()){
       return localStorage.getItem('token')
     }
-    return "No hay token";
+    return null;
   }
 
   //método que nos permite romover el token almacenado y el nombre del
   //usuario actual y enviar una señal al BehaviorSubject para establecer
   //su nuevo valor, en este caso false para indicar que no estamos logueados
   logout() : void {
-    localStorage.removeItem('token');
+    localStorage.clear();
     this.isLogin.next(false);
+  }
+
+  get rol(): Rol | null{
+    let token = this.getToken();
+    if (token){
+      return this.getDecodedAccessToken(token);
+    }
+    return null
+
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
   }
 
   //método que nos retorna el BehaviorSubject cómo un observable

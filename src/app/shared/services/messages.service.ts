@@ -8,10 +8,12 @@ export class MessagesService {
 
   success(message: string) {
     Swal.fire({
-      title: 'Error!',
       text: message,
-      icon: 'error',
-      confirmButtonText: 'Cool'
+      icon: 'success',
+      timer: 2000,
+      timerProgressBar: true,
+      showCancelButton: false,
+      showConfirmButton: false
     })
   }
 
@@ -19,7 +21,7 @@ export class MessagesService {
     Swal.fire({
       text: message,
       icon: 'error',
-      timer: 1200,
+      timer: 2000,
       timerProgressBar: true,
       showCancelButton: false,
       showConfirmButton: false

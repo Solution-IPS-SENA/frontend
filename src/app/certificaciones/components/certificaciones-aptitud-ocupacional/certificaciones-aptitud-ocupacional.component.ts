@@ -20,9 +20,9 @@ export class CertificacionesAptitudOcupacionalComponent implements OnInit {
   ]);
 
   inputsCol1$?: Observable<InputDatos[]> = of([
-    { id: "optometria", nombre: "Optometria", type: "text"},
-    { id: "fonoaudiologia", nombre: "Fonoaudiologia", type: "text" },
-    { id: "psicologia", nombre: "Psicologia", type: "text"},
+    { id: "optometria", nombre: "Optometría", type: "text"},
+    { id: "fonoaudiologia", nombre: "Fonoaudiología", type: "text" },
+    { id: "psicologia", nombre: "Psicología", type: "text"},
     { id: "laboratorio", nombre: "Laboratorio", type: "text"},
     { id: "medicina", nombre: "Medicina", type: "text" }
   ]);
@@ -55,7 +55,7 @@ export class CertificacionesAptitudOcupacionalComponent implements OnInit {
   ]);
 
   constructor(private obtenerAnexosService: ObtenerAnexosService){
-    this.obtenerAnexosService.getAnexos(["id"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["id"]).subscribe(
       (response: InformacionAnexos) => {
 
         this.inputs$ = of([
@@ -65,9 +65,9 @@ export class CertificacionesAptitudOcupacionalComponent implements OnInit {
   ])
 
         this.inputsCol1$ = of([
-          { id: "optometria", nombre: "Optometria", type: "text"},
-          { id: "fonoaudiologia", nombre: "Fonoaudiologia", type: "text" },
-          { id: "psicologia", nombre: "Psicologia", type: "text"},
+          { id: "optometria", nombre: "Optometría", type: "text"},
+          { id: "fonoaudiologia", nombre: "Fonoaudiología", type: "text" },
+          { id: "psicologia", nombre: "Psicología", type: "text"},
           { id: "laboratorio", nombre: "Laboratorio", type: "text"},
           { id: "medicina", nombre: "Medicina", type: "text" }
   ])

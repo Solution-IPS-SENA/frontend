@@ -34,18 +34,18 @@ export class LaboratorioExamenesComponent implements OnInit {
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "cuadroHematico", nombre: "Cuadro hematico", for: "cuadroHematico", options: this.normalidad},
-    { id: "glicemia", nombre: "Glicemia", for: "glicemia", options: this.normalidad},
-    { id: "colesterolTotal", nombre: "Colesterol total", for: "colesterolTotal", options: this.normalidad},
-    { id: "colesterolHDL", nombre: "Colesterol hdl", for: "colesterolHDL", options: this.normalidad},
-    { id: "colesterolLDL", nombre: "Colesterol ldl", for: "colesterolLDL", options: this.normalidad},
-    { id: "trigliceridos", nombre: "Trigliceridos", for: "trigliceridos", options: this.normalidad},
-    { id: "parcialOrina", nombre: "Parcial de orina", for: "parcialOrina", options: this.normalidad},
-    { id: "cultivoOrina", nombre: "Cultivo de orina", for: "cultivoOrina", options: this.normalidad},
-    { id: "coprologico", nombre: "Coprologico", for: "coprologico", options: this.normalidad},
-    { id: "frotisFaringeo", nombre: "Frotis faringeo", for: "frotisFaringeo", options: this.normalidad},
-    { id: "cultivoFaringeo", nombre: "Cultivo faringeo", for: "cultivoFaringeo", options: this.normalidad},
-    { id: "koh", nombre: "Koh", for: "koh", options: this.normalidad},
+    { id: "hema", nombre: "Cuadro hemático", for: "hema", options: this.normalidad},
+    { id: "glice", nombre: "Glicemia", for: "glice", options: this.normalidad},
+    { id: "colestot", nombre: "Colesterol total", for: "colestot", options: this.normalidad},
+    { id: "coleshdl", nombre: "Colesterol hdl", for: "coleshdl", options: this.normalidad},
+    { id: "colesldl", nombre: "Colesterol ldl", for: "colesldl", options: this.normalidad},
+    { id: "trigli", nombre: "Triglicéridos", for: "trigli", options: this.normalidad},
+    { id: "parcori", nombre: "Parcial de orina", for: "parcori", options: this.normalidad},
+    { id: "culori", nombre: "Cultivo de orina", for: "culori", options: this.normalidad},
+    { id: "copro", nombre: "Coprológico", for: "copro", options: this.normalidad},
+    { id: "frotsisfar", nombre: "Frotis faríngeo", for: "frotsisfar", options: this.normalidad},
+    { id: "cultifar", nombre: "Cultivo faríngeo", for: "cultifar", options: this.normalidad},
+    { id: "koh", nombre: "KOH", for: "koh", options: this.normalidad},
   ]);
 
   public get lifecycle$() {
@@ -60,19 +60,19 @@ export class LaboratorioExamenesComponent implements OnInit {
 
   createForm(data?: any){
     this.form = this.fb.group({
-      cuadroHematico: [data ? data.cuadroHematico : this.normalidad[0]["valor"] , [Validators.required, inAnexoValidator(this.normalidad)]],
-      glicemia: [data ? data.glicemia : this.normalidad[0]["valor"] , [Validators.required, inAnexoValidator(this.normalidad)]],
-      colesterolTotal: [data ? data.colesterolTotal : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
-      colesterolHDL: [data ? data.colesterolHDL : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
-      colesterolLDL: [data ? data.colesterolLDL : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
-      trigliceridos: [data ? data.trigliceridos : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
-      parcialOrina: [data ? data.parcialOrina : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
-      cultivoOrina: [data ? data.cultivoOrina : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
-      coprologico: [data ? data.coprologico : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
-      frotisFaringeo: [data ? data.frotisFaringeo : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
-      cultivoFaringeo: [data ? data.cultivoFaringeo : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      hema: [data ? data.hema : this.normalidad[0]["valor"] , [Validators.required, inAnexoValidator(this.normalidad)]],
+      glice: [data ? data.glice : this.normalidad[0]["valor"] , [Validators.required, inAnexoValidator(this.normalidad)]],
+      colestot: [data ? data.colestot : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+      coleshdl: [data ? data.coleshdl : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+      colesldl: [data ? data.colesldl : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+      trigli: [data ? data.trigli : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      parcori: [data ? data.parcori : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      culori: [data ? data.culori : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      copro: [data ? data.copro : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      frotsisfar: [data ? data.frotsisfar : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      cultifar: [data ? data.cultifar : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
       koh: [data ? data.koh : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
-      observacionesExamenes1Laboratorio: [data ? data.observacionesExamenes1Laboratorio : '']
+      obser1_lab: [data ? data.obser1_lab : '']
     });
   }
 
@@ -81,23 +81,23 @@ export class LaboratorioExamenesComponent implements OnInit {
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["normalidad"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["normalidad"]).subscribe(
       (response: InformacionAnexos) => {
         this.normalidad = this.obtenerAnexosService.formatear_datos(response.normalidad)
 
         this.inputs$ = of([
-          { id: "cuadroHematico", nombre: "Cuadro hematico", for: "cuadroHematico", options: this.normalidad},
-          { id: "glicemia", nombre: "Glicemia", for: "glicemia", options: this.normalidad},
-          { id: "colesterolTotal", nombre: "Colesterol total", for: "colesterolTotal", options: this.normalidad},
-          { id: "colesterolHDL", nombre: "Colesterol hdl", for: "colesterolHDL", options: this.normalidad},
-          { id: "colesterolLDL", nombre: "Colesterol ldl", for: "colesterolLDL", options: this.normalidad},
-          { id: "trigliceridos", nombre: "Trigliceridos", for: "trigliceridos", options: this.normalidad},
-          { id: "parcialOrina", nombre: "Parcial de orina", for: "parcialOrina", options: this.normalidad},
-          { id: "cultivoOrina", nombre: "Cultivo de orina", for: "cultivoOrina", options: this.normalidad},
-          { id: "coprologico", nombre: "Coprologico", for: "coprologico", options: this.normalidad},
-          { id: "frotisFaringeo", nombre: "Frotis faringeo", for: "frotisFaringeo", options: this.normalidad},
-          { id: "cultivoFaringeo", nombre: "Cultivo faringeo", for: "cultivoFaringeo", options: this.normalidad},
-          { id: "koh", nombre: "Koh", for: "koh", options: this.normalidad},
+          { id: "hema", nombre: "Cuadro hemático", for: "hema", options: this.normalidad},
+          { id: "glice", nombre: "Glicemia", for: "glice", options: this.normalidad},
+          { id: "colestot", nombre: "Colesterol total", for: "colestot", options: this.normalidad},
+          { id: "coleshdl", nombre: "Colesterol hdl", for: "coleshdl", options: this.normalidad},
+          { id: "colesldl", nombre: "Colesterol ldl", for: "colesldl", options: this.normalidad},
+          { id: "trigli", nombre: "Triglicéridos", for: "trigli", options: this.normalidad},
+          { id: "parcori", nombre: "Parcial de orina", for: "parcori", options: this.normalidad},
+          { id: "culori", nombre: "Cultivo de orina", for: "culori", options: this.normalidad},
+          { id: "copro", nombre: "Coprológico", for: "copro", options: this.normalidad},
+          { id: "frotsisfar", nombre: "Frotis faríngeo", for: "frotsisfar", options: this.normalidad},
+          { id: "cultifar", nombre: "Cultivo faríngeo", for: "cultifar", options: this.normalidad},
+          { id: "koh", nombre: "KOH", for: "koh", options: this.normalidad},
         ])
 
         this.loaded$ = of(true);

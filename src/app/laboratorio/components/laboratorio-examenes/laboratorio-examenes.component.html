@@ -11,7 +11,7 @@
     <ng-template #formulario>
         <div class="flex flex-row gap-x-2 items-center">
             <img class="w-14 rounded-lg" src="../../../../assets/logos/010.jpg" alt="">
-            <h2 class="text-3xl">Examenes</h2>
+            <h2 class="text-3xl">Exámenes</h2>
         </div>
         <form [formGroup]="form">
           <div class="grid grid-cols-3 p-5 bg-gray-200 rounded-lg">
@@ -31,11 +31,11 @@
           </div>
           <div class="flex flex-row gap-x-5 items-center pt-5">
               <img class="w-14 rounded-lg" src="../../../../assets/logos/003.jpg" alt="">
-              <textarea formControlName="observacionesExamenes1Laboratorio" class="h-10 w-full text-black pl-2 border-solid border-black border-[1.5px] rounded-full resize-none" placeholder="Observaciones"></textarea>
+              <textarea formControlName="obser1_lab" class="h-10 w-full text-black pl-2 border-solid border-black border-[1.5px] rounded-full resize-none" placeholder="Observaciones"></textarea>
           </div>
         </form>
     </ng-template>
     <div class="flex pt-5 justify-center">
-      <app-shared-paginacion (dataState)="saveData()" [pages]="3" [state]="state" (pageChange)="onPageChange($event)" [currentPage]="currentPage"></app-shared-paginacion>
+      <app-shared-paginacion (dataState)="saveData()" [pages]="2" [state]="state" (pageChange)="onPageChange($event)" [currentPage]="currentPage"></app-shared-paginacion>
     </div>
 </div>

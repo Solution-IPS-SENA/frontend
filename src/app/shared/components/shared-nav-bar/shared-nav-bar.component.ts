@@ -13,7 +13,7 @@ export class SharedNavBarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  @Input() onlyNavbar = false
   @Input() titulo!:string;
 
   public get urlDatosPaciente() {
@@ -24,10 +24,8 @@ export class SharedNavBarComponent implements OnInit {
     return this.navBarConfig.rutaHistoriaClinica;
   }
 
-  logOut() : void {
-    localStorage.removeItem('token');
-    localStorage.clear();
-    this.route.navigate( ['/login'])
+  toMenu() : void {
+    this.route.navigate(['/recepcion']);
   }
 
 }

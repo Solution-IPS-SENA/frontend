@@ -7,14 +7,12 @@ import { LaboratorioExamenesComponent } from './components/laboratorio-examenes/
 import { LaboratorioExamenes2Component } from './components/laboratorio-examenes2/laboratorio-examenes2.component';
 import { LaboratorioRoutingModule } from './laboratorio-routing.module';
 import { NavbarConfiguracionRutasService } from '../shared/services/navbar-configuracion-rutas.service';
-import { LaboratorioCierreHistoriaClinicaComponent } from './components/laboratorio-cierre-historia-clinica/laboratorio-cierre-historia-clinica.component';
 
 @NgModule({
   declarations: [
     LaboratorioComponent,
     LaboratorioExamenesComponent,
     LaboratorioExamenes2Component,
-    LaboratorioCierreHistoriaClinicaComponent
   ],
   imports: [
     CommonModule,

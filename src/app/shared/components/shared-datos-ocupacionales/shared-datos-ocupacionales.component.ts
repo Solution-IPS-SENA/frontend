@@ -1,6 +1,6 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { InputDatos } from '../../interfaces/input-datos';
-import { delay, Observable, of, pipe, tap } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -28,7 +28,7 @@ export class SharedDatosOcupacionalesComponent implements OnInit {
     { id: "eps", nombre: "EPS", type: "select", for: "eps" , options: this.eps},
     { id: "afp", nombre: "AFP", type: "select", for: "afp" , options: this.afp},
     { id: "correo", nombre: "Correo", type: "text", for: "correo" },
-    { id: "telefono_empresa", nombre: "Telefono", type: "text", for: "telefono_empresa" },
+    { id: "telefono_empresa", nombre: "Teléfono laboral", type: "text", for: "telefono_empresa" },
   ]);
 
   constructor(
@@ -38,7 +38,7 @@ export class SharedDatosOcupacionalesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.obtenerAnexosService.getAnexos(["eps","afp","arl"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["eps","afp","arl"]).subscribe(
       (response: InformacionAnexos) => {
         this.eps = this.obtenerAnexosService.formatear_datos(response.eps)
         this.afp = this.obtenerAnexosService.formatear_datos(response.afp)
@@ -53,10 +53,14 @@ export class SharedDatosOcupacionalesComponent implements OnInit {
           { id: "eps", nombre: "EPS", type: "select", for: "eps" , options: this.eps},
           { id: "afp", nombre: "AFP", type: "select", for: "afp" , options: this.afp},
           { id: "correo", nombre: "Correo", type: "text", for: "correo" },
-          { id: "telefono_empresa", nombre: "Telefono", type: "text", for: "telefono_empresa" },
+          { id: "telefono_empresa", nombre: "Teléfono laboral", type: "text", for: "telefono_empresa" },
         ])
         this.createForm()
         this.loaded$ = of(true);
+        let datos: any = localStorage.getItem("datos_paciente");
+        if(datos){
+          this.form.patchValue(JSON.parse(datos!));
+        }
       }
     )
   }
@@ -67,19 +71,11 @@ export class SharedDatosOcupacionalesComponent implements OnInit {
       cargo: ['', Validators.required],
       fecha_ingreso: ['', Validators.required],
       tiempo_cargo: ['', Validators.required],
-      arl: ['' , Validators.required],
-      eps: ['', Validators.required],
-      afp: ['', Validators.required],
-      correo: ['', Validators.required],
+      arl: [this.arl[0]["valor"] , Validators.required],
+      eps: [this.eps[0]["valor"], Validators.required],
+      afp: [this.afp[0]["valor"], Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
       telefono_empresa: ['', Validators.required],
     });
-  }
-
-  onSubmit() {
-    if (this.form.valid) {
-      console.log("sisas")
-    }else{
-      console.log("nonas")
-    }
   }
 }

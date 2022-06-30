@@ -9,9 +9,10 @@ import { OptometriaAntecedentesOcupacionalesComponent } from './components/optom
 import { OptometriaSintomasComponent } from './components/optometria-sintomas/optometria-sintomas.component';
 import { OptometriaHallazgosComponent } from './components/optometria-hallazgos/optometria-hallazgos.component';
 import { OptometriaCierreHistoriaClinicaComponent } from './components/optometria-cierre-historia-clinica/optometria-cierre-historia-clinica.component';
+import { MedicoGuard } from '../shared/guards/medico.guard';
 
 const routes: Routes = [
-  { path: '', component: OptometriaComponent,
+  { path: '', component: OptometriaComponent, canActivate: [MedicoGuard],
       children: [
         { path: '', pathMatch: 'full', component: formularioPrincipalComponent },
         { path: '1', component: OptometriaAntecedentesPersonalesComponent },

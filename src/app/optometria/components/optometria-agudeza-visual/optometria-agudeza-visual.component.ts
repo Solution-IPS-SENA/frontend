@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
+import { filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { InputDatos } from 'src/app/shared/interfaces/input-datos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
@@ -91,7 +91,7 @@ export class OptometriaAgudezaVisualComponent implements OnInit, OnDestroy {
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["lensometria", "tiempo", "agudezaVisual", "sino"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["lensometria", "tiempo", "agudezaVisual", "sino"]).subscribe(
       (response: InformacionAnexos) => {
         this.tiempo = this.obtenerAnexosService.formatear_datos(response.tiempo);
         this.lensometria = this.obtenerAnexosService.formatear_datos(response.lensometria);

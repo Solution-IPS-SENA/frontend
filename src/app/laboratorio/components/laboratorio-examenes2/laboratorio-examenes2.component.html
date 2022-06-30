@@ -31,11 +31,12 @@
           </div>
           <div class="flex flex-row gap-x-5 items-center pt-5">
               <img class="w-14 rounded-lg" src="../../../../assets/logos/003.jpg" alt="">
-              <textarea formControlName="observacionesExamenes2Laboratorio" class="h-10 w-full text-black pl-2 border-solid border-black border-[1.5px] rounded-full resize-none" placeholder="Observaciones"></textarea>
+              <textarea formControlName="obser2_lab" class="h-10 w-full text-black pl-2 border-solid border-black border-[1.5px] rounded-full resize-none" placeholder="Observaciones"></textarea>
+              <button (click)="saveData()" class="bg-blue-700 rounded-lg h-full px-6 p-1 text-white text-xl">Guardar</button>
           </div>
         </form>
     </ng-template>
     <div class="flex pt-5 justify-center">
-      <app-shared-paginacion (dataState)="saveData()" [pages]="3" [state]="state" (pageChange)="onPageChange($event)" [currentPage]="currentPage"></app-shared-paginacion>
+      <app-shared-paginacion (dataState)="saveData()" [pages]="2" [state]="state" (pageChange)="onPageChange($event)" [currentPage]="currentPage"></app-shared-paginacion>
     </div>
 </div>

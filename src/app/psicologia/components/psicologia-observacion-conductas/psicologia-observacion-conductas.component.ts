@@ -34,14 +34,14 @@ export class PsicologiaObservacionConductasComponent implements OnInit, OnDestro
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "obs_cond_pres", nombre: "Presentacion", for: "obs_cond_pres", options: this.adecuacion},
+    { id: "obs_cond_pres", nombre: "Presentación", for: "obs_cond_pres", options: this.adecuacion},
     { id: "obs_cond_post", nombre: "Postura", for: "obs_cond_post", options: this.adecuacion},
     { id: "obs_cond_disc", nombre: "Discurso - Ritmo", for: "obs_cond_disc", options: this.adecuacion},
     { id: "obs_cond_tono", nombre: "Tono", for: "obs_cond_tono", options: this.adecuacion},
-    { id: "obs_cond_arti", nombre: "Articulacion", for: "obs_cond_arti", options: this.adecuacion},
-    { id: "obs_cond_orien_tiem", nombre: "Orientacion - Tiempo", for: "obs_cond_orien_tiem", options: this.adecuacion},
-    { id: "obs_cond_orien_esp", nombre: "Orientacion - Espacio", for: "obs_cond_orien_esp", options: this.adecuacion},
-    { id: "obs_cond_orien_perso", nombre: "Orientacion - Persona", for: "obs_cond_orien_perso", options: this.adecuacion},
+    { id: "obs_cond_arti", nombre: "Articulación", for: "obs_cond_arti", options: this.adecuacion},
+    { id: "obs_cond_orien_tiem", nombre: "Orientación - Tiempo", for: "obs_cond_orien_tiem", options: this.adecuacion},
+    { id: "obs_cond_orien_esp", nombre: "Orientación - Espacio", for: "obs_cond_orien_esp", options: this.adecuacion},
+    { id: "obs_cond_orien_perso", nombre: "Orientación - Persona", for: "obs_cond_orien_perso", options: this.adecuacion},
   ]);
 
   public get lifecycle$() {
@@ -72,19 +72,19 @@ export class PsicologiaObservacionConductasComponent implements OnInit, OnDestro
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["adecuacion"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["adecuacion"]).subscribe(
       (response: InformacionAnexos) => {
         this.adecuacion = this.obtenerAnexosService.formatear_datos(response.adecuacion)
 
         this.inputs$ = of([
-          { id: "obs_cond_pres", nombre: "Presentacion", for: "obs_cond_pres", options: this.adecuacion},
+          { id: "obs_cond_pres", nombre: "Presentación", for: "obs_cond_pres", options: this.adecuacion},
           { id: "obs_cond_post", nombre: "Postura", for: "obs_cond_post", options: this.adecuacion},
           { id: "obs_cond_disc", nombre: "Discurso - Ritmo", for: "obs_cond_disc", options: this.adecuacion},
           { id: "obs_cond_tono", nombre: "Tono", for: "obs_cond_tono", options: this.adecuacion},
-          { id: "obs_cond_arti", nombre: "Articulacion", for: "obs_cond_arti", options: this.adecuacion},
-          { id: "obs_cond_orien_tiem", nombre: "Orientacion - Tiempo", for: "obs_cond_orien_tiem", options: this.adecuacion},
-          { id: "obs_cond_orien_esp", nombre: "Orientacion - Espacio", for: "obs_cond_orien_esp", options: this.adecuacion},
-          { id: "obs_cond_orien_perso", nombre: "Orientacion - Persona", for: "obs_cond_orien_perso", options: this.adecuacion},
+          { id: "obs_cond_arti", nombre: "Articulación", for: "obs_cond_arti", options: this.adecuacion},
+          { id: "obs_cond_orien_tiem", nombre: "Orientación - Tiempo", for: "obs_cond_orien_tiem", options: this.adecuacion},
+          { id: "obs_cond_orien_esp", nombre: "Orientación - Espacio", for: "obs_cond_orien_esp", options: this.adecuacion},
+          { id: "obs_cond_orien_perso", nombre: "Orientación - Persona", for: "obs_cond_orien_perso", options: this.adecuacion},
   ])
         this.createForm(dataRecovery);
         this.loaded$ = of(true);

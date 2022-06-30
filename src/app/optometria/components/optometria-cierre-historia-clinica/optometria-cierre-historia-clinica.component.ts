@@ -63,7 +63,7 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     this.form = this.fb.group({
       motivo: [data ? data.motivo : this.motivo[0]["valor"], [Validators.required, inAnexoValidator(this.motivo)]],
       cie_concep_reco_mot: [data ? data.cie_concep_reco_mot : this.remitido[0]["valor"], [Validators.required, inAnexoValidator(this.remitido)]],
-      estado: [data ? data.estado : ''],
+      estado: [data ? data.estado : false],
       concepto: [data ? data.concepto : this.concepto[0]["valor"] , [Validators.required, inAnexoValidator(this.concepto)]],
       histo_famili: [data ? data.histo_famili : '', Validators.required],
       cie_concep_reco: [data ? data.cie_concep_reco : '', Validators.required],
@@ -76,7 +76,7 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["motivo","concepto","remitido"]).subscribe(
       (response: InformacionAnexos) => {
         this.motivo = this.obtenerAnexosService.formatear_datos(response.motivo)
         this.remitido = this.obtenerAnexosService.formatear_datos(response.remitido)
@@ -94,13 +94,15 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
         this.loaded$ = of(true);
         this.createForm(dataRecovery);
         this.state = this.form.valid;
+        localStorage.setItem("optometriaCierreHistoria", JSON.stringify(this.form.value));
         this.form.valueChanges
         .pipe(
           takeUntil(this.lifecycle$.pipe(filter(state => state == "destroy")))
         )
         .subscribe(
           () => {
-            this.state = this.form.valid
+            this.state = this.form.valid;
+            localStorage.setItem("optometriaCierreHistoria", JSON.stringify(this.form.value));
           }
         )
       }
@@ -114,10 +116,7 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
   }
 
   saveData(){
-    let data = this.form.value;
-    localStorage.setItem("optometriaCierreHistoria", JSON.stringify(data));
-    alert("Sisas")
-    this.envioHistoria.enviarHistoria(this.llavesData)
+    this.envioHistoria.enviarHistoria("optometria", this.form.value, this.llavesData)
   }
 
 }

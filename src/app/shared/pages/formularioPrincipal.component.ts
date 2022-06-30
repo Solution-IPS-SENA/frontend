@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { delay, Observable, of } from "rxjs";
+import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { SharedDatosOcupacionalesComponent } from "../components/shared-datos-ocupacionales/shared-datos-ocupacionales.component";
 import { SharedDatosPersonalesComponent } from "../components/shared-datos-personales/shared-datos-personales.component";
@@ -38,7 +38,7 @@ export class formularioPrincipalComponent {
     ){}
 
   ngOnInit(): void {
-    this.obtenerAnexosService.getAnexos(["tipoDocumento"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["tipoDocumento"]).subscribe(
       (response: InformacionAnexos) => {
         this.tipoDocumento = this.obtenerAnexosService.formatear_datos(response.tipoDocumento, "abreviacion", "completo")
 
@@ -54,34 +54,23 @@ export class formularioPrincipalComponent {
 
   saveData(){
     let data = this.form.value;
-    localStorage.setItem("documento", JSON.stringify(data));
-
     if (data){
       this.client.post(environment.URLS.AUTH + environment.ENDPOINTS.QUERY_PACIENTE, data)
       .subscribe(
         {
           next: (res: any) => {
-            this.historia = res['response'];
-            this.alerta(this.historia)
+            this.historia = res.response;
+            localStorage.removeItem("datos_paciente");
+            localStorage.setItem("datos_paciente", JSON.stringify(this.historia));
+            this.loadData(this.historia)
           },
           error: (err) => {
-            console.log(err.status, err.error.response)
-            this.messages.error(err.error.response)
+            this.messages.error(err.status==400 ? 'Ingrese un documento' : err.error.response)
           }
         }
       )
     }else {
-      console.log("Form error");
-    }
-  }
-
-  onSubmit() {
-    if(this.form.valid){
-      console.log(this.form.value)
-    }
-    else{
-      console.log("No");
-
+      this.messages.error("Error en el formulario");
     }
   }
 
@@ -89,14 +78,14 @@ export class formularioPrincipalComponent {
   @ViewChild(SharedDatosOcupacionalesComponent) public sharedOcupacionales?: SharedDatosOcupacionalesComponent;
   @ViewChild(SharedObservacionesComponent) public sharedObservaciones?: SharedObservacionesComponent;
 
-  alerta(his: DatosHistoria){
+  loadData(his: DatosHistoria){
     this.sharedPersonales?.form.patchValue({nombres: his.nombres});
     this.sharedPersonales?.form.patchValue({apellidos: his.apellidos});
     this.sharedPersonales?.form.patchValue({fecha_nacimiento: his.fecha_nacimiento});
     this.sharedPersonales?.form.patchValue({edad: this.calcularEdad(his.fecha_nacimiento)});
     this.sharedPersonales?.form.patchValue({nacionalidad: his.nacionalidad});
     this.sharedPersonales?.form.patchValue({lugar_nacimiento: his.lugar_nacimiento});
-    this.sharedPersonales?.form.patchValue({genero: this.recuperarGenero(his.genero)});
+    this.sharedPersonales?.form.patchValue({genero: his.genero});
     this.sharedPersonales?.form.patchValue({direccion: his.direccion});
     this.sharedPersonales?.form.patchValue({telefono: his.telefono});
     this.sharedOcupacionales?.form.patchValue({empresa: his.empresa});
@@ -108,17 +97,6 @@ export class formularioPrincipalComponent {
     this.sharedOcupacionales?.form.patchValue({afp: his.afp});
     this.sharedOcupacionales?.form.patchValue({correo: his.correo});
     this.sharedOcupacionales?.form.patchValue({telefono_empresa: his.telefono_empresa});
-  }
-
-  recuperarGenero(genero: string){
-    if(genero == 'M'){
-      return 'MASCULINO'
-    } else {
-      if(genero == 'F'){
-        return 'FEMENINO'
-      }
-    }
-    return 'OTRO'
   }
 
   calcularEdad(fecha: string): string {

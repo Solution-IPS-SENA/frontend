@@ -120,7 +120,7 @@ export class MedicinaAntecedentesOcupacionalesComponent implements OnInit, OnDes
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["fisico","biologico","quimico","seguridad","biomecanico","psicosocial"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["fisico","biologico","quimico","seguridad","biomecanico","psicosocial"]).subscribe(
       (response: InformacionAnexos) => {
         this.fisico = this.obtenerAnexosService.formatear_datos(response.fisico)
         this.biologico = this.obtenerAnexosService.formatear_datos(response.biologico)

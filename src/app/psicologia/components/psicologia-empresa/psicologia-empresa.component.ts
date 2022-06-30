@@ -37,13 +37,13 @@ export class PsicologiaEmpresaComponent implements OnInit, OnDestroy {
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "ries_emp_gest_org", nombre: "Gestion organizacional", for: "ries_emp_gest_org", options: this.sino},
-    { id: "ries_emp_carac_org", nombre: "Caracteristicas de la organizacion", for: "ries_emp_carac_org",  options: this.sino },
-    { id: "ries_emp_tare", nombre: "Condicion de la tarea", for: "ries_emp_tare",  options: this.sino },
-    { id: "ries_emp_grup", nombre: "Caracteristicas del grupo de trabajo", for: "ries_emp_grup",  options: this.sino },
+    { id: "ries_emp_gest_org", nombre: "Gestión organizacional", for: "ries_emp_gest_org", options: this.sino},
+    { id: "ries_emp_carac_org", nombre: "Características de la organización", for: "ries_emp_carac_org",  options: this.sino },
+    { id: "ries_emp_tare", nombre: "Condición de la tarea", for: "ries_emp_tare",  options: this.sino },
+    { id: "ries_emp_grup", nombre: "Características del grupo de trabajo", for: "ries_emp_grup",  options: this.sino },
     { id: "ries_emp_interf", nombre: "Interface persona - Tarea", for: "ries_emp_interf",  options: this.sino },
     { id: "ries_emp_jorna", nombre: "Jornada de trabajo", for: "ries_emp_jorna",  options: this.sino },
-    { id: "ries_emp_cond", nombre: "Condicion medio ambiente de trabajo", for: "ries_emp_cond", options: this.medioAmbiente},
+    { id: "ries_emp_cond", nombre: "Condición medio ambiente de trabajo", for: "ries_emp_cond", options: this.medioAmbiente},
     { id: "ries_emp_carga", nombre: "Carga", for: "ries_emp_carga", options: this.carga},
   ]);
 
@@ -76,22 +76,21 @@ export class PsicologiaEmpresaComponent implements OnInit, OnDestroy {
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["sino", "medioAmbiente", "carga"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["sino", "medioAmbiente", "carga"]).subscribe(
       (response: InformacionAnexos) => {
-        console.log("Response:",response);
         if (!response) return;
         this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
         this.medioAmbiente = this.obtenerAnexosService.formatear_datos(response.medioAmbiente)
         this.carga = this.obtenerAnexosService.formatear_datos(response.carga)
 
         this.inputs$ = of([
-          { id: "ries_emp_gest_org", nombre: "Gestion organizacional", for: "ries_emp_gest_org", options: this.sino},
-          { id: "ries_emp_carac_org", nombre: "Caracteristicas de la organizacion", for: "ries_emp_carac_org",  options: this.sino },
-          { id: "ries_emp_tare", nombre: "Condicion de la tarea", for: "ries_emp_tare",  options: this.sino },
-          { id: "ries_emp_grup", nombre: "Caracteristicas del grupo de trabajo", for: "ries_emp_grup",  options: this.sino },
+          { id: "ries_emp_gest_org", nombre: "Gestión organizacional", for: "ries_emp_gest_org", options: this.sino},
+          { id: "ries_emp_carac_org", nombre: "Características de la organización", for: "ries_emp_carac_org",  options: this.sino },
+          { id: "ries_emp_tare", nombre: "Condición de la tarea", for: "ries_emp_tare",  options: this.sino },
+          { id: "ries_emp_grup", nombre: "Características del grupo de trabajo", for: "ries_emp_grup",  options: this.sino },
           { id: "ries_emp_interf", nombre: "Interface persona - Tarea", for: "ries_emp_interf",  options: this.sino },
           { id: "ries_emp_jorna", nombre: "Jornada de trabajo", for: "ries_emp_jorna",  options: this.sino },
-          { id: "ries_emp_cond", nombre: "Condicion medio ambiente de trabajo", for: "ries_emp_cond", options: this.medioAmbiente},
+          { id: "ries_emp_cond", nombre: "Condición medio ambiente de trabajo", for: "ries_emp_cond", options: this.medioAmbiente},
           { id: "ries_emp_carga", nombre: "Carga", for: "ries_emp_carga", options: this.carga},
         ])
         this.createForm(dataRecovery);

@@ -46,7 +46,7 @@ export class MedicinaInmunizacionesComponent implements OnInit, OnDestroy {
   ]);
 
   inputs2$?: Observable<InputDatos[]> = of([
-    { id: "mani_ali", nombre: "Carné manipulacion de alimentos", for: "mani_ali"},
+    { id: "mani_ali", nombre: "Carné manipulación de alimentos", for: "mani_ali"},
   ]);
 
   public get lifecycle$() {
@@ -79,7 +79,7 @@ export class MedicinaInmunizacionesComponent implements OnInit, OnDestroy {
     dataRecovery = dataRecovery ? JSON.parse(dataRecovery) : dataRecovery;
 
     this.currentPage = this.getCurrentPageUrl();
-    this.obtenerAnexosService.getAnexos(["nroVacuna"]).pipe(delay(1000)).subscribe(
+    this.obtenerAnexosService.getAnexos(["nroVacuna"]).subscribe(
       (response: InformacionAnexos) => {
         this.nroVacuna = this.obtenerAnexosService.formatear_datos(response.nroVacuna)
 
@@ -95,7 +95,7 @@ export class MedicinaInmunizacionesComponent implements OnInit, OnDestroy {
         ])
 
         this.inputs2$ = of([
-          { id: "mani_ali", nombre: "Carné manipulacion de alimentos", for: "mani_ali"},
+          { id: "mani_ali", nombre: "Carné manipulación de alimentos", for: "mani_ali"},
         ])
 
         this.loaded$ = of(true);
