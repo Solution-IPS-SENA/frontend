@@ -13,9 +13,10 @@ import { MedicinaFactorRiesgoComponent } from './components/medicina-factor-ries
 import { MedicinaAntecedentesOcupacionalesComponent } from './components/medicina-antecedentes-ocupacionales/medicina-antecedentes-ocupacionales.component';
 import { MedicinaDatosOcupacionalesComponent } from './components/medicina-datos-ocupacionales/medicina-datos-ocupacionales.component';
 import { MedicinaCierreHistoriaClinicaComponent } from './components/medicina-cierre-historia-clinica/medicina-cierre-historia-clinica.component';
+import { MedicoGuard } from '../shared/guards/medico.guard';
 
 const routes: Routes = [
-  { path: '', component: MedicinaComponent,
+  { path: '', component: MedicinaComponent, canActivate: [MedicoGuard],
   children: [
     { path: '', pathMatch: 'full', component: formularioPrincipalComponent },
     { path: '1', component: MedicinaAntecedentesComponent },

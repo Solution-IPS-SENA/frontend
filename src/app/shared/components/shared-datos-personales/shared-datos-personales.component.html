@@ -14,14 +14,33 @@
                     <div *ngFor="let input of inputs$ | async" class="grid grid-cols-2 gap-x-5 w-full">
                         <label for="{{ input.for }}" class="text-xl">{{ input.nombre }}:</label>
                         <div *ngIf="(input.type!='select')">
-                            <input readonly type="{{ input.type }}" formControlName="{{input.for}}" class="form-input w-full text-black pl-2 h-10 border-solid " id="{{ input.id }}"/>
+                            <input
+                              [ngClass]="form.controls[input.for!].invalid && form.controls[input.for!].touched ? 'invalid' : ''"
+                              [max]="input.type == 'date' ? today : null "
+                              [readonly]="input.for == 'edad' ? true : null"
+                              type="{{ input.type }}"
+                              formControlName="{{input.for}}"
+                              class="form-input w-full text-black pl-2 h-10"
+                              id="{{ input.id }}"/>
                         </div>
                         <div *ngIf="(input.type=='select')">
-                            <select formControlName="{{input.for}}" class="form-select w-full text-black pl-2 h-10 border-solid border-black border-[1.5px]" id="{{ input.id }}">
-                                <option value="">SELECCIONE</option>
-                                <option *ngFor="let option of input.options" value="{{ option.valor }}">
-                                    {{ option.nombre }}
+                            <select
+                              [ngClass]="form.controls[input.for!].invalid && form.controls[input.for!].touched ? 'invalid' : ''"
+                              formControlName="{{input.for}}"
+                              class="form-select w-full text-black pl-2 h-10 bg-white"
+                              id="{{ input.id }}">
+                                <option *ngIf="input.for == 'lugar_nacimiento' && (nacExtra$ | async); else comun" value="Extranjero">
+                                  Extranjero
                                 </option>
+
+
+                                <ng-template #comun >
+                                  <option value="">SELECCIONE</option>
+                                  <option *ngFor="let option of input.options" value="{{ option.valor }}">
+                                    {{ option.nombre }}
+                                  </option>
+                                </ng-template>
+
                             </select>
                         </div>
                     </div>

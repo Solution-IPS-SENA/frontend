@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input, select {
+  outline: none;
+}
+
+.invalid{
+  border: solid 1px red;
+}

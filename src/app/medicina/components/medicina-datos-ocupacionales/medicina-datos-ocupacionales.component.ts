@@ -48,12 +48,12 @@ export class MedicinaDatosOcupacionalesComponent implements OnInit, OnDestroy {
 
   inputsAccidentesEnfermedadesLaborales1$?: Observable<InputDatos[]> = of([
     { id: "ocu_acc_emp1", nombre: "Empresa", type: "text", for: "ocu_acc_emp1" },
-    { id: "ocu_acc_diag1", nombre: "Diagnostico", type: "text", for: "ocu_acc_diag1" },
+    { id: "ocu_acc_diag1", nombre: "Diagnóstico", type: "text", for: "ocu_acc_diag1" },
   ]);
 
   inputsAccidentesEnfermedadesLaborales2$?: Observable<InputDatos[]> = of([
     { id: "empresa2", nombre: "Empresa", type: "text", for: "empresa2" },
-    { id: "diagnostico2", nombre: "Diagnostico", type: "text", for: "diagnostico2" },
+    { id: "diagnostico2", nombre: "Diagnóstico", type: "text", for: "diagnostico2" },
   ]);
 
   inputsEmpresa1$?: Observable<InputDatos[]> = of([
@@ -118,12 +118,12 @@ export class MedicinaDatosOcupacionalesComponent implements OnInit, OnDestroy {
 
         this.inputsAccidentesEnfermedadesLaborales1$ = of([
           { id: "ocu_acc_emp1", nombre: "Empresa", type: "text", for: "ocu_acc_emp1" },
-          { id: "ocu_acc_diag1", nombre: "Diagnostico", type: "text", for: "ocu_acc_diag1" },
+          { id: "ocu_acc_diag1", nombre: "Diagnóstico", type: "text", for: "ocu_acc_diag1" },
         ]);
 
         this.inputsAccidentesEnfermedadesLaborales2$ = of([
           { id: "ocu_acc_emp2", nombre: "Empresa", type: "text", for: "ocu_acc_emp2" },
-          { id: "ocu_acc_diag2", nombre: "Diagnostico", type: "text", for: "ocu_acc_diag2" },
+          { id: "ocu_acc_diag2", nombre: "Diagnóstico", type: "text", for: "ocu_acc_diag2" },
         ]);
 
         this.inputsEmpresa1$ = of([

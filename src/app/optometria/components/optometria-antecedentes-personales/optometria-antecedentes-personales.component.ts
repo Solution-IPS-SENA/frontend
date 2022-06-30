@@ -37,14 +37,14 @@ export class OptometriaAntecedentesPersonalesComponent implements OnInit, OnDest
     { id: "ant_def_refra", nombre: "Defectos refractivos", for: "ant_def_refra", img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "ant_def_cx", nombre: "CX Ocular", for: "ant_def_cx", img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "ant_estra", nombre: "Estrabismos", for: "ant_estra", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "ant_pato", nombre: "Patologias oculares", for: "ant_pato",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "ant_tto", nombre: "TTO ortoptico", for: "ant_tto",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "ant_hiper", nombre: "Hipertension arterial", for: "ant_hiper",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_pato", nombre: "Patologías oculares", for: "ant_pato",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_tto", nombre: "TTO ortóptico", for: "ant_tto",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_hiper", nombre: "Hipertensión arterial", for: "ant_hiper",img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "ant_diab", nombre: "Diabetes mellitus", for: "ant_diab",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "ant_desor", nombre: "Desordenes tiroides", for: "ant_desor",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_desor", nombre: "Desórdenes tiroides", for: "ant_desor",img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "observacionesAntecedentesPersonalesOpto", nombre: "Observaciones", for: "observacionesAntecedentesPersonalesOpto",img:"../../../../assets/logos/003.jpg" },
     { id: "ant_acc", nombre: "Accidente cerebro vascular", for: "ant_acc",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "ant_trau", nombre: "Trauma craneo encefalico", for: "ant_trau",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_trau", nombre: "Trauma craneo encefálico", for: "ant_trau",img:"../../../../assets/logos/026.JPG", options: this.sino },
   ]);
 
   public get lifecycle$() {
@@ -86,14 +86,14 @@ export class OptometriaAntecedentesPersonalesComponent implements OnInit, OnDest
           { id: "ant_def_refra", nombre: "Defectos refractivos", for: "ant_def_refra", img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "ant_def_cx", nombre: "CX Ocular", for: "ant_def_cx", img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "ant_estra", nombre: "Estrabismos", for: "ant_estra", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "ant_pato", nombre: "Patologias oculares", for: "ant_pato",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "ant_tto", nombre: "TTO ortoptico", for: "ant_tto",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "ant_hiper", nombre: "Hipertension arterial", for: "ant_hiper",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_pato", nombre: "Patologías oculares", for: "ant_pato",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_tto", nombre: "TTO ortóptico", for: "ant_tto",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_hiper", nombre: "Hipertensión arterial", for: "ant_hiper",img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "ant_diab", nombre: "Diabetes mellitus", for: "ant_diab",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "ant_desor", nombre: "Desordenes tiroides", for: "ant_desor",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_desor", nombre: "Desórdenes tiroides", for: "ant_desor",img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "observacionesAntecedentesPersonalesOpto", nombre: "Observaciones", for: "observacionesAntecedentesPersonalesOpto",img:"../../../../assets/logos/003.jpg" },
           { id: "ant_acc", nombre: "Accidente cerebro vascular", for: "ant_acc",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "ant_trau", nombre: "Trauma craneo encefalico", for: "ant_trau",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_trau", nombre: "Trauma craneo encefálico", for: "ant_trau",img:"../../../../assets/logos/026.JPG", options: this.sino },
         ])
         this.loaded$ = of(true);
         this.createForm(dataRecovery);

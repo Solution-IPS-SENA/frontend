@@ -13,7 +13,7 @@ export class OptometriaComponent {
 
   constructor(private router: Router) {
     this.currentPage = this.getCurrentPageUrl();
-    this.titulo = 'Módulo Clinico Optometria';
+    this.titulo = 'Módulo Clínico Optometría';
   }
 
   public currentPage = 0;

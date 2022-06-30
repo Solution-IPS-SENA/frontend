@@ -7,14 +7,14 @@
                 <p class="text-6xl h-full w-full flex items-center">{{ titulo }}</p>
             </div>
         </div>
-        <div class="h-full flex gap-x-10">
+        <div *ngIf="!onlyNavbar" class="h-full flex gap-x-10">
             <div [routerLink]="urlDatosPaciente" class="flex flex-row items-center gap-4 cursor-pointer">
                 <img class="w-14 h-14 rounded-lg" src="../../../../assets/logos/003.jpg" alt="Logo Inicio Sesion">
                 <a class="text-4xl">Datos Paciente</a>
             </div>
             <div [routerLink]="urlHistoriaClinica" class="flex flex-row items-center gap-4 cursor-pointer">
                 <img class="w-14 h-14 rounded-lg" src="../../../../assets/logos/001.jpg" alt="Logo Inicio Sesion">
-                <a class="text-4xl">Historia Clinica</a>
+                <a class="text-4xl">Historia Clínica</a>
             </div>
         </div>
       </div>

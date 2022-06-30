@@ -11,7 +11,7 @@ export class LaboratorioComponent {
 
   constructor(private router: Router) {
     this.currentPage = this.getCurrentPageUrl();
-    this.titulo = 'Módulo Clinico Laboratorio';
+    this.titulo = 'Módulo Clínico Laboratorio';
   }
 
   public currentPage = 0;

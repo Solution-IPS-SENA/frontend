@@ -28,7 +28,7 @@ export class SharedDatosOcupacionalesComponent implements OnInit {
     { id: "eps", nombre: "EPS", type: "select", for: "eps" , options: this.eps},
     { id: "afp", nombre: "AFP", type: "select", for: "afp" , options: this.afp},
     { id: "correo", nombre: "Correo", type: "text", for: "correo" },
-    { id: "telefono_empresa", nombre: "Telefono", type: "text", for: "telefono_empresa" },
+    { id: "telefono_empresa", nombre: "Teléfono laboral", type: "text", for: "telefono_empresa" },
   ]);
 
   constructor(
@@ -53,7 +53,7 @@ export class SharedDatosOcupacionalesComponent implements OnInit {
           { id: "eps", nombre: "EPS", type: "select", for: "eps" , options: this.eps},
           { id: "afp", nombre: "AFP", type: "select", for: "afp" , options: this.afp},
           { id: "correo", nombre: "Correo", type: "text", for: "correo" },
-          { id: "telefono_empresa", nombre: "Telefono", type: "text", for: "telefono_empresa" },
+          { id: "telefono_empresa", nombre: "Teléfono laboral", type: "text", for: "telefono_empresa" },
         ])
         this.createForm()
         this.loaded$ = of(true);
@@ -74,7 +74,7 @@ export class SharedDatosOcupacionalesComponent implements OnInit {
       arl: [this.arl[0]["valor"] , Validators.required],
       eps: [this.eps[0]["valor"], Validators.required],
       afp: [this.afp[0]["valor"], Validators.required],
-      correo: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
       telefono_empresa: ['', Validators.required],
     });
   }

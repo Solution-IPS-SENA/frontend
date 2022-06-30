@@ -14,10 +14,19 @@
                 <div *ngFor="let input of inputs$ | async" class="grid grid-cols-2 gap-x-5 w-full">
                     <label for="{{ input.for }}" class="text-xl">{{ input.nombre }}:</label>
                     <div *ngIf="(input.type!='select')">
-                        <input formControlName="{{input.for}}" type="{{ input.type }}" class="form-input w-full text-black pl-2 h-10 border-solid border-black border-[1.5px]" id="{{ input.id }}" />
+                        <input
+                          [ngClass]="form.controls[input.for!].invalid && form.controls[input.for!].touched ? 'invalid' : ''"
+                          formControlName="{{input.for}}"
+                          type="{{ input.type }}"
+                          class="w-full text-black pl-2 h-10"
+                          id="{{ input.id }}" />
                     </div>
                     <div *ngIf="(input.type=='select')">
-                        <select class="form-select w-full text-black pl-2 h-10 border-solid border-black border-[1.5px]" formControlName="{{input.for}}" id="{{ input.id }}">
+                        <select
+                          [ngClass]="form.controls[input.for!].invalid && form.controls[input.for!].touched ? 'invalid' : ''"
+                          class="form-select w-full text-black pl-2 h-10 bg-white"
+                          formControlName="{{input.for}}"
+                          id="{{ input.id }}">
                             <option *ngFor="let option of input.options" value="{{ option.valor }}">
                                 {{ option.nombre }}
                             </option>

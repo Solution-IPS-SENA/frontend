@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CertificacionesComponent } from './pages/certificaciones.component';
 import { CertificacionesAptitudOcupacionalComponent } from './components/certificaciones-aptitud-ocupacional/certificaciones-aptitud-ocupacional.component';
 import { CertificacionesRemisionComponent } from './components/certificaciones-remision/certificaciones-remision.component';
+import { EmpleadoGuard } from '../shared/guards/empleado.guard';
 
 const routes: Routes = [
   { path: '', component: CertificacionesComponent,

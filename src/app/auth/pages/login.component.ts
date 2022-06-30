@@ -9,6 +9,6 @@ export class LoginComponent {
   titulo: string;
 
   constructor() {
-    this.titulo = 'Ingreso: Usuarios registrados';
+    this.titulo = 'Ingreso';
   }
 }

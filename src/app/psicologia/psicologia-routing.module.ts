@@ -7,10 +7,11 @@ import { PsicologiaAccidentesEnfermedadesComponent } from './components/psicolog
 import { formularioPrincipalComponent } from '../shared/pages/formularioPrincipal.component';
 import { PsicologiaObservacionConductasComponent } from './components/psicologia-observacion-conductas/psicologia-observacion-conductas.component';
 import { PsicologiaCierreHistoriaClinicaComponent } from './components/psicologia-cierre-historia-clinica/psicologia-cierre-historia-clinica.component';
+import { MedicoGuard } from '../shared/guards/medico.guard';
 
 
 const routes: Routes = [
-  { path: '', component: PsicologiaComponent,
+  { path: '', component: PsicologiaComponent, canActivate: [MedicoGuard],
   children: [
     { path: '', pathMatch: 'full', component: formularioPrincipalComponent  },
     { path: '1', component: PsicologiaAccidentesEnfermedadesComponent },

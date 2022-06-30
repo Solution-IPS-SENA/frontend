@@ -34,14 +34,14 @@ export class OptometriaAntecedentesOcupacionalesComponent implements OnInit, OnD
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "ant_ocu_exp_vide", nombre: "Exposicion a video - terminales", for: "ant_ocu_exp_vide",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_exp_vide", nombre: "Exposición a video - terminales", for: "ant_ocu_exp_vide",img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "ant_ocu_acc", nombre: "Accidente Ocular", for: "ant_ocu_acc",img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "ant_ocu_temp", nombre: "Temperaturas extremas", for: "ant_ocu_temp",img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "ant_ocu_mate", nombre: "Material particulado", for: "ant_ocu_mate",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "ant_ocu_ra_no_io", nombre: "Radiacion no Ionizante", for: "ant_ocu_ra_no_io",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "ant_ocu_ra_io", nombre: "Radiacion Ionizante", for: "ant_ocu_ra_io",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "ant_ocu_exp_quim", nombre: "Exposicion a quimicos", for: "ant_ocu_exp_quim",img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "ant_ocu_exp_solv", nombre: "Exposicion a solventes", for: "ant_ocu_exp_solv",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_ra_no_io", nombre: "Radiación no Ionizante", for: "ant_ocu_ra_no_io",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_ra_io", nombre: "Radiación Ionizante", for: "ant_ocu_ra_io",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_exp_quim", nombre: "Exposición a quimicos", for: "ant_ocu_exp_quim",img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "ant_ocu_exp_solv", nombre: "Exposición a solventes", for: "ant_ocu_exp_solv",img:"../../../../assets/logos/026.JPG", options: this.sino },
   ]);
 
   public get lifecycle$() {
@@ -78,14 +78,14 @@ export class OptometriaAntecedentesOcupacionalesComponent implements OnInit, OnD
         this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
 
         this.inputs$ = of([
-          { id: "ant_ocu_exp_vide", nombre: "Exposicion a video - terminales", for: "ant_ocu_exp_vide",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_exp_vide", nombre: "Exposición a video - terminales", for: "ant_ocu_exp_vide",img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "ant_ocu_acc", nombre: "Accidente Ocular", for: "ant_ocu_acc",img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "ant_ocu_temp", nombre: "Temperaturas extremas", for: "ant_ocu_temp",img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "ant_ocu_mate", nombre: "Material particulado", for: "ant_ocu_mate",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "ant_ocu_ra_no_io", nombre: "Radiacion no Ionizante", for: "ant_ocu_ra_no_io",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "ant_ocu_ra_io", nombre: "Radiacion Ionizante", for: "ant_ocu_ra_io",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "ant_ocu_exp_quim", nombre: "Exposicion a quimicos", for: "ant_ocu_exp_quim",img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "ant_ocu_exp_solv", nombre: "Exposicion a solventes", for: "ant_ocu_exp_solv",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_ra_no_io", nombre: "Radiación no Ionizante", for: "ant_ocu_ra_no_io",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_ra_io", nombre: "Radiación Ionizante", for: "ant_ocu_ra_io",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_exp_quim", nombre: "Exposición a quimicos", for: "ant_ocu_exp_quim",img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "ant_ocu_exp_solv", nombre: "Exposición a solventes", for: "ant_ocu_exp_solv",img:"../../../../assets/logos/026.JPG", options: this.sino },
         ])
         this.loaded$ = of(true);
         this.createForm(dataRecovery);

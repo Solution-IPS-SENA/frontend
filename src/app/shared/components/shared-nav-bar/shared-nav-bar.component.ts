@@ -13,7 +13,7 @@ export class SharedNavBarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  @Input() onlyNavbar = false
   @Input() titulo!:string;
 
   public get urlDatosPaciente() {

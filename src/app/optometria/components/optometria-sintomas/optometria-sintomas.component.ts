@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InputDatos } from 'src/app/shared/interfaces/input-datos';
-import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
+import { filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { Router } from '@angular/router';
@@ -34,12 +34,12 @@ export class OptometriaSintomasComponent implements OnInit, OnDestroy {
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "sis_mal_lej", nombre: "Mala vision de lejos", for: "sis_mal_lej", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "sis_mal_cer", nombre: "Mala vision de cerca", for: "sis_mal_cer", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_mal_lej", nombre: "Mala visión de lejos", for: "sis_mal_lej", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_mal_cer", nombre: "Mala visión de cerca", for: "sis_mal_cer", img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "sis_cel", nombre: "Cefalea", for: "sis_cel", img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "sis_hiper", nombre: "Hiperemia", for: "sis_hiper", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "sis_vis_dob", nombre: "Vision doble", for: "sis_vis_dob", img:"../../../../assets/logos/026.JPG", options: this.sino },
-    { id: "sis_vert", nombre: "Vertigo", for: "sis_vert", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_vis_dob", nombre: "Visión doble", for: "sis_vis_dob", img:"../../../../assets/logos/026.JPG", options: this.sino },
+    { id: "sis_vert", nombre: "Vértigo", for: "sis_vert", img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "sis_lagri", nombre: "Lagrimeo", for: "sis_lagri", img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "sis_mare", nombre: "Mareo", for: "sis_mare", img:"../../../../assets/logos/026.JPG", options: this.sino },
     { id: "observacionesSintomasOpto", nombre: "Otro", for: "observacionesSintomasOpto", img:"../../../../assets/logos/003.jpg"},
@@ -83,12 +83,12 @@ export class OptometriaSintomasComponent implements OnInit, OnDestroy {
         this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
 
         this.inputs$ = of([
-          { id: "sis_mal_lej", nombre: "Mala vision de lejos", for: "sis_mal_lej", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "sis_mal_cer", nombre: "Mala vision de cerca", for: "sis_mal_cer", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_mal_lej", nombre: "Mala visión de lejos", for: "sis_mal_lej", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_mal_cer", nombre: "Mala visión de cerca", for: "sis_mal_cer", img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "sis_cel", nombre: "Cefalea", for: "sis_cel", img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "sis_hiper", nombre: "Hiperemia", for: "sis_hiper", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "sis_vis_dob", nombre: "Vision doble", for: "sis_vis_dob", img:"../../../../assets/logos/026.JPG", options: this.sino },
-          { id: "sis_vert", nombre: "Vertigo", for: "sis_vert", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_vis_dob", nombre: "Visión doble", for: "sis_vis_dob", img:"../../../../assets/logos/026.JPG", options: this.sino },
+          { id: "sis_vert", nombre: "Vértigo", for: "sis_vert", img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "sis_lagri", nombre: "Lagrimeo", for: "sis_lagri", img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "sis_mare", nombre: "Mareo", for: "sis_mare", img:"../../../../assets/logos/026.JPG", options: this.sino },
           { id: "observacionesSintomasOpto", nombre: "Otro", for: "observacionesSintomasOpto", img:"../../../../assets/logos/003.jpg"},

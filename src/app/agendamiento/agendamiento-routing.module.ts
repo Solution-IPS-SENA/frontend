@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-
-import { formularioPrincipalComponent } from '../shared/pages/formularioPrincipal.component';
 import { AgendamientoCitasComponent } from './components/agendamiento-citas/agendamiento-citas.component';
 import { AgendamientoConsultaCitasComponent } from './components/agendamiento-consulta-citas/agendamiento-consulta-citas.component';
 import { CitasComponent } from './pages/citas.components';

@@ -34,8 +34,8 @@ export class PsicologiaAccidentesEnfermedadesComponent implements OnInit, OnDest
   loaded$ = of(false);
 
   inputs$?: Observable<InputDatos[]> = of([
-    { id: "ant_tra", nombre: "Ha estado en consulta o tratamiento psicologico o psiquiatrico:", for: "ant_tra", options: this.sino },
-    { id: "ant_enf", nombre: "Ha sufrido enfermedades psicologicas laborales o derivadas del estres laboral:", for: "ant_enf", options: this.sino},
+    { id: "ant_tra", nombre: "Ha estado en consulta o tratamiento psicológico o psiquiátrico:", for: "ant_tra", options: this.sino },
+    { id: "ant_enf", nombre: "Ha sufrido enfermedades psicológicas laborales o derivadas del estrés laboral:", for: "ant_enf", options: this.sino},
     { id: "ant_sueño", nombre: "Presenta alteraciones del sueño:", for: "ant_sueño",  options: this.sino},
   ]);
 
@@ -67,8 +67,8 @@ export class PsicologiaAccidentesEnfermedadesComponent implements OnInit, OnDest
         this.sino = this.obtenerAnexosService.formatear_datos(response.sino)
 
         this.inputs$ = of([
-          { id: "ant_tra", nombre: "Ha estado en consulta o tratamiento psicologico o psiquiatrico:", for: "ant_tra", options: this.sino },
-          { id: "ant_enf", nombre: "Ha sufrido enfermedades psicologicas laborales o derivadas del estres laboral:", for: "ant_enf", options: this.sino},
+          { id: "ant_tra", nombre: "Ha estado en consulta o tratamiento psicológico o psiquiátrico:", for: "ant_tra", options: this.sino },
+          { id: "ant_enf", nombre: "Ha sufrido enfermedades psicológicas laborales o derivadas del estrés laboral:", for: "ant_enf", options: this.sino},
           { id: "ant_sueño", nombre: "Presenta alteraciones del sueño:", for: "ant_sueño",  options: this.sino},
   ])
         this.createForm(dataRecovery);

@@ -6,6 +6,7 @@ import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.se
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
+import { EnvioHistoriaService } from 'src/app/shared/services/envio-historia.service';
 @Component({
   selector: 'app-laboratorio-examenes2',
   templateUrl: './laboratorio-examenes2.component.html',
@@ -13,6 +14,7 @@ import { inAnexoValidator } from 'src/app/shared/validators/in-anexo.validator';
 })
 export class LaboratorioExamenes2Component implements OnInit {
 
+  llavesData = ["laboratorioExamenes1","laboratorioExamenes2"]
   public currentPage = 0;
   form!: FormGroup;
   state: boolean = false;
@@ -34,13 +36,13 @@ export class LaboratorioExamenes2Component implements OnInit {
 
   inputs$?: Observable<InputDatos[]> = of([
     { id: "tsh", nombre: "Tsh", for: "tsh", options: this.normalidad},
-    { id: "creat", nombre: "creat", for: "creat", options: this.normalidad},
-    { id: "pruebasFuncionHepatica", nombre: "Pruebas función hepática", for: "pruebasFuncionHepatica", options: this.normalidad},
-    { id: "protinc", nombre: "Proteina C reactiva", for: "protinc", options: this.normalidad},
-    { id: "tiempoProtrombina", nombre: "Pt (Tiempo de protrombina)", for: "tiempoProtrombina", options: this.normalidad},
-    { id: "tiempoParcialTromboplastina", nombre: "Ptt (Tiempo parcial de tromboplastina)", for: "tiempoParcialTromboplastina", options: this.normalidad},
+    { id: "creat", nombre: "Creatina", for: "creat", options: this.normalidad},
+    { id: "funchep", nombre: "Pruebas función hepática", for: "funchep", options: this.normalidad},
+    { id: "protinc", nombre: "Proteína C reactiva", for: "protinc", options: this.normalidad},
+    { id: "pt", nombre: "Pt (Tiempo de protrombina)", for: "pt", options: this.normalidad},
+    { id: "ptt", nombre: "Ptt (Tiempo parcial de tromboplastina)", for: "ptt", options: this.normalidad},
     { id: "aciuri", nombre: "Ácido úrico", for: "aciuri", options: this.normalidad},
-    { id: "antigpros", nombre: "Antigeno prostático", for: "antigpros", options: this.normalidad},
+    { id: "antigpros", nombre: "Antígeno prostático", for: "antigpros", options: this.normalidad},
     { id: "gasarte", nombre: "Gases arteriales", for: "gasarte", options: this.normalidad},
     { id: "vdrl", nombre: "Vdrl", for: "vdrl", options: this.normalidad},
     { id: "gravi", nombre: "Gravidez", for: "gravi", options: this.normalidad},
@@ -52,6 +54,7 @@ export class LaboratorioExamenes2Component implements OnInit {
   }
 
   constructor(
+    private envioHistoria: EnvioHistoriaService,
     private obtenerAnexosService: ObtenerAnexosService,
     private router: Router,
     private fb: FormBuilder
@@ -61,10 +64,10 @@ export class LaboratorioExamenes2Component implements OnInit {
     this.form = this.fb.group({
       tsh: [data ? data.tsh : this.normalidad[0]["valor"] , [Validators.required, inAnexoValidator(this.normalidad)]],
       creat: [data ? data.creat : this.normalidad[0]["valor"] , [Validators.required, inAnexoValidator(this.normalidad)]],
-      pruebasFuncionHepatica: [data ? data.pruebasFuncionHepatica : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+      funchep: [data ? data.funchep : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
       protinc: [data ? data.protinc : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
-      tiempoProtrombina: [data ? data.tiempoProtrombina : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
-      tiempoParcialTromboplastina: [data ? data.tiempoParcialTromboplastina : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      pt: [data ? data.pt : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
+      ptt: [data ? data.ptt : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
       aciuri: [data ? data.aciuri : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
       antigpros: [data ? data.antigpros : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
       gasarte: [data ? data.gasarte : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
@@ -87,13 +90,13 @@ export class LaboratorioExamenes2Component implements OnInit {
 
         this.inputs$ = of([
           { id: "tsh", nombre: "Tsh", for: "tsh", options: this.normalidad},
-          { id: "creat", nombre: "creat", for: "creat", options: this.normalidad},
-          { id: "pruebasFuncionHepatica", nombre: "Pruebas función hepática", for: "pruebasFuncionHepatica", options: this.normalidad},
-          { id: "protinc", nombre: "Proteina C reactiva", for: "protinc", options: this.normalidad},
-          { id: "tiempoProtrombina", nombre: "Pt (Tiempo de protrombina)", for: "tiempoProtrombina", options: this.normalidad},
-          { id: "tiempoParcialTromboplastina", nombre: "Ptt (Tiempo parcial de tromboplastina)", for: "tiempoParcialTromboplastina", options: this.normalidad},
+          { id: "creat", nombre: "Creatina", for: "creat", options: this.normalidad},
+          { id: "funchep", nombre: "Pruebas función hepática", for: "funchep", options: this.normalidad},
+          { id: "protinc", nombre: "Proteína C reactiva", for: "protinc", options: this.normalidad},
+          { id: "pt", nombre: "Pt (Tiempo de protrombina)", for: "pt", options: this.normalidad},
+          { id: "ptt", nombre: "Ptt (Tiempo parcial de tromboplastina)", for: "ptt", options: this.normalidad},
           { id: "aciuri", nombre: "Ácido úrico", for: "aciuri", options: this.normalidad},
-          { id: "antigpros", nombre: "Antigeno prostático", for: "antigpros", options: this.normalidad},
+          { id: "antigpros", nombre: "Antígeno prostático", for: "antigpros", options: this.normalidad},
           { id: "gasarte", nombre: "Gases arteriales", for: "gasarte", options: this.normalidad},
           { id: "vdrl", nombre: "Vdrl", for: "vdrl", options: this.normalidad},
           { id: "gravi", nombre: "Gravidez", for: "gravi", options: this.normalidad},
@@ -103,13 +106,15 @@ export class LaboratorioExamenes2Component implements OnInit {
         this.loaded$ = of(true);
         this.createForm(dataRecovery);
         this.state = this.form.valid;
+        localStorage.setItem("laboratorioExamenes2", JSON.stringify(this.form.value));
         this.form.valueChanges
         .pipe(
           takeUntil(this.lifecycle$.pipe(filter(state => state == "destroy")))
         )
         .subscribe(
           () => {
-            this.state = this.form.valid
+            this.state = this.form.valid;
+            localStorage.setItem("laboratorioExamenes2", JSON.stringify(this.form.value));
           }
         )
       }
@@ -123,8 +128,7 @@ export class LaboratorioExamenes2Component implements OnInit {
   }
 
   saveData(){
-    let data = this.form.value;
-    localStorage.setItem("laboratorioExamenes2", JSON.stringify(data));
+    this.envioHistoria.enviarHistoria("laboratorio", this.form.value, this.llavesData)
   }
 }
 
