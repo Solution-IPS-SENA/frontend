@@ -72,7 +72,7 @@ export class LaboratorioExamenesComponent implements OnInit {
       frotisFaringeo: [data ? data.frotisFaringeo : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
       cultivoFaringeo: [data ? data.cultivoFaringeo : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
       koh: [data ? data.koh : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
-      observacionesExamenes1Laboratorio: [data ? data.observacionesExamenes1Laboratorio : '']
+      obser1_labLaboratorio: [data ? data.obser1_labLaboratorio : '']
     });
   }
 

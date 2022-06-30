@@ -39,11 +39,11 @@ export class LaboratorioExamenes2Component implements OnInit {
     { id: "proteinaCReactiva", nombre: "Proteina C reactiva", for: "proteinaCReactiva", options: this.normalidad},
     { id: "tiempoProtrombina", nombre: "Pt (Tiempo de protrombina)", for: "tiempoProtrombina", options: this.normalidad},
     { id: "tiempoParcialTromboplastina", nombre: "Ptt (Tiempo parcial de tromboplastina)", for: "tiempoParcialTromboplastina", options: this.normalidad},
-    { id: "acidoUrico", nombre: "Ácido úrico", for: "acidoUrico", options: this.normalidad},
+    { id: "aciuri", nombre: "Ácido úrico", for: "aciuri", options: this.normalidad},
     { id: "antigenoProstatico", nombre: "Antigeno prostático", for: "antigenoProstatico", options: this.normalidad},
-    { id: "gasesArteriales", nombre: "Gases arteriales", for: "gasesArteriales", options: this.normalidad},
+    { id: "gasarte", nombre: "Gases arteriales", for: "gasarte", options: this.normalidad},
     { id: "vdrl", nombre: "Vdrl", for: "vdrl", options: this.normalidad},
-    { id: "gravidez", nombre: "Gravidez", for: "gravidez", options: this.normalidad},
+    { id: "gravi", nombre: "Gravidez", for: "gravi", options: this.normalidad},
     { id: "otro", nombre: "Otro", for: "otro", options: this.normalidad},
   ]);
 
@@ -65,13 +65,13 @@ export class LaboratorioExamenes2Component implements OnInit {
       proteinaCReactiva: [data ? data.proteinaCReactiva : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
       tiempoProtrombina: [data ? data.tiempoProtrombina : this.normalidad[0]["valor"] ,[Validators.required, inAnexoValidator(this.normalidad)]],
       tiempoParcialTromboplastina: [data ? data.tiempoParcialTromboplastina : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
-      acidoUrico: [data ? data.acidoUrico : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      aciuri: [data ? data.aciuri : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
       antigenoProstatico: [data ? data.antigenoProstatico : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
-      gasesArteriales: [data ? data.gasesArteriales : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      gasarte: [data ? data.gasarte : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
       vdrl: [data ? data.vdrl : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
-      gravidez: [data ? data.gravidez : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
+      gravi: [data ? data.gravi : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
       otro: [data ? data.otro : this.normalidad[0]["valor"], [Validators.required, inAnexoValidator(this.normalidad)]],
-      observacionesExamenes2Laboratorio: [data ? data.observacionesExamenes2Laboratorio : '']
+      obser2_lab: [data ? data.obser2_lab : '']
     });
   }
 
@@ -92,11 +92,11 @@ export class LaboratorioExamenes2Component implements OnInit {
           { id: "proteinaCReactiva", nombre: "Proteina C reactiva", for: "proteinaCReactiva", options: this.normalidad},
           { id: "tiempoProtrombina", nombre: "Pt (Tiempo de protrombina)", for: "tiempoProtrombina", options: this.normalidad},
           { id: "tiempoParcialTromboplastina", nombre: "Ptt (Tiempo parcial de tromboplastina)", for: "tiempoParcialTromboplastina", options: this.normalidad},
-          { id: "acidoUrico", nombre: "Ácido úrico", for: "acidoUrico", options: this.normalidad},
+          { id: "aciuri", nombre: "Ácido úrico", for: "aciuri", options: this.normalidad},
           { id: "antigenoProstatico", nombre: "Antigeno prostático", for: "antigenoProstatico", options: this.normalidad},
-          { id: "gasesArteriales", nombre: "Gases arteriales", for: "gasesArteriales", options: this.normalidad},
+          { id: "gasarte", nombre: "Gases arteriales", for: "gasarte", options: this.normalidad},
           { id: "vdrl", nombre: "Vdrl", for: "vdrl", options: this.normalidad},
-          { id: "gravidez", nombre: "Gravidez", for: "gravidez", options: this.normalidad},
+          { id: "gravi", nombre: "Gravidez", for: "gravi", options: this.normalidad},
           { id: "otro", nombre: "Otro", for: "otro", options: this.normalidad},
         ])
 

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { InputDatos } from 'src/app/shared/interfaces/input-datos';
-import { delay, filter, Observable, of, Subject, takeUntil } from 'rxjs';
+import { filter, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InformacionAnexos } from 'src/app/shared/interfaces/informacion-anexos';
 import { ObtenerAnexosService } from '../../../shared/services/obtener-anexos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
