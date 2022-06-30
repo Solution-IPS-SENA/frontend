@@ -63,7 +63,7 @@ export class OptometriaCierreHistoriaClinicaComponent implements OnInit, OnDestr
     this.form = this.fb.group({
       motivo: [data ? data.motivo : this.motivo[0]["valor"], [Validators.required, inAnexoValidator(this.motivo)]],
       cie_concep_reco_mot: [data ? data.cie_concep_reco_mot : this.remitido[0]["valor"], [Validators.required, inAnexoValidator(this.remitido)]],
-      estado: [data ? data.estado : ''],
+      estado: [data ? data.estado : false],
       concepto: [data ? data.concepto : this.concepto[0]["valor"] , [Validators.required, inAnexoValidator(this.concepto)]],
       histo_famili: [data ? data.histo_famili : '', Validators.required],
       cie_concep_reco: [data ? data.cie_concep_reco : '', Validators.required],

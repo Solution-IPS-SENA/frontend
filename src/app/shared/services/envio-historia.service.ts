@@ -58,6 +58,8 @@ export class EnvioHistoriaService {
           .subscribe(
             {
               next: (res: any) => {
+                console.log(historia);
+
                 this.messages.success("Historia creada con éxito");
                 this.clearLocalStorage(destino)
                 this.router.navigate(['/recepcion']);

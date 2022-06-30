@@ -62,7 +62,7 @@ export class LaboratorioCierreHistoriaClinicaComponent implements OnInit, OnDest
     this.form = this.fb.group({
       motivo: [data ? data.motivo : this.motivo[0]["valor"]],
       remitido: [data ? data.remitido : this.remitido[0]["valor"]],
-      checkboxAplazado: [data ? data.checkboxAplazado : ''],
+      estado: [data ? data.estado : false],
       concepto: [data ? data.concepto : this.concepto[0]["valor"] , Validators.required],
       laboratorioHistoriaFamiliar: [data ? data.laboratorioHistoriaFamiliar : '', Validators.required],
       laboratorioRestricciones: [data ? data.laboratorioRestricciones : '', Validators.required],
