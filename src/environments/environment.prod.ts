@@ -14,6 +14,7 @@ export const environment = {
 
   ENDPOINTS: {
     LOGIN: '/login',
+    REGISTER: '/register/paciente',
     QUERY_PACIENTE:'/paciente',
     HISTORIA_PSICOLOGIA:'/historia_psicologia',
     HISTORIA_MEDICA:'/historia_psicologia',
